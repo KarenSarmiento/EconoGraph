@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import javafx.collections.FXCollections?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+
+<GridPane alignment="center" hgap="10" prefHeight="800.0" prefWidth="1200.0" stylesheets="/sample/sample.css" vgap="10" xmlns="http://javafx.com/javafx/8.0.76-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
+    <children>
+        <ImageView fitHeight="300.0" fitWidth="300.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="0" GridPane.rowSpan="3">
+            <image>
+                <Image url="File:C:\Users\KSarm\OneDrive\IB\Computer Science\IA\Images\LongRunEquilibrium.jpg" />
+            </image>
+        </ImageView>
+
+        <Label alignment="CENTER" prefHeight="21.0" prefWidth="400.0" text="Title" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+        <TextField fx:id="titleTF" GridPane.columnIndex="1" />
+
+        <Label alignment="CENTER" prefHeight="21.0" prefWidth="400.0" text="Topic" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+        <ComboBox fx:id="topicCB" prefWidth="150.0" promptText="Select a Topic" GridPane.columnIndex="1" GridPane.rowIndex="1">
+            <items>
+                <FXCollections fx:factory="observableArrayList">
+                    <String fx:value="Micro" />
+                    <String fx:value="Macro" />
+                    <String fx:value="Trade" />
+                    <String fx:value="Development" />
+                    <String fx:value="Other" />
+                </FXCollections>
+            </items>
+        </ComboBox>
+
+        <CheckBox fx:id="savesFavouriteCB" mnemonicParsing="false" text="Favourite" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+
+        <Button fx:id="doneToLibraryB" layoutX="671.0" layoutY="14.0" mnemonicParsing="false" onAction="#saveGraph" text="Done" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+        <Button fx:id="cancelToGraphMakerB" layoutX="671.0" layoutY="14.0" mnemonicParsing="false" onAction="#setScreenToGraphMaker" text="Cancel" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+
+
+
+    </children>
+   <columnConstraints>
+      <ColumnConstraints />
+      <ColumnConstraints />
+      <ColumnConstraints />
+      <ColumnConstraints />
+   </columnConstraints>
+   <rowConstraints>
+      <RowConstraints />
+      <RowConstraints maxHeight="31.0" minHeight="31.0" prefHeight="31.0" />
+      <RowConstraints maxHeight="45.0" minHeight="0.0" prefHeight="31.0" />
+      <RowConstraints maxHeight="55.0" minHeight="0.0" prefHeight="40.0" />
+   </rowConstraints>
+</GridPane>

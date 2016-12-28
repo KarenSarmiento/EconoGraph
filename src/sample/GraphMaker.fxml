@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ColorPicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Slider?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
+
+<GridPane alignment="center" hgap="10" prefHeight="800.0" prefWidth="1200.0" stylesheets="/sample/sample.css" vgap="10" xmlns="http://javafx.com/javafx/8.0.76-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
+    <children>
+        <!--Insert-->
+        <Label alignment="CENTER" prefHeight="21.0" prefWidth="400.0" text="Insert" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+      <ScrollPane GridPane.columnIndex="0" GridPane.rowIndex="1" GridPane.rowSpan="4">
+         <content>
+             <FlowPane>
+                 <Button fx:id="demandB" mnemonicParsing="false" onAction="#insertDemand" text="Demand" />
+                 <Button fx:id="supplyB" mnemonicParsing="false" onAction="#insertSupply" text="Supply" />
+               <Button fx:id="screenshotB" mnemonicParsing="false" onAction="#captureShotWorkspace" text="ScreenshotTempTest" />
+               <Button fx:id="saveB" mnemonicParsing="false" onAction="#captureAndSetToSave" text="Save" />
+             </FlowPane>
+         </content>
+      </ScrollPane>
+        <!--Workspace-->
+        <Label alignment="CENTER" prefHeight="21.0" prefWidth="800.0" text="Workspace" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+        <Pane fx:id="workspaceP" GridPane.columnIndex="1" GridPane.rowIndex="0" GridPane.rowSpan="2">
+            <ImageView fx:id="axisIV" fitHeight="602.0" fitWidth="617.0" layoutX="60.0" pickOnBounds="true" preserveRatio="true" GridPane.columnSpan="6" GridPane.halignment="CENTER">
+                <image>
+                    <Image url="File:C:\Users\KSarm\Documents\Intellij Projects\EconoGraph2\src\Images\Axis.png" />
+                </image>
+            </ImageView>
+        </Pane>
+        <!--Edit-->
+        <Label alignment="CENTER" prefHeight="21.0" prefWidth="800.0" text="Edit" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+      <ScrollPane GridPane.columnIndex="1" GridPane.rowIndex="3">
+         <content>
+              <FlowPane fx:id="lineButtonsFP" prefHeight="35.0" prefWidth="730.0">
+                  <Label text="Select a Curve:" />
+
+              </FlowPane>
+         </content>
+      </ScrollPane>
+        <ScrollPane GridPane.columnIndex="1" GridPane.rowIndex="4" GridPane.rowSpan="2">
+            <content>
+                <FlowPane prefHeight="102.0" prefWidth="747.0">
+                    <Button fx:id="colourB" mnemonicParsing="false" onAction="#test" text="Colour" />
+                    <Button fx:id="elasticityB" mnemonicParsing="false" onAction="#test" text="Elasticity" />
+                <Slider fx:id="elasticitySlider" blockIncrement="0.0" max="350.0" minWidth="200.0" onMouseClicked="#updateElasticityForCurrentCurve" onMouseDragged="#updateElasticityForCurrentCurve" showTickMarks="true" value="175.0" />
+                <Slider fx:id="shiftSlider" blockIncrement="1.0" min="-100.0" minWidth="200.0" onMouseClicked="#shiftSelectedCurve" onMouseDragged="#shiftSelectedCurve" showTickMarks="true" />
+               <ColorPicker fx:id="colorPicker" onAction="#updateCurveColour" />
+               <Slider fx:id="thicknessSlider" max="10.0" min="1.0" onMouseClicked="#updateThickness" onMouseDragged="#updateThickness" value="5.0" />
+                </FlowPane>
+            </content>
+        </ScrollPane>
+    </children>
+   <columnConstraints>
+      <ColumnConstraints maxWidth="600.0" minWidth="392.0" prefWidth="400.0" />
+      <ColumnConstraints maxWidth="758.0" minWidth="550.0" prefWidth="750.0" />
+   </columnConstraints>
+   <rowConstraints>
+      <RowConstraints maxHeight="200.0" minHeight="22.0" prefHeight="39.0" />
+      <RowConstraints maxHeight="422.0" minHeight="50.0" prefHeight="416.0" />
+      <RowConstraints maxHeight="200.0" minHeight="31.0" prefHeight="37.0" />
+      <RowConstraints maxHeight="282.0" minHeight="26.0" prefHeight="38.0" />
+      <RowConstraints maxHeight="250.0" minHeight="11.0" prefHeight="238.0" />
+      <RowConstraints />
+   </rowConstraints>
+</GridPane>
