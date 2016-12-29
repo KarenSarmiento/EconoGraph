@@ -26,12 +26,93 @@ public class ControllerITest extends ApplicationTest {
     }
 
     @Test
-    public void shouldDisplayGraphMakerScreenWhenMakeAGraphButtonIsClicked() {
+    public void shouldDisplayOptionsScreenWhenMakeAGraphButtonIsClicked() {
         // when
         clickOn("Make a Graph");
 
         // then
         verifyThat("#optionsGP", isVisible());
-        verifyThat("#optionsTitleL", hasText("Create your own new Graph"));
+        verifyThat("#optionsCreateYourOwnGraphL", isVisible());
+        verifyThat("#optionsTitleL", isVisible());
+        verifyThat("#optionsTitleTF", isVisible());
+        verifyThat("#optionsSelectACanvasL", isVisible());
+        verifyThat("#optionsTopicsSP", isVisible());
+        verifyThat("#optionsMacroB", isVisible());
+        verifyThat("#optionsMicroB", isVisible());
+        verifyThat("#optionsLabourForceB", isVisible());
+        verifyThat("#optionsSubsidyB", isVisible());
+        verifyThat("#optionsBeginB", isVisible());
+        verifyThat("#optionsCancelB", isVisible());
     }
+
+    @Test
+    public void shouldDisplayGraphMakerScreenWhenBeginButtonIsClicked(){
+        //when
+        clickOn("Make a Graph");
+        clickOn("Begin");
+        //then
+        verifyThat("#graphMakerGP", isVisible());
+        verifyThat("#graphMakerInsertL", isVisible());
+        verifyThat("#graphMakerInsertSP", isVisible());
+        verifyThat("#graphMakerInsertFP", isVisible());
+        verifyThat("#graphMakerDemandB", isVisible());
+        verifyThat("#graphMakerSupplyB", isVisible());
+        verifyThat("#graphMakerSaveB", isVisible());
+        verifyThat("#graphMakerWorkspaceL", isVisible());
+        verifyThat("#graphMakerAxisIV", isVisible());
+        verifyThat("#graphMakerEditL", isVisible());
+        verifyThat("#graphMakerRadioButtonsSP", isVisible());
+        verifyThat("#graphMakerRadioButtonsFP", isVisible());
+        verifyThat("#graphMakerSelectACurveL", isVisible());
+        verifyThat("#graphMakerEditSP", isVisible());
+        verifyThat("#graphMakerElasticitySlider", isVisible());
+        verifyThat("#graphMakerShiftSlider", isVisible());
+        verifyThat("#graphMakerColourPicker", isVisible());
+        verifyThat("#graphMakerThicknessSlider", isVisible());
+    }
+
+    @Test
+    public void shouldDisplayLibraryWhenCancelButtonIsClicked(){
+        //when
+        clickOn("Make a Graph");
+        clickOn("Cancel");
+        //then
+        verifyThat("#libraryGP", isVisible());
+        verifyThat("#libraryTitleIV", isVisible());
+        verifyThat("#librarySideMenuVB", isVisible());
+        verifyThat("#libraryMakeAGraphB", isVisible());
+        verifyThat("#librarySaveB", isVisible());
+        verifyThat("#libraryDeleteB", isVisible());
+        verifyThat("#tempTestB", isVisible());verifyThat("#libraryGP", isVisible());
+        verifyThat("#librarySortCB", isVisible());
+        verifyThat("#libraryFilterCB", isVisible());
+        verifyThat("#libraryFavouritesCB", isVisible());
+        verifyThat("#librarySearchTF", isVisible());
+        verifyThat("#libraryGraphsSP", isVisible());
+        verifyThat("#libraryGraphL", isVisible());
+        verifyThat("#libraryDescriptionL", isVisible());
+        verifyThat("#libraryOptionsL", isVisible());
+        verifyThat("#libraryFavouritesL", isVisible());
+    }
+
+    @Test
+    public void shouldDisplaySaveMenuWhenSaveButtonIsClicked() {
+        //when
+        clickOn("Make a Graph");
+        clickOn("Begin");
+        clickOn("Save");
+        //then
+        verifyThat("#saveMenuGP", isVisible());
+        verifyThat("#saveMenuImageIV", isVisible());
+        verifyThat("#saveMenuTitleL", isVisible());
+        verifyThat("#saveMenuTitleTF", isVisible());
+        verifyThat("#saveMenuTopicL", isVisible());
+        verifyThat("#saveMenuTopicCB", isVisible());
+        verifyThat("#saveMenuFavouriteCB", isVisible());
+        verifyThat("#saveMenuDoneB", isVisible());
+        verifyThat("#saveMenuBackB", isVisible());
+    }
+
 }
+
+//verifyThat("#optionsTitleL", hasText("Create your own new Graph"));

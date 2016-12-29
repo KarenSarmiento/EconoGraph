@@ -9,7 +9,6 @@ import javafx.fxml.FXML;
 import javafx.scene.Parent;
 import javafx.scene.SnapshotParameters;
 import javafx.scene.control.*;
-import javafx.scene.image.ImageView;
 import javafx.scene.image.WritableImage;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.GridPane;
@@ -37,37 +36,37 @@ public class Controller {
     int selectedCurveType; // 0 = demand, 1 = supply, 2 = newClassical, 3 = keynesian
 
     @FXML
-    Button editGraph = new Button();
+    Button editGraph = new Button();//temporary
     @FXML
-    Pane workspaceP = new Pane();
+    Pane graphMakerWorkspaceP = new Pane();
     @FXML
-    FlowPane lineButtonsFP = new FlowPane();
+    FlowPane graphMakerRadioButtonsFP = new FlowPane();
     @FXML
-    GridPane graphGP = new GridPane();
+    GridPane libraryGraphGP = new GridPane();
     @FXML
-    TextField titleTF = new TextField();
+    TextField optionsTitleTF = new TextField();
     @FXML
-    Slider shiftSlider = new Slider();
+    Slider graphMakerShiftSlider = new Slider();
     @FXML
-    Slider elasticitySlider = new Slider();
+    Slider graphMakerElasticitySlider = new Slider();
     @FXML
-    ColorPicker colorPicker = new ColorPicker();
+    ColorPicker graphMakerColourPicker = new ColorPicker();
     @FXML
-    Slider thicknessSlider = new Slider();
+    Slider graphMakerThicknessSlider = new Slider();
     @FXML
-    CheckBox saveAsFavouriteCB = new CheckBox();
+    CheckBox libraryFavouritesCB = new CheckBox();
     @FXML
-    ComboBox topicCB = new ComboBox();
+    ComboBox saveMenuTopicCB = new ComboBox();
 
     Graph currentEditingGraph = new Graph();
     ToggleGroup group = new ToggleGroup();
     LinkedList<Curve> curvesLL = new LinkedList<Curve>();
     LinkedList<Graph> graphsLL = new LinkedList<Graph>();
-    WritableImage tempScreenShot = workspaceP.snapshot(new SnapshotParameters(), null); //contains negligible image at start
+    WritableImage tempScreenShot = graphMakerWorkspaceP.snapshot(new SnapshotParameters(), null); //contains negligible image at start
 
 
     public void captureShotWorkspace() {
-        tempScreenShot = workspaceP.snapshot(new SnapshotParameters(), null);
+        tempScreenShot = graphMakerWorkspaceP.snapshot(new SnapshotParameters(), null);
         File imageFile = new File("C:\\Users\\KSarm\\OneDrive\\IB\\Computer Science\\IA\\FileWriting\\tempWorkspace.png");
         try {
             ImageIO.write(SwingFXUtils.fromFXImage(tempScreenShot, null), "png", imageFile);
@@ -98,8 +97,8 @@ public class Controller {
 
         for (int i = 0; i < graphsLL.size(); i++) {
             Label title = new Label(graphsLL.get(i).getTitle());
-            graphGP.setConstraints(title, 0, i+1);
-            graphGP.getChildren().add(title);
+            libraryGraphGP.setConstraints(title, 0, i+1);
+            libraryGraphGP.getChildren().add(title);
         }
     }
     public void setScreenToLibrary() {
@@ -154,20 +153,20 @@ public class Controller {
             selectedCurveIndex = index;
             selectedCurveType = type;
             //need to set to previously set elasticity or shift
-            elasticitySlider.setValue(curvesLL.get(selectedCurveIndex).getElasticityGap());
-            shiftSlider.setValue(0);
-            thicknessSlider.setValue(5);
+            graphMakerElasticitySlider.setValue(curvesLL.get(selectedCurveIndex).getElasticityGap());
+            graphMakerShiftSlider.setValue(0);
+            graphMakerThicknessSlider.setValue(5);
         });
         if (demandCount + supplyCount + newClassicalCount + keynesianCount -1 == 0) {
             radioButton.setSelected(true);
         }
-        lineButtonsFP.getChildren().add(radioButton);
+        graphMakerRadioButtonsFP.getChildren().add(radioButton);
     }
 
     public void insertDemand() {
         demandCount++;
         createRadioButton("Demand " + demandCount, demandCount + supplyCount + newClassicalCount + keynesianCount -1, 0);
-        Demand demand = new Demand(workspaceP); //200,50,550,400
+        Demand demand = new Demand(graphMakerWorkspaceP); //200,50,550,400
         curvesLL.add(demand);
         System.out.println(curvesLL.toString());
     }
@@ -175,7 +174,7 @@ public class Controller {
     public void insertSupply() {
         supplyCount++;
         createRadioButton("Supply " + supplyCount, demandCount + supplyCount + newClassicalCount + keynesianCount -1, 1);
-        Supply supply = new Supply(workspaceP); //200,400,550,50
+        Supply supply = new Supply(graphMakerWorkspaceP); //200,400,550,50
         curvesLL.add(supply);
         System.out.println(curvesLL.toString());
     }
@@ -195,7 +194,7 @@ public class Controller {
     public void insertDemand(String name, int centreX, int elasticityGap, String colour, int thickness, boolean dotted) {
         demandCount++;
         createRadioButton("Demand " + demandCount, demandCount + supplyCount + newClassicalCount + keynesianCount -1, 0);
-        Demand demand = new Demand(workspaceP, name, centreX, elasticityGap, colour, thickness, dotted); //200,50,550,400
+        Demand demand = new Demand(graphMakerWorkspaceP, name, centreX, elasticityGap, colour, thickness, dotted); //200,50,550,400
         curvesLL.add(demand);
         System.out.println(curvesLL.toString());
     }
@@ -203,7 +202,7 @@ public class Controller {
     public void insertSupply(String name, int centreX, int elasticityGap, String colour, int thickness, boolean dotted) {
         supplyCount++;
         createRadioButton("Supply " + supplyCount, demandCount + supplyCount + newClassicalCount + keynesianCount -1, 1);
-        Supply supply = new Supply(workspaceP, name, centreX, elasticityGap, colour, thickness, dotted); //200,400,550,50
+        Supply supply = new Supply(graphMakerWorkspaceP, name, centreX, elasticityGap, colour, thickness, dotted); //200,400,550,50
         curvesLL.add(supply);
         System.out.println(curvesLL.toString());
     }
@@ -301,7 +300,7 @@ public class Controller {
             //check for title uniqueness
             boolean uniqueTitle = true;
             for (int i = 0; i < graphsLL.size(); i++) {
-                if (titleTF.getText().equals(graphsLL.get(i).getTitle())) {
+                if (optionsTitleTF.getText().equals(graphsLL.get(i).getTitle())) {
                     System.out.println("title already exists");
                     uniqueTitle = false;
                     break;
@@ -312,11 +311,11 @@ public class Controller {
             if (uniqueTitle == false) {
                 System.out.println("Title already exists");
             }
-            else if (topicCB.getValue() == null) {
+            else if (saveMenuTopicCB.getValue() == null) {
                 System.out.println("Topic not selected");
             }
             else {
-                currentEditingGraph.setTitle(titleTF.getText());
+                currentEditingGraph.setTitle(optionsTitleTF.getText());
                 System.out.println(currentEditingGraph.getTitle());
                 DateFormat dateFormat = new SimpleDateFormat("yyyyMMddHHmm");
                 Date date = new Date();
@@ -324,7 +323,7 @@ public class Controller {
                 //TODO: Fix number format exception. Find cause since the date does seem to contain no unacceptable characters.
                 currentEditingGraph.setDate(dateOfCreation);
                 //TODO: set type
-                currentEditingGraph.setFavourite(saveAsFavouriteCB.isSelected());
+                currentEditingGraph.setFavourite(libraryFavouritesCB.isSelected());
 
                 BufferedReader br = new BufferedReader(new FileReader("C:\\Users\\KSarm\\OneDrive\\IB\\Computer Science\\IA\\FileWriting\\test.txt"));
                 //prevents losing all data since printwriter overwrites file
@@ -362,14 +361,14 @@ public class Controller {
             case 0: {
                 System.out.println(selectedCurveIndex);
                 Demand demand = (Demand) curvesLL.get(selectedCurveIndex);
-                demand.setCentreX(375 + (int) shiftSlider.getValue());
+                demand.setCentreX(375 + (int) graphMakerShiftSlider.getValue());
                 demand.getLine().setStartX(demand.getCentreX() - demand.getElasticityGap());
                 demand.getLine().setEndX(demand.getCentreX() + demand.getElasticityGap());
                 break;
             }
             case 1: {
                 Supply supply = (Supply) curvesLL.get(selectedCurveIndex);
-                supply.setCentreX(375 + (int) shiftSlider.getValue());
+                supply.setCentreX(375 + (int) graphMakerShiftSlider.getValue());
                 supply.getLine().setStartX(supply.getCentreX() + supply.getElasticityGap());
                 supply.getLine().setEndX(supply.getCentreX() - supply.getElasticityGap());
 
@@ -383,14 +382,14 @@ public class Controller {
         switch (selectedCurveType) {
             case 0: {
                 Demand demand = (Demand) curvesLL.get(selectedCurveIndex);
-                demand.setElasticityGap((int) elasticitySlider.getValue());
+                demand.setElasticityGap((int) graphMakerElasticitySlider.getValue());
                 demand.getLine().setStartX(demand.getCentreX() - demand.getElasticityGap());
                 demand.getLine().setEndX(demand.getCentreX() + demand.getElasticityGap());
                 break;
             }
             case 1: {
                 Supply supply = (Supply) curvesLL.get(selectedCurveIndex);
-                supply.setElasticityGap((int) elasticitySlider.getValue());
+                supply.setElasticityGap((int) graphMakerElasticitySlider.getValue());
                 supply.getLine().setStartX(supply.getCentreX() + supply.getElasticityGap());
                 supply.getLine().setEndX(supply.getCentreX() - supply.getElasticityGap());
                 break;
@@ -411,16 +410,16 @@ public class Controller {
         switch(selectedCurveType) {
             case 0: {
                 Demand demand = (Demand) curvesLL.get(selectedCurveIndex);
-                demand.getLine().setStroke(colorPicker.getValue());
-                demand.setColour(colorPicker.getValue().toString());
+                demand.getLine().setStroke(graphMakerColourPicker.getValue());
+                demand.setColour(graphMakerColourPicker.getValue().toString());
                 break;
             }
             case 1: {
                 System.out.println("supply detected");
                 //TODO: error here.
                 Supply supply = (Supply) curvesLL.get(selectedCurveIndex);
-                supply.getLine().setStroke(colorPicker.getValue());
-                supply.setColour(colorPicker.getValue().toString());
+                supply.getLine().setStroke(graphMakerColourPicker.getValue());
+                supply.setColour(graphMakerColourPicker.getValue().toString());
                 break;
             }
             case 2: {
@@ -437,16 +436,16 @@ public class Controller {
         switch(selectedCurveType) {
             case 0: {
                 Demand demand = (Demand) curvesLL.get(selectedCurveIndex);
-                demand.getLine().setStrokeWidth((int) thicknessSlider.getValue());
-                demand.setThickness((int) thicknessSlider.getValue());
-                System.out.println(thicknessSlider.getValue());
+                demand.getLine().setStrokeWidth((int) graphMakerThicknessSlider.getValue());
+                demand.setThickness((int) graphMakerThicknessSlider.getValue());
+                System.out.println(graphMakerThicknessSlider.getValue());
                 break;
             }
             case 1: {
                 Supply supply = (Supply) curvesLL.get(selectedCurveIndex);
-                supply.getLine().setStrokeWidth((int) thicknessSlider.getValue());
-                supply.setThickness((int) thicknessSlider.getValue());
-                System.out.println(thicknessSlider.getValue());
+                supply.getLine().setStrokeWidth((int) graphMakerThicknessSlider.getValue());
+                supply.setThickness((int) graphMakerThicknessSlider.getValue());
+                System.out.println(graphMakerThicknessSlider.getValue());
                 break;
             }
             case 2: {
