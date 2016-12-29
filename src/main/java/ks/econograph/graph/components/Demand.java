@@ -12,8 +12,9 @@ public class Demand extends Curve {
 
     private Line line;
 
-    public Demand(Pane pane){
+    public Demand(Pane pane, int index){
         this.line = new Line(200,50,550,400);
+        this.line.setId("line" + index);
         setName("D");
         setType("Demand"); //never changes
         setCentreX(375);

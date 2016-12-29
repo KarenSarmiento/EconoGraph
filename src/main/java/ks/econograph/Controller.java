@@ -147,6 +147,7 @@ public class Controller {
     public void createRadioButton(String name, int index, int type) {
         System.out.println("createRadioButtonCalled!!");
         RadioButton radioButton = new RadioButton(name);
+        radioButton.setId("demandRadio" + index);
         radioButton.setToggleGroup(group);
         //TODO: there is some problem with this -> radioButton.setSelected(true);
         radioButton.setOnAction(e -> {
@@ -165,8 +166,9 @@ public class Controller {
 
     public void insertDemand() {
         demandCount++;
-        createRadioButton("Demand " + demandCount, demandCount + supplyCount + newClassicalCount + keynesianCount -1, 0);
-        Demand demand = new Demand(graphMakerWorkspaceP); //200,50,550,400
+        int index = demandCount + supplyCount + newClassicalCount + keynesianCount - 1;
+        createRadioButton("Demand " + demandCount, index, 0);
+        Demand demand = new Demand(graphMakerWorkspaceP, index); //200,50,550,400
         curvesLL.add(demand);
         System.out.println(curvesLL.toString());
     }

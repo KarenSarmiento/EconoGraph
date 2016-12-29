@@ -6,6 +6,7 @@ import org.testfx.framework.junit.ApplicationTest;
 
 import static org.junit.Assert.fail;
 import static org.testfx.api.FxAssert.verifyThat;
+import static org.testfx.matcher.base.NodeMatchers.isNotNull;
 import static org.testfx.matcher.base.NodeMatchers.isVisible;
 
 /**
@@ -21,6 +22,27 @@ public class ControllerITest extends ApplicationTest {
         } catch (Exception e) {
             fail("should not have thrown any exceptions");
         }
+    }
+
+    @Test
+    public void shouldCreateAndDisplayDemandLineWhenDemandButtonIsClicked() {
+        //when
+        clickOn("Make a Graph");
+        clickOn("Begin");
+        clickOn("Demand");
+
+        //then
+        verifyThat("#demandRadio0", isNotNull());
+        verifyThat("#demandRadio0", isVisible());
+        verifyThat("#line0", isNotNull());
+        verifyThat("#line0", isVisible());
+
+        clickOn("Demand");
+
+        verifyThat("#demandRadio1", isNotNull());
+        verifyThat("#demandRadio1", isVisible());
+        verifyThat("#line1", isNotNull());
+        verifyThat("#line1", isVisible());
     }
 
     @Test
