@@ -3,11 +3,9 @@ package ks.econograph;
 import javafx.stage.Stage;
 import org.junit.Test;
 import org.testfx.framework.junit.ApplicationTest;
-import sample.Main;
 
 import static org.junit.Assert.fail;
 import static org.testfx.api.FxAssert.verifyThat;
-import static org.testfx.matcher.base.NodeMatchers.hasText;
 import static org.testfx.matcher.base.NodeMatchers.isVisible;
 
 /**
@@ -17,9 +15,9 @@ public class ControllerITest extends ApplicationTest {
 
     @Override
     public void start(Stage stage) {
-        Main main = new Main();
+        EconoGraphApplication econoGraphApplication = new EconoGraphApplication();
         try {
-            main.start(stage);
+            econoGraphApplication.start(stage);
         } catch (Exception e) {
             fail("should not have thrown any exceptions");
         }

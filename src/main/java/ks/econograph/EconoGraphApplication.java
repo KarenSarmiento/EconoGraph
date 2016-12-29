@@ -1,22 +1,19 @@
-package sample;
+package ks.econograph;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
-import java.time.LocalDate;
-
-public class Main extends Application {
+public class EconoGraphApplication extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        Controller.library = FXMLLoader.load(getClass().getResource("Library.fxml"));
-        Controller.options = FXMLLoader.load(getClass().getResource("Options.fxml"));
-        Controller.graphMaker = FXMLLoader.load(getClass().getResource("GraphMaker.fxml"));
-        Controller.saveMenu = FXMLLoader.load(getClass().getResource("SaveMenu.fxml"));
+        Controller.library = FXMLLoader.load(getClass().getClassLoader().getResource("Library.fxml"));
+        Controller.options = FXMLLoader.load(getClass().getClassLoader().getResource("Options.fxml"));
+        Controller.graphMaker = FXMLLoader.load(getClass().getClassLoader().getResource("GraphMaker.fxml"));
+        Controller.saveMenu = FXMLLoader.load(getClass().getClassLoader().getResource("SaveMenu.fxml"));
 
         Controller.options.setVisible(false);
         Controller.graphMaker.setVisible(false);

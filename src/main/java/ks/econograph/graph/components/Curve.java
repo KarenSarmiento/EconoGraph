@@ -1,4 +1,4 @@
-package graphComponents;
+package ks.econograph.graph.components;
 
 import javafx.scene.shape.Line;
 

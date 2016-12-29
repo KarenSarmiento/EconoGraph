@@ -1,10 +1,4 @@
-package graphComponents;
-
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-
-import java.io.File;
-import java.util.LinkedList;
+package ks.econograph.graph.components;
 
 /**
  * Created by KSarm on 17/11/2016.

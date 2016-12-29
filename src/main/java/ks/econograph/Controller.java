@@ -1,9 +1,5 @@
-package sample;
+package ks.econograph;
 
-import graphComponents.Curve;
-import graphComponents.Demand;
-import graphComponents.Graph;
-import graphComponents.Supply;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
@@ -13,6 +9,10 @@ import javafx.scene.image.WritableImage;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
+import ks.econograph.graph.components.Curve;
+import ks.econograph.graph.components.Demand;
+import ks.econograph.graph.components.Graph;
+import ks.econograph.graph.components.Supply;
 
 import javax.imageio.ImageIO;
 import java.io.*;
