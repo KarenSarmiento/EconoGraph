@@ -1,7 +1,5 @@
-buildscript {
-    repositories {
-        mavenCentral()
-    }
+repositories {
+    mavenCentral()
 }
 
 apply plugin: 'java'
@@ -22,4 +20,10 @@ sourceSets {
             includes = ["**/*.fxml", "**/*.css", "**/*.png", "**/*.jpg"]
         }
     }
+}
+
+dependencies {
+    compile 'junit:junit:4.12'
+    compile "org.testfx:testfx-core:4.0.+"
+    compile "org.testfx:testfx-junit:4.0.+"
 }
