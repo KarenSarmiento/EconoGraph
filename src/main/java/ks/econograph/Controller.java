@@ -16,10 +16,9 @@ import ks.econograph.graph.components.Supply;
 
 import javax.imageio.ImageIO;
 import java.io.*;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.LinkedList;
+import java.util.List;
 
 public class Controller {
     static Parent library;
@@ -27,10 +26,10 @@ public class Controller {
     static Parent graphMaker;
     static Parent saveMenu;
 
-    int demandCount = 0;
-    int supplyCount = 0;
-    int newClassicalCount = 0;
-    int keynesianCount = 0;
+    static int demandCount = 0;
+    static int supplyCount = 0;
+    static int newClassicalCount = 0;
+    static int keynesianCount = 0;
 
     int selectedCurveIndex;
     int selectedCurveType; // 0 = demand, 1 = supply, 2 = newClassical, 3 = keynesian
@@ -45,6 +44,10 @@ public class Controller {
     GridPane libraryGraphGP = new GridPane();
     @FXML
     TextField optionsTitleTF = new TextField();
+
+    @FXML
+    TextField saveMenuTitleTF = new TextField();
+
     @FXML
     Slider graphMakerShiftSlider = new Slider();
     @FXML
@@ -60,7 +63,12 @@ public class Controller {
 
     Graph currentEditingGraph = new Graph();
     ToggleGroup group = new ToggleGroup();
-    LinkedList<Curve> curvesLL = new LinkedList<Curve>();
+
+    //TODO: Remove static; a new controller is being created.
+    static List<Curve> curvesLL = new LinkedList<>();
+    static Pane staticGraphMakerWorkspaceP;
+    static FlowPane staticGraphMakerRadioButtonsFP;
+
     LinkedList<Graph> graphsLL = new LinkedList<Graph>();
     WritableImage tempScreenShot = graphMakerWorkspaceP.snapshot(new SnapshotParameters(), null); //contains negligible image at start
 
@@ -145,10 +153,14 @@ public class Controller {
     }
 
     public void createRadioButton(String name, int index, int type) {
-        System.out.println("createRadioButtonCalled!!");
+        if (staticGraphMakerRadioButtonsFP == null) {
+            staticGraphMakerRadioButtonsFP = graphMakerRadioButtonsFP;
+        }
+
         RadioButton radioButton = new RadioButton(name);
         radioButton.setId("demandRadio" + index);
         radioButton.setToggleGroup(group);
+        System.out.println("Created radio button: " + radioButton);
         //TODO: there is some problem with this -> radioButton.setSelected(true);
         radioButton.setOnAction(e -> {
             selectedCurveIndex = index;
@@ -161,16 +173,35 @@ public class Controller {
         if (demandCount + supplyCount + newClassicalCount + keynesianCount -1 == 0) {
             radioButton.setSelected(true);
         }
-        graphMakerRadioButtonsFP.getChildren().add(radioButton);
+        staticGraphMakerRadioButtonsFP.getChildren().add(radioButton);
     }
 
     public void insertDemand() {
+        if (staticGraphMakerWorkspaceP == null) {
+            staticGraphMakerWorkspaceP = graphMakerWorkspaceP;
+        }
         demandCount++;
         int index = demandCount + supplyCount + newClassicalCount + keynesianCount - 1;
         createRadioButton("Demand " + demandCount, index, 0);
-        Demand demand = new Demand(graphMakerWorkspaceP, index); //200,50,550,400
+        Demand demand = new Demand(staticGraphMakerWorkspaceP, index); //200,50,550,400
         curvesLL.add(demand);
         System.out.println(curvesLL.toString());
+    }
+
+    public void resetGraphMaker() {
+        demandCount = 0;
+        supplyCount = 0;
+        newClassicalCount = 0;
+        keynesianCount = 0;
+
+        if (staticGraphMakerWorkspaceP != null && curvesLL.size() > 0) {
+            staticGraphMakerWorkspaceP.getChildren().remove(1, staticGraphMakerWorkspaceP.getChildren().size());
+            curvesLL = new LinkedList<>();
+        }
+
+        if (staticGraphMakerRadioButtonsFP != null && staticGraphMakerRadioButtonsFP.getChildren().size() > 0) {
+            staticGraphMakerRadioButtonsFP.getChildren().remove(1, staticGraphMakerRadioButtonsFP.getChildren().size());
+        }
     }
 
     public void insertSupply() {
@@ -194,9 +225,13 @@ public class Controller {
     }
 
     public void insertDemand(String name, int centreX, int elasticityGap, String colour, int thickness, boolean dotted) {
+        if (staticGraphMakerWorkspaceP == null) {
+            staticGraphMakerWorkspaceP = graphMakerWorkspaceP;
+        }
         demandCount++;
-        createRadioButton("Demand " + demandCount, demandCount + supplyCount + newClassicalCount + keynesianCount -1, 0);
-        Demand demand = new Demand(graphMakerWorkspaceP, name, centreX, elasticityGap, colour, thickness, dotted); //200,50,550,400
+        int index = demandCount + supplyCount + newClassicalCount + keynesianCount - 1;
+        createRadioButton("Demand " + demandCount, index, 0);
+        Demand demand = new Demand(staticGraphMakerWorkspaceP, name, centreX, elasticityGap, colour, thickness, dotted, index); //200,50,550,400
         curvesLL.add(demand);
         System.out.println(curvesLL.toString());
     }
@@ -222,19 +257,14 @@ public class Controller {
         //curvesLL.add(supply);
     }
 
-    public void loadGraph() {
-        System.out.println("Loading graph");
-        insertDemand();
-    }
-
-    public void loadGraph(int blah){ //loading graph named "TestGraph"
+    public void loadGraph(){ //loading graph named "TestGraph"
         try {
             BufferedReader br = new BufferedReader(new FileReader("C:\\Users\\KSarm\\OneDrive\\IB\\Computer Science\\IA\\FileWriting\\test.txt"));
             String line = "";
             String[] splittedLine = line.split(",");
             while ((line = br.readLine()) != null) {
                 splittedLine = line.split(",");
-                if (splittedLine[0].equals("TestGraph")) {
+                if (splittedLine[0].equals("Test Graph")) {
                     break;
                 }
             }
@@ -246,7 +276,7 @@ public class Controller {
             loadOldGraph.setTitle(splittedLine[0]);
             System.out.println(loadOldGraph.getTitle());
             loadOldGraph.setTopic(splittedLine[1]);
-            loadOldGraph.setDate(Integer.parseInt(splittedLine[2]));
+            loadOldGraph.setDate(Long.parseLong(splittedLine[2]));
             if (splittedLine[3].equals("true"))
                 loadOldGraph.setFavourite(true);
             else
@@ -317,11 +347,11 @@ public class Controller {
                 System.out.println("Topic not selected");
             }
             else {
-                currentEditingGraph.setTitle(optionsTitleTF.getText());
+                currentEditingGraph.setTitle(saveMenuTitleTF.getText());
                 System.out.println(currentEditingGraph.getTitle());
-                DateFormat dateFormat = new SimpleDateFormat("yyyyMMddHHmm");
                 Date date = new Date();
-                int dateOfCreation = Integer.parseInt(dateFormat.format(date));
+                long dateOfCreation = date.getTime();
+
                 //TODO: Fix number format exception. Find cause since the date does seem to contain no unacceptable characters.
                 currentEditingGraph.setDate(dateOfCreation);
                 //TODO: set type
@@ -352,6 +382,8 @@ public class Controller {
                 br.close();
                 setScreenToLibrary();
             }
+
+            resetGraphMaker();
         }
         catch (IOException ioe2) {
             System.out.println("IOError");

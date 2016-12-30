@@ -26,8 +26,9 @@ public class Demand extends Curve {
         pane.getChildren().add(line);
     }
 
-    public Demand(Pane pane, String name, int centreX, int elasticityGap, String colour, int thickness, boolean dotted) {
+    public Demand(Pane pane, String name, int centreX, int elasticityGap, String colour, int thickness, boolean dotted, int index) {
         this.line = new Line(centreX - elasticityGap,50,centreX + elasticityGap,400);
+        this.line.setId("line" + index);
         setName(name);
         setType("Demand"); //never changes
         setCentreX(centreX);

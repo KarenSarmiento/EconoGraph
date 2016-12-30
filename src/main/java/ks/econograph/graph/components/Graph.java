@@ -5,14 +5,13 @@ package ks.econograph.graph.components;
  */
 public class Graph {
     private String title;
-    private int date; //yyyyMMddhhmm -> greater values of date mean later in timeline
+    private long date; //yyyyMMddhhmm -> greater values of date mean later in timeline
     private String topic;
     private boolean favourite;
     private String imageLocation; //this will all be in the same location with name same as title.
 
     public Graph() {
         this.title = "Title";
-        this.date = 00000000;
         this.topic = "Topic";
         this.favourite = false;
         this.imageLocation = "C:\\Users\\KSarm\\OneDrive\\IB\\Computer Science\\IA\\FileWriting\\image.png";
@@ -34,11 +33,11 @@ public class Graph {
         this.title = title;
     }
 
-    public int getDate() {
+    public long getDate() {
         return date;
     }
 
-    public void setDate(int date) {
+    public void setDate(long date) {
         this.date = date;
     }
 
