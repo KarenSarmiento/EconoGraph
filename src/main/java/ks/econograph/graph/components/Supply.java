@@ -12,8 +12,9 @@ public class Supply extends Curve {
 
     private Line line;
 
-    public Supply(Pane pane){
+    public Supply(Pane pane, int index){
         this.line = new Line(200,400,550,50);
+        this.line.setId("line" + index);
         setName("S");
         setType("Supply"); //never changes
         setCentreX(375);

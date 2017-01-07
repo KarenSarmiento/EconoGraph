@@ -24,9 +24,7 @@ public class ControllerITest extends ApplicationTest {
             fail("should not have thrown any exceptions");
         }
     }
-
-    @Test
-    @Ignore //TODO: requires controller to be split for each screen to fix this
+    @Test //TODO: requires controller to be split for each screen to fix this
     public void shouldCreateAndDisplayDemandLineWhenDemandButtonIsClicked() {
         //when
         clickOn("Make a Graph");
@@ -34,20 +32,21 @@ public class ControllerITest extends ApplicationTest {
         clickOn("Demand");
 
         //then
-        verifyThat("#demandRadio0", isNotNull());
-        verifyThat("#demandRadio0", isVisible());
-        verifyThat("#line0", isNotNull());
-        verifyThat("#line0", isVisible());
-
-        clickOn("Demand");
-
         verifyThat("#demandRadio1", isNotNull());
         verifyThat("#demandRadio1", isVisible());
         verifyThat("#line1", isNotNull());
         verifyThat("#line1", isVisible());
+
+        clickOn("Demand");
+
+        verifyThat("#demandRadio2", isNotNull());
+        verifyThat("#demandRadio2", isVisible());
+        verifyThat("#line2", isNotNull());
+        verifyThat("#line2", isVisible());
     }
 
     @Test
+    @Ignore
     public void shouldUploadSavedFilesAndDrawLinesSuccessfully() {
         // given
         clickOn("Make a Graph");
@@ -64,14 +63,14 @@ public class ControllerITest extends ApplicationTest {
         clickOn("#editGraph");
 
         //then
-        verifyThat("#demandRadio0", isNotNull());
-        verifyThat("#demandRadio0", isVisible());
-        verifyThat("#line0", isNotNull());
-        verifyThat("#line0", isVisible());
         verifyThat("#demandRadio1", isNotNull());
         verifyThat("#demandRadio1", isVisible());
         verifyThat("#line1", isNotNull());
         verifyThat("#line1", isVisible());
+        verifyThat("#demandRadio2", isNotNull());
+        verifyThat("#demandRadio2", isVisible());
+        verifyThat("#line2", isNotNull());
+        verifyThat("#line2", isVisible());
     }
 
     @Test
@@ -132,12 +131,13 @@ public class ControllerITest extends ApplicationTest {
         verifyThat("#libraryMakeAGraphB", isVisible());
         verifyThat("#librarySaveB", isVisible());
         verifyThat("#libraryDeleteB", isVisible());
-        verifyThat("#tempTestB", isVisible());verifyThat("#libraryGP", isVisible());
+        verifyThat("#libraryGP", isVisible());
         verifyThat("#librarySortCB", isVisible());
         verifyThat("#libraryFilterCB", isVisible());
         verifyThat("#libraryFavouritesCB", isVisible());
         verifyThat("#librarySearchTF", isVisible());
         verifyThat("#libraryGraphsSP", isVisible());
+        verifyThat("#libraryGraphGP", isVisible());
         verifyThat("#libraryGraphL", isVisible());
         verifyThat("#libraryDescriptionL", isVisible());
         verifyThat("#libraryOptionsL", isVisible());
