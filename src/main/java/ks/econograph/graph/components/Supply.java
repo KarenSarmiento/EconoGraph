@@ -26,8 +26,9 @@ public class Supply extends Curve {
         pane.getChildren().add(line);
     }
 
-    public Supply(Pane pane, String name, int centreX, int elasticityGap, String colour, int thickness, boolean dotted) {
+    public Supply(Pane pane,int index, String name, int centreX, int elasticityGap, String colour, int thickness, boolean dotted) {
         this.line = new Line(centreX + elasticityGap,50,centreX - elasticityGap,400);
+        this.line.setId("line" + index);
         setName(name);
         setType("Supply"); //never changes
         setCentreX(centreX);
@@ -36,7 +37,7 @@ public class Supply extends Curve {
         setThickness(thickness);    this.line.setStrokeWidth(thickness);
         setDotted(dotted);
         setStrokeLineCap(StrokeLineCap.ROUND);
-        ////pane.getChildren().add(line);
+        pane.getChildren().add(line);
     }
 
     public Line getLine() {

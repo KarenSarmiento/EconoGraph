@@ -1,7 +1,11 @@
-package ks.econograph;
+package ks.econograph.controller.screens;
 
+import com.sun.imageio.plugins.gif.GIFImageReader;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.layout.GridPane;
+import ks.econograph.Context;
+import ks.econograph.controller.MainController;
 
 import java.io.*;
 import java.util.Date;
@@ -12,9 +16,16 @@ import java.util.LinkedList;
  */
 public class SaveMenuController {
 
-    @FXML ComboBox saveMenuTopicCB = new ComboBox();
-    @FXML CheckBox saveMenuFavouriteCB = new CheckBox();
-    @FXML TextField saveMenuTitleTF = new TextField();
+    private MainController main;
+
+    @FXML
+    public GridPane saveMenuGP;
+    @FXML
+    ComboBox saveMenuTopicCB = new ComboBox();
+    @FXML
+    CheckBox saveMenuFavouriteCB = new CheckBox();
+    @FXML
+    TextField saveMenuTitleTF = new TextField();
 
     public void saveGraph() {
         try {
@@ -77,32 +88,18 @@ public class SaveMenuController {
     }
 
     public void setScreenToLibrary() {
-        Context.getInstance().getLibrary().setVisible(true);
-        Context.getInstance().getOptions().setVisible(false);
-        Context.getInstance().getGraphMaker().setVisible(false);
-        Context.getInstance().getSaveMenu().setVisible(false);
+        main.setScreenToLibrary();
     }
 
     public void resetGraphMaker() {
-        Context.getInstance().setDemandCount(0);
-        Context.getInstance().setSupplyCount(0);
-        Context.getInstance().setNewClassicalCount(0);
-        Context.getInstance().setKeynesianCount(0);
-
-        if (Context.getInstance().getStaticGraphMakerWorkspaceP() != null && Context.getInstance().getCurvesLL().size() > 0) {
-            Context.getInstance().getStaticGraphMakerWorkspaceP().getChildren().remove(1, Context.getInstance().getStaticGraphMakerWorkspaceP().getChildren().size());
-            Context.getInstance().setCurvesLL(new LinkedList<>());
-        }
-
-        if (Context.getInstance().getStaticGraphMakerRadioButtonsFP() != null && Context.getInstance().getStaticGraphMakerRadioButtonsFP().getChildren().size() > 0) {
-            Context.getInstance().getStaticGraphMakerRadioButtonsFP().getChildren().remove(1, Context.getInstance().getStaticGraphMakerRadioButtonsFP().getChildren().size());
-        }
+        main.resetGraphMaker();
     }
 
     public void setScreenToGraphMaker() {
-        Context.getInstance().getLibrary().setVisible(false);
-        Context.getInstance().getOptions().setVisible(false);
-        Context.getInstance().getGraphMaker().setVisible(true);
-        Context.getInstance().getSaveMenu().setVisible(false);
+        main.setScreenToGraphMaker();
+    }
+
+    public void init(MainController mainController) {
+        main = mainController;
     }
 }

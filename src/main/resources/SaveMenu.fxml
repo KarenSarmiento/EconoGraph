@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<GridPane fx:id="saveMenuGP" alignment="center" hgap="10" prefHeight="800.0" prefWidth="1200.0" stylesheets="/sample/sample.css" vgap="10" xmlns="http://javafx.com/javafx/8.0.76-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ks.econograph.SaveMenuController">
+<GridPane fx:id="saveMenuGP" alignment="center" hgap="10" prefHeight="800.0" prefWidth="1200.0" stylesheets="/sample/sample.css" vgap="10" xmlns="http://javafx.com/javafx/8.0.76-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ks.econograph.controller.screens.SaveMenuController">
     <children>
         <ImageView fx:id="saveMenuImageIV" fitHeight="300.0" fitWidth="300.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="0" GridPane.rowSpan="3">
             <image>

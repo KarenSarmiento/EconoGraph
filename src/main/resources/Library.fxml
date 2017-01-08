@@ -15,7 +15,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<GridPane fx:id="libraryGP" alignment="center" hgap="10" prefHeight="800.0" prefWidth="1200.0" stylesheets="/sample/sample.css" vgap="10" xmlns="http://javafx.com/javafx/8.0.76-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ks.econograph.LibraryController">
+<GridPane fx:id="libraryGP" alignment="center" hgap="10" prefHeight="800.0" prefWidth="1200.0" stylesheets="/sample/sample.css" vgap="10" xmlns="http://javafx.com/javafx/8.0.76-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ks.econograph.controller.screens.LibraryController">
    <children>
       <ImageView fx:id="libraryTitleIV" fitHeight="53.0" fitWidth="409.0" pickOnBounds="true" preserveRatio="true" GridPane.columnSpan="6" GridPane.halignment="CENTER">
          <image>

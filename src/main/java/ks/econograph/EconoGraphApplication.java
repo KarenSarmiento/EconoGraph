@@ -9,16 +9,7 @@ public class EconoGraphApplication extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        /*Context.getInstance().setLibrary(FXMLLoader.load(getClass().getClassLoader().getResource("Library.fxml")));
-        Context.getInstance().setGraphMaker(FXMLLoader.load(getClass().getClassLoader().getResource("GraphMaker.fxml")));
-        Context.getInstance().setOptions(FXMLLoader.load(getClass().getClassLoader().getResource("Options.fxml")));
-        Context.getInstance().setSaveMenu(FXMLLoader.load(getClass().getClassLoader().getResource("Save Menu.fxml")));
-
-        Context.getInstance().getOptions().setVisible(false);
-        Context.getInstance().getGraphMaker().setVisible(false);
-        Context.getInstance().getSaveMenu().setVisible(false);*/
-
-        Context.getInstance().initialize();
+        /*Context.getInstance().initialize();
 
         StackPane stackPane = new StackPane();
         stackPane.getChildren().addAll(Context.getInstance().getLibrary(), Context.getInstance().getOptions(),
@@ -29,8 +20,12 @@ public class EconoGraphApplication extends Application {
         //scene.getStylesheets().add(EconoGraph2.class.getResource("/sample/sample.css"))/
         primaryStage.setScene(scene);
 
-        primaryStage.show();
+        primaryStage.show();*/
 
+        Context.getInstance().initializeMainRoot();
+        Scene scene = new Scene(Context.getInstance().getMainRoot());
+        primaryStage.setScene(scene);
+        primaryStage.show();
     }
 
 

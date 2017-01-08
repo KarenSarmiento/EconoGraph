@@ -1,4 +1,4 @@
-package ks.econograph;
+package ks.econograph.controller.screens;
 
 import javafx.embed.swing.SwingFXUtils;
 import javafx.fxml.FXML;
@@ -7,7 +7,10 @@ import javafx.scene.control.ColorPicker;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.Slider;
 import javafx.scene.layout.FlowPane;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
+import ks.econograph.Context;
+import ks.econograph.controller.MainController;
 import ks.econograph.graph.components.Demand;
 import ks.econograph.graph.components.Supply;
 
@@ -20,6 +23,10 @@ import java.io.IOException;
  */
 public class GraphMakerController {
 
+    private MainController main;
+
+    @FXML
+    public GridPane graphMakerGP;
     @FXML
     Pane graphMakerWorkspaceP = new Pane();
     @FXML
@@ -51,16 +58,17 @@ public class GraphMakerController {
     }
 
     public void shiftSelectedCurve() {
+        System.out.println(Context.getInstance().getCurvesLL());
         switch (Context.getInstance().getSelectedCurveType()) {
             case 0: {
-                Demand demand = (Demand) Context.getInstance().getCurvesLL().get(Context.getInstance().getSelectedCurveType());
+                Demand demand = (Demand) Context.getInstance().getCurvesLL().get(Context.getInstance().getSelectedCurveIndex() - 1);
                 demand.setCentreX(375 + (int) graphMakerShiftSlider.getValue());
                 demand.getLine().setStartX(demand.getCentreX() - demand.getElasticityGap());
                 demand.getLine().setEndX(demand.getCentreX() + demand.getElasticityGap());
                 break;
             }
             case 1: {
-                Supply supply = (Supply) Context.getInstance().getCurvesLL().get(Context.getInstance().getSelectedCurveIndex());
+                Supply supply = (Supply) Context.getInstance().getCurvesLL().get(Context.getInstance().getSelectedCurveIndex() - 1);
                 supply.setCentreX(375 + (int) graphMakerShiftSlider.getValue());
                 supply.getLine().setStartX(supply.getCentreX() + supply.getElasticityGap());
                 supply.getLine().setEndX(supply.getCentreX() - supply.getElasticityGap());
@@ -73,14 +81,14 @@ public class GraphMakerController {
         System.out.println(Context.getInstance().getSelectedCurveType() + " " + Context.getInstance().getSelectedCurveIndex());
         switch (Context.getInstance().getSelectedCurveType()) {
             case 0: {
-                Demand demand = (Demand) Context.getInstance().getCurvesLL().get(Context.getInstance().getSelectedCurveIndex());
+                Demand demand = (Demand) Context.getInstance().getCurvesLL().get(Context.getInstance().getSelectedCurveIndex() - 1);
                 demand.setElasticityGap((int) graphMakerElasticitySlider.getValue());
                 demand.getLine().setStartX(demand.getCentreX() - demand.getElasticityGap());
                 demand.getLine().setEndX(demand.getCentreX() + demand.getElasticityGap());
                 break;
             }
             case 1: {
-                Supply supply = (Supply) Context.getInstance().getCurvesLL().get(Context.getInstance().getSelectedCurveIndex());
+                Supply supply = (Supply) Context.getInstance().getCurvesLL().get(Context.getInstance().getSelectedCurveIndex() - 1);
                 supply.setElasticityGap((int) graphMakerElasticitySlider.getValue());
                 supply.getLine().setStartX(supply.getCentreX() + supply.getElasticityGap());
                 supply.getLine().setEndX(supply.getCentreX() - supply.getElasticityGap());
@@ -98,9 +106,9 @@ public class GraphMakerController {
     }
 
     public void updateCurveColour() {
-        switch(Context.getInstance().getSelectedCurveType()) {
+        switch (Context.getInstance().getSelectedCurveType()) {
             case 0: {
-                Demand demand = (Demand) Context.getInstance().getCurvesLL().get(Context.getInstance().getSelectedCurveIndex());
+                Demand demand = (Demand) Context.getInstance().getCurvesLL().get(Context.getInstance().getSelectedCurveIndex() - 1);
                 demand.getLine().setStroke(graphMakerColourPicker.getValue());
                 demand.setColour(graphMakerColourPicker.getValue().toString());
                 break;
@@ -108,7 +116,7 @@ public class GraphMakerController {
             case 1: {
                 System.out.println("supply detected");
                 //TODO: supply curve colour not working
-                Supply supply = (Supply) Context.getInstance().getCurvesLL().get(Context.getInstance().getSelectedCurveIndex());
+                Supply supply = (Supply) Context.getInstance().getCurvesLL().get(Context.getInstance().getSelectedCurveIndex() - 1);
                 supply.getLine().setStroke(graphMakerColourPicker.getValue());
                 supply.setColour(graphMakerColourPicker.getValue().toString());
                 break;
@@ -123,16 +131,16 @@ public class GraphMakerController {
     }
 
     public void updateThickness() {
-        switch(Context.getInstance().getSelectedCurveType()) {
+        switch (Context.getInstance().getSelectedCurveType()) {
             case 0: {
-                Demand demand = (Demand) Context.getInstance().getCurvesLL().get(Context.getInstance().getSelectedCurveIndex());
+                Demand demand = (Demand) Context.getInstance().getCurvesLL().get(Context.getInstance().getSelectedCurveIndex() - 1);
                 demand.getLine().setStrokeWidth((int) graphMakerThicknessSlider.getValue());
                 demand.setThickness((int) graphMakerThicknessSlider.getValue());
                 System.out.println(graphMakerThicknessSlider.getValue());
                 break;
             }
             case 1: {
-                Supply supply = (Supply) Context.getInstance().getCurvesLL().get(Context.getInstance().getSelectedCurveIndex());
+                Supply supply = (Supply) Context.getInstance().getCurvesLL().get(Context.getInstance().getSelectedCurveIndex() - 1);
                 supply.getLine().setStrokeWidth((int) graphMakerThicknessSlider.getValue());
                 supply.setThickness((int) graphMakerThicknessSlider.getValue());
                 System.out.println(graphMakerThicknessSlider.getValue());
@@ -148,66 +156,85 @@ public class GraphMakerController {
     }
 
     public void insertDemand() {
-        System.out.println("insert demand reached");
+        System.out.println("START DEMAND SIMPLE");
+        setUpDemand();
+        Demand demand = new Demand(Context.getInstance().getStaticGraphMakerWorkspaceP(), Context.getInstance().getDemandCount()); //200,50,550,400
+        Context.getInstance().getCurvesLL().add(demand);
+        System.out.println(Context.getInstance().getCurvesLL());
+        System.out.println("Demand Count : " + Context.getInstance().getDemandCount());
+        System.out.println("Curve Count : " + Context.getInstance().getCurveCount());
+        System.out.println("END DEMAND SIMPLE");
+    }
 
-        //if (Context.getInstance().getStaticGraphMakerWorkspaceP() == null) {
-            Context.getInstance().setStaticGraphMakerWorkspaceP(graphMakerWorkspaceP);
-        //}
-        Context.getInstance().setDemandCount(Context.getInstance().getDemandCount() +1);
-        Context.getInstance().setCurveCount(Context.getInstance().getCurveCount()+1);
+    public void insertDemand(String name, int centreX, int elasticityGap, String colour, int thickness, boolean dotted) {
+        System.out.println("START DEMAND");
+        setUpDemand();
+        Demand demand = new Demand(Context.getInstance().getStaticGraphMakerWorkspaceP(), Context.getInstance().getDemandCount(), name, centreX, elasticityGap, colour, thickness, dotted); //200,50,550,400
+        Context.getInstance().getCurvesLL().add(demand);
+        System.out.println(Context.getInstance().getCurvesLL());
+        System.out.println("Demand Count : " + Context.getInstance().getDemandCount());
+        System.out.println("Curve Count : " + Context.getInstance().getCurveCount());
+        System.out.println("END DEMAND");
+    }
+
+    public void setUpDemand() {
+        Context.getInstance().setStaticGraphMakerWorkspaceP(graphMakerWorkspaceP);
+        Context.getInstance().setDemandCount(Context.getInstance().getDemandCount() + 1);
+        Context.getInstance().setCurveCount(Context.getInstance().getCurveCount() + 1);
         int index = Context.getInstance().getDemandCount();
         createRadioButton("Demand " + index, index, 0);
-        Demand demand = new Demand(Context.getInstance().getStaticGraphMakerWorkspaceP(), index); //200,50,550,400
-        Context.getInstance().getCurvesLL().add(demand);
-        System.out.println(Context.getInstance().getCurvesLL().toString());
-        System.out.println(Context.getInstance().getDemandCount());
-        System.out.println(Context.getInstance().getCurveCount());
-
     }
 
     public void insertSupply() {
-        if (Context.getInstance().getStaticGraphMakerWorkspaceP() == null) {
-            Context.getInstance().setStaticGraphMakerWorkspaceP(graphMakerWorkspaceP);
-        }
-        Context.getInstance().setSupplyCount(Context.getInstance().getSupplyCount() +1);
-        int index = Context.getInstance().getCurveCount() -1;
-        createRadioButton("Supply " + Context.getInstance().getSupplyCount(), index, 0);
-        Supply supply = new Supply(Context.getInstance().getStaticGraphMakerWorkspaceP(), index); //200,50,550,400
+        setUpSupply();
+        Supply supply = new Supply(Context.getInstance().getStaticGraphMakerWorkspaceP(), Context.getInstance().getSupplyCount()); //200,50,550,400
         Context.getInstance().getCurvesLL().add(supply);
-        System.out.println(Context.getInstance().getCurvesLL().toString());
+    }
 
+    public void insertSupply(String name, int centreX, int elasticityGap, String colour, int thickness, boolean dotted) {
+        setUpSupply();
+        Supply supply = new Supply(Context.getInstance().getStaticGraphMakerWorkspaceP(), Context.getInstance().getSupplyCount(), name, centreX, elasticityGap, colour, thickness, dotted); //200,50,550,400
+        Context.getInstance().getCurvesLL().add(supply);
+    }
+
+    public void setUpSupply() {
+        Context.getInstance().setStaticGraphMakerWorkspaceP(graphMakerWorkspaceP);
+        Context.getInstance().setSupplyCount(Context.getInstance().getSupplyCount() + 1);
+        Context.getInstance().setCurveCount(Context.getInstance().getCurveCount() + 1);
+        int index = Context.getInstance().getSupplyCount();
+        createRadioButton("Supply " + index, index, 1);
     }
 
     public void createRadioButton(String name, int index, int type) {
-        //if (Context.getInstance().getStaticGraphMakerRadioButtonsFP() == null) {
-            Context.getInstance().setStaticGraphMakerRadioButtonsFP(graphMakerRadioButtonsFP);
-        //}
-
+        Context.getInstance().setStaticGraphMakerRadioButtonsFP(graphMakerRadioButtonsFP);
         //TODO: Make createRadioButton() compatible with other curves!
         RadioButton radioButton = new RadioButton(name);
         radioButton.setId("demandRadio" + index);
         radioButton.setToggleGroup(Context.getInstance().getToggleGroup());
-        System.out.println("Created radio button: " + radioButton);
-        //TODO: there is some problem with radioButton.setSelected(true);
-        radioButton.setOnAction(e -> {
-            Context.getInstance().setSelectedCurveIndex(index);
-            Context.getInstance().setSelectedCurveType(type);
-            //need to set to previously set elasticity or shift
-            graphMakerElasticitySlider.setValue(Context.getInstance().getCurvesLL().get(Context.getInstance().getSelectedCurveIndex()).getElasticityGap());
-            graphMakerShiftSlider.setValue(0);
-            graphMakerThicknessSlider.setValue(5);
-        });
-        if (Context.getInstance().getCurveCount() -1 == 0) {
-            radioButton.setSelected(true);
-        }
+        radioButton.setOnAction(e -> setAppropriateCurveSettings(index, type));
         Context.getInstance().getStaticGraphMakerRadioButtonsFP().getChildren().add(radioButton);
+
+        radioButton.setSelected(true);
+        setAppropriateCurveSettings(index, type);
+
+        System.out.println("Created radio button: " + radioButton);
+    }
+
+    public void setAppropriateCurveSettings(int index, int type) {
+        Context.getInstance().setSelectedCurveIndex(index);
+        Context.getInstance().setSelectedCurveType(type);
+        //need to set to previously set elasticity or shift
+        if (Context.getInstance().getSelectedCurveIndex() - 1 == 0) {
+            graphMakerElasticitySlider.setValue(0);
+        } else {
+            graphMakerElasticitySlider.setValue(Context.getInstance().getCurvesLL().get(Context.getInstance().getSelectedCurveIndex() - 2).getElasticityGap());
+        }
+        graphMakerShiftSlider.setValue(0);
+        graphMakerThicknessSlider.setValue(5);
     }
 
     public void setScreenToSaveMenu() {
-        Context.getInstance().getLibrary().setVisible(false);
-        Context.getInstance().getOptions().setVisible(false);
-        Context.getInstance().getGraphMaker().setVisible(false);
-        Context.getInstance().getSaveMenu().setVisible(true);
+        main.setScreenToSaveMenu();
     }
 
     /*public void insertNewClassical() {
@@ -222,26 +249,6 @@ public class GraphMakerController {
         //curvesLL.add(supply);
     }
 
-    public void insertDemand(String name, int centreX, int elasticityGap, String colour, int thickness, boolean dotted) {
-        if (staticGraphMakerWorkspaceP == null) {
-            staticGraphMakerWorkspaceP = graphMakerWorkspaceP;
-        }
-        demandCount++;
-        int index = demandCount + supplyCount + newClassicalCount + keynesianCount - 1;
-        createRadioButton("Demand " + demandCount, index, 0);
-        Demand demand = new Demand(staticGraphMakerWorkspaceP, name, centreX, elasticityGap, colour, thickness, dotted, index); //200,50,550,400
-        curvesLL.add(demand);
-        System.out.println(curvesLL.toString());
-    }
-
-    public void insertSupply(String name, int centreX, int elasticityGap, String colour, int thickness, boolean dotted) {
-        supplyCount++;
-        createRadioButton("Supply " + supplyCount, demandCount + supplyCount + newClassicalCount + keynesianCount -1, 1);
-        Supply supply = new Supply(graphMakerWorkspaceP, name, centreX, elasticityGap, colour, thickness, dotted); //200,400,550,50
-        curvesLL.add(supply);
-        System.out.println(curvesLL.toString());
-    }
-
     public void insertNewClassical(String name, int centreX, int elasticityGap, String colour, int thickness, boolean dotted) { //change parameters
         newClassicalCount++;
         createRadioButton("New Classical " + newClassicalCount, demandCount + supplyCount + newClassicalCount + keynesianCount -1, 2);
@@ -254,4 +261,16 @@ public class GraphMakerController {
         createRadioButton("Keynesian " + keynesianCount, demandCount + supplyCount + newClassicalCount + keynesianCount -1, 3);
         //curvesLL.add(supply);
     }*/
+
+    public void init(MainController mainController) {
+        main = mainController;
+    }
+
+    public Pane getGraphMakerWorkspaceP() {
+        return graphMakerWorkspaceP;
+    }
+
+    public void setGraphMakerWorkspaceP(Pane graphMakerWorkspaceP) {
+        this.graphMakerWorkspaceP = graphMakerWorkspaceP;
+    }
 }

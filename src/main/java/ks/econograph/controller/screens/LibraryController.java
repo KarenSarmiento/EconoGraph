@@ -1,4 +1,4 @@
-package ks.econograph;
+package ks.econograph.controller.screens;
 
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
@@ -6,8 +6,11 @@ import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
+import ks.econograph.Context;
+import ks.econograph.controller.MainController;
 import ks.econograph.graph.components.Graph;
 
+import javax.swing.text.html.ImageView;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -17,15 +20,17 @@ import java.io.IOException;
  */
 public class LibraryController {
 
+    private MainController main;
+
     @FXML
-    GridPane libraryGraphGP = new GridPane();
+    public GridPane libraryGraphGP;
     @FXML
     CheckBox libraryFavouritesCB = new CheckBox();
     @FXML
     Button editGraph = new Button();
 
     public void oldGraphToGraphMaker() {
-        setScreenToGraphMaker();
+        main.setScreenToGraphMaker();
         loadGraph();
     }
 
@@ -62,29 +67,25 @@ public class LibraryController {
                     switch (splittedLine[1]) {
                         case "Demand" : {
                             if (splittedLine[7].equals("true")) {
-//                                insertDemand(splittedLine[2], Integer.parseInt(splittedLine[3]),
-//                                        Integer.parseInt(splittedLine[4]), splittedLine[5], Integer.parseInt(splittedLine[6]), true);
-//                                insertDemand();
-                                System.out.println("demand insert now (temp not showing)");
+                                main.getGraphMakerController().insertDemand(splittedLine[2], Integer.parseInt(splittedLine[3]),
+                                        Integer.parseInt(splittedLine[4]), splittedLine[5], Integer.parseInt(splittedLine[6]), true);
                             }
                             else {
                                 System.out.println("reached Demand in the making");
-//                                insertDemand(splittedLine[2], Integer.parseInt(splittedLine[3]),
-//                                        Integer.parseInt(splittedLine[4]), splittedLine[5], Integer.parseInt(splittedLine[6]), false);
-//                                insertDemand();
-                                System.out.println("demand insert now (temp not showing)");
+                                main.getGraphMakerController().insertDemand(splittedLine[2], Integer.parseInt(splittedLine[3]),
+                                        Integer.parseInt(splittedLine[4]), splittedLine[5], Integer.parseInt(splittedLine[6]), false);
                                 System.out.println("demand: curvesLL" + Context.getInstance().getCurvesLL());
                             }
                             break;
                         }
                         case "Supply" : {
                             if (splittedLine[7].equals("true")) {
-//                                insertSupply(splittedLine[2], Integer.parseInt(splittedLine[3]),
-//                                        Integer.parseInt(splittedLine[4]), splittedLine[5], Integer.parseInt(splittedLine[6]), true);
+                                main.getGraphMakerController().insertSupply(splittedLine[2], Integer.parseInt(splittedLine[3]),
+                                        Integer.parseInt(splittedLine[4]), splittedLine[5], Integer.parseInt(splittedLine[6]), true);
                             }
                             else {
-//                                insertSupply(splittedLine[2], Integer.parseInt(splittedLine[3]),
-//                                        Integer.parseInt(splittedLine[4]), splittedLine[5], Integer.parseInt(splittedLine[6]), false);
+                                main.getGraphMakerController().insertSupply(splittedLine[2], Integer.parseInt(splittedLine[3]),
+                                        Integer.parseInt(splittedLine[4]), splittedLine[5], Integer.parseInt(splittedLine[6]), false);
                             }
                             break;
                         }
@@ -121,17 +122,11 @@ public class LibraryController {
             Context.getInstance().getGraphsLL().add(graph);
         }
     }
-
     public void setScreenToOptions() {
-        Context.getInstance().getLibrary().setVisible(false);
-        Context.getInstance().getOptions().setVisible(true);
-        Context.getInstance().getGraphMaker().setVisible(false);
-        Context.getInstance().getSaveMenu().setVisible(false);
+        main.setScreenToOptions();
     }
-    public void setScreenToGraphMaker() {
-        Context.getInstance().getLibrary().setVisible(false);
-        Context.getInstance().getOptions().setVisible(false);
-        Context.getInstance().getGraphMaker().setVisible(true);
-        Context.getInstance().getSaveMenu().setVisible(false);
+
+    public void init(MainController mainController) {
+        main = mainController;
     }
 }

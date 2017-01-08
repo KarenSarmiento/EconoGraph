@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.StackPane?>
+
+<StackPane prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8.0.76-ea"
+           xmlns:fx="http://javafx.com/fxml/1" fx:controller="ks.econograph.controller.MainController">
+    <children>
+        <AnchorPane fx:id="libraryAP" prefHeight="200.0" prefWidth="200.0">
+            <children>
+                <fx:include fx:id="library" source="Library.fxml"/>
+            </children>
+        </AnchorPane>
+        <AnchorPane fx:id="graphMakerAP" prefHeight="200.0" prefWidth="200.0">
+            <children>
+                <fx:include fx:id="graphMaker" source="GraphMaker.fxml"/>
+            </children>
+        </AnchorPane>
+        <AnchorPane fx:id="optionsAP" prefHeight="200.0" prefWidth="200.0">
+            <children>
+                <fx:include fx:id="options" source="Options.fxml"/>
+            </children>
+        </AnchorPane>
+        <AnchorPane fx:id="saveMenuAP" prefHeight="200.0" prefWidth="200.0">
+            <children>
+                <fx:include fx:id="saveMenu" source="SaveMenu.fxml"/>
+            </children>
+        </AnchorPane>
+    </children>
+</StackPane>

@@ -1,7 +1,10 @@
-package ks.econograph;
+package ks.econograph.controller.screens;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.GridPane;
+import ks.econograph.Context;
+import ks.econograph.controller.MainController;
 import ks.econograph.graph.components.Graph;
 
 /**
@@ -9,14 +12,15 @@ import ks.econograph.graph.components.Graph;
  */
 public class OptionsController {
 
+    private MainController main;
+
+    @FXML
+    public GridPane optionsGP;
     @FXML
     TextField optionsTitleTF = new TextField();
 
     public void setScreenToLibrary() {
-        Context.getInstance().getLibrary().setVisible(true);
-        Context.getInstance().getOptions().setVisible(false);
-        Context.getInstance().getGraphMaker().setVisible(false);
-        Context.getInstance().getSaveMenu().setVisible(false);
+        main.setScreenToLibrary();
     }
 
     public void newGraphToGraphMaker() {
@@ -26,10 +30,7 @@ public class OptionsController {
     }
 
     public void setScreenToGraphMaker() {
-        Context.getInstance().getLibrary().setVisible(false);
-        Context.getInstance().getOptions().setVisible(false);
-        Context.getInstance().getGraphMaker().setVisible(true);
-        Context.getInstance().getSaveMenu().setVisible(false);
+        main.setScreenToGraphMaker();
     }
 
     public void test() {
@@ -47,5 +48,9 @@ public class OptionsController {
                 break;
             }
         }
+    }
+
+    public void init(MainController mainController) {
+        main = mainController;
     }
 }
