@@ -25,7 +25,7 @@ public class ControllerITest extends ApplicationTest {
         }
     }
     //TODO: requires controller to be split for each screen to fix this
-    @Ignore
+//    @Ignore
     @Test
     public void shouldCreateAndDisplayDemandLineWhenDemandButtonIsClicked() {
         //when

@@ -36,6 +36,8 @@ public class MainController {
 
     @FXML public void initialize() {
         System.out.println("Application started");
+        resetGraphMaker();
+
         libraryController.init(this);
         graphMakerController.init(this);
         optionsController.init(this);

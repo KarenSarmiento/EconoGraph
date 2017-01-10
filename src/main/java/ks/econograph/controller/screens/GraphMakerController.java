@@ -71,8 +71,8 @@ public class GraphMakerController {
             case 1: {
                 Supply supply = (Supply) Context.getInstance().getCurvesLL().get(Context.getInstance().getSelectedCurveIndex() -1);
                 supply.setCentreX(375 + (int) graphMakerShiftSlider.getValue());
-                supply.getLine().setStartX(supply.getCentreX() + supply.getElasticityGap());
-                supply.getLine().setEndX(supply.getCentreX() - supply.getElasticityGap());
+                supply.getLine().setStartX(supply.getCentreX() - supply.getElasticityGap());
+                supply.getLine().setEndX(supply.getCentreX() + supply.getElasticityGap());
                 break;
             }
         }
@@ -91,8 +91,8 @@ public class GraphMakerController {
             case 1: {
                 Supply supply = (Supply) Context.getInstance().getCurvesLL().get(Context.getInstance().getSelectedCurveIndex() -1);
                 supply.setElasticityGap((int) graphMakerElasticitySlider.getValue());
-                supply.getLine().setStartX(supply.getCentreX() + supply.getElasticityGap());
-                supply.getLine().setEndX(supply.getCentreX() - supply.getElasticityGap());
+                supply.getLine().setStartX(supply.getCentreX() - supply.getElasticityGap());
+                supply.getLine().setEndX(supply.getCentreX() + supply.getElasticityGap());
                 break;
             }
             case 2: {
@@ -190,6 +190,7 @@ public class GraphMakerController {
         setUpSupply();
         Supply supply = new Supply(Context.getInstance().getStaticGraphMakerWorkspaceP(), Context.getInstance().getCurveCount()); //200,50,550,400
         Context.getInstance().getCurvesLL().add(supply);
+        System.out.println(Context.getInstance().getCurvesLL());
         System.out.println("Supply Count : " + Context.getInstance().getSupplyCount());
         System.out.println("Curve Count : " + Context.getInstance().getCurveCount());
         System.out.println("END SUPPLY SIMPLE");
@@ -200,6 +201,7 @@ public class GraphMakerController {
         setUpSupply();
         Supply supply = new Supply(Context.getInstance().getStaticGraphMakerWorkspaceP(), Context.getInstance().getCurveCount(), name, centreX, elasticityGap, colour, thickness, dotted); //200,50,550,400
         Context.getInstance().getCurvesLL().add(supply);
+        System.out.println(Context.getInstance().getCurvesLL());
         System.out.println("Supply Count : " + Context.getInstance().getSupplyCount());
         System.out.println("Curve Count : " + Context.getInstance().getCurveCount());
         System.out.println("END SUPPLY");
@@ -249,7 +251,7 @@ public class GraphMakerController {
         Context.getInstance().setSelectedCurveType(type);
         //need to set to previously set elasticity or shift
         if (Context.getInstance().getSelectedCurveIndex() - 1 == 0) {
-            graphMakerElasticitySlider.setValue(0);
+            graphMakerElasticitySlider.setValue(175);
         } else {
             graphMakerElasticitySlider.setValue(Context.getInstance().getCurvesLL().get(Context.getInstance().getSelectedCurveIndex() - 2).getElasticityGap());
         }
