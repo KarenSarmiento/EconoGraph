@@ -42,13 +42,13 @@ public class GraphMakerController {
 
     public void captureShotWorkspace() {
         //TODO: Fix writable image
-       /* Context.getInstance().setTempScreenShot(graphMakerWorkspaceP.snapshot(new SnapshotParameters(), null));
+        Context.getInstance().setTempScreenShot(graphMakerWorkspaceP.snapshot(new SnapshotParameters(), null));
         File imageFile = new File("C:\\Users\\KSarm\\OneDrive\\IB\\Computer Science\\IA\\FileWriting\\tempWorkspace.png");
         try {
             ImageIO.write(SwingFXUtils.fromFXImage(Context.getInstance().getTempScreenShot(), null), "png", imageFile);
         } catch (IOException e) {
             System.out.println("ioe");
-        }*/
+        }
     }
 
     public void captureAndSetToSave() {

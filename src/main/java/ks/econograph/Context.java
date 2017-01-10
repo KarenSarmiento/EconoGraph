@@ -3,6 +3,7 @@ package ks.econograph;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.control.ToggleGroup;
+import javafx.scene.image.WritableImage;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.Pane;
 import ks.econograph.graph.components.Curve;
@@ -16,8 +17,7 @@ import java.util.List;
  */
 public class Context {
 
-    //See use: http://stackoverflow.com/questions/12166786/multiple-fxml-with-controllers-share-object
-    private final static Context context = new Context(); //singleton meaning only 1 context is ever created
+      private final static Context context = new Context(); //singleton - only 1 context is ever created
 
     private Parent mainRoot;
 
@@ -25,8 +25,7 @@ public class Context {
     private List<Curve> curvesLL = new LinkedList<>();
     private Graph currentEditingGraph = new Graph();
     private ToggleGroup toggleGroup = new ToggleGroup();
-    //WritableImage tempScreenShot = new WritableImage(library.snapshot(new SnapshotParameters(), null));
-            //Context.getInstance().getStaticGraphMakerWorkspaceP().snapshot(new SnapshotParameters(), null); //contains negligible image at start
+    WritableImage tempScreenShot;
 
     private Pane staticGraphMakerWorkspaceP = new Pane();
     private FlowPane staticGraphMakerRadioButtonsFP = new FlowPane();
@@ -88,13 +87,13 @@ public class Context {
         this.toggleGroup = toggleGroup;
     }
 
-/*    public WritableImage getTempScreenShot() {
+    public WritableImage getTempScreenShot() {
         return tempScreenShot;
     }
 
     public void setTempScreenShot(WritableImage tempScreenShot) {
         this.tempScreenShot = tempScreenShot;
-    }*/
+    }
 
     public Pane getStaticGraphMakerWorkspaceP() {
         return staticGraphMakerWorkspaceP;
