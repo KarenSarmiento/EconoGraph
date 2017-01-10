@@ -4,6 +4,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.StrokeLineCap;
+import ks.econograph.Context;
 
 /**
  * Created by KSarm on 03/11/2016.
@@ -12,9 +13,9 @@ public class Supply extends Curve {
 
     private Line line;
 
-    public Supply(Pane pane, int index){
+    public Supply(Pane pane, int curveIndex){
         this.line = new Line(200,400,550,50);
-        this.line.setId("line" + index);
+        this.line.setId("line" + curveIndex);
         setName("S");
         setType("Supply"); //never changes
         setCentreX(375);
@@ -26,9 +27,9 @@ public class Supply extends Curve {
         pane.getChildren().add(line);
     }
 
-    public Supply(Pane pane,int index, String name, int centreX, int elasticityGap, String colour, int thickness, boolean dotted) {
+    public Supply(Pane pane, int curveIndex, String name, int centreX, int elasticityGap, String colour, int thickness, boolean dotted) {
         this.line = new Line(centreX + elasticityGap,50,centreX - elasticityGap,400);
-        this.line.setId("line" + index);
+        this.line.setId("line" + curveIndex);
         setName(name);
         setType("Supply"); //never changes
         setCentreX(centreX);
