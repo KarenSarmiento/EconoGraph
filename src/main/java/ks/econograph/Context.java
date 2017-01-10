@@ -27,8 +27,8 @@ public class Context {
     private ToggleGroup toggleGroup = new ToggleGroup();
     WritableImage tempScreenShot;
 
-    private Pane staticGraphMakerWorkspaceP = new Pane();
-    private FlowPane staticGraphMakerRadioButtonsFP = new FlowPane();
+//    private Pane staticGraphMakerWorkspaceP = new Pane();
+//    private FlowPane staticGraphMakerRadioButtonsFP = new FlowPane();
 
     int demandCount = 0;
     int supplyCount = 0;
@@ -95,21 +95,21 @@ public class Context {
         this.tempScreenShot = tempScreenShot;
     }
 
-    public Pane getStaticGraphMakerWorkspaceP() {
-        return staticGraphMakerWorkspaceP;
-    }
-
-    public void setStaticGraphMakerWorkspaceP(Pane staticGraphMakerWorkspaceP) {
-        Context.getInstance().staticGraphMakerWorkspaceP = staticGraphMakerWorkspaceP;
-    }
-
-    public FlowPane getStaticGraphMakerRadioButtonsFP() {
-        return staticGraphMakerRadioButtonsFP;
-    }
-
-    public void setStaticGraphMakerRadioButtonsFP(FlowPane staticGraphMakerRadioButtonsFP) {
-        Context.getInstance().staticGraphMakerRadioButtonsFP = staticGraphMakerRadioButtonsFP;
-    }
+//    public Pane getStaticGraphMakerWorkspaceP() {
+//        return staticGraphMakerWorkspaceP;
+//    }
+//
+//    public void setStaticGraphMakerWorkspaceP(Pane staticGraphMakerWorkspaceP) {
+//        Context.getInstance().staticGraphMakerWorkspaceP = staticGraphMakerWorkspaceP;
+//    }
+//
+//    public FlowPane getStaticGraphMakerRadioButtonsFP() {
+//        return staticGraphMakerRadioButtonsFP;
+//    }
+//
+//    public void setStaticGraphMakerRadioButtonsFP(FlowPane staticGraphMakerRadioButtonsFP) {
+//        Context.getInstance().staticGraphMakerRadioButtonsFP = staticGraphMakerRadioButtonsFP;
+//    }
 
     public int getDemandCount() {
         return demandCount;

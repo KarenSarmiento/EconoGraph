@@ -159,7 +159,7 @@ public class GraphMakerController {
     public void insertDemand() {
         System.out.println("START DEMAND SIMPLE");
         setUpDemand();
-        Demand demand = new Demand(Context.getInstance().getStaticGraphMakerWorkspaceP(), Context.getInstance().getCurveCount()); //200,50,550,400
+        Demand demand = new Demand(graphMakerWorkspaceP, Context.getInstance().getCurveCount()); //200,50,550,400
         Context.getInstance().getCurvesLL().add(demand);
         System.out.println(Context.getInstance().getCurvesLL());
         System.out.println("Demand Count : " + Context.getInstance().getDemandCount());
@@ -170,7 +170,7 @@ public class GraphMakerController {
     public void insertDemand(String name, int centreX, int elasticityGap, String colour, int thickness, boolean dotted) {
         System.out.println("START DEMAND");
         setUpDemand();
-        Demand demand = new Demand(Context.getInstance().getStaticGraphMakerWorkspaceP(), Context.getInstance().getCurveCount(), name, centreX, elasticityGap, colour, thickness, dotted); //200,50,550,400
+        Demand demand = new Demand(graphMakerWorkspaceP, Context.getInstance().getCurveCount(), name, centreX, elasticityGap, colour, thickness, dotted); //200,50,550,400
         Context.getInstance().getCurvesLL().add(demand);
         System.out.println(Context.getInstance().getCurvesLL());
         System.out.println("Demand Count : " + Context.getInstance().getDemandCount());
@@ -179,7 +179,7 @@ public class GraphMakerController {
     }
 
     public void setUpDemand() {
-        Context.getInstance().setStaticGraphMakerWorkspaceP(graphMakerWorkspaceP);
+        //Context.getInstance().setStaticGraphMakerWorkspaceP(graphMakerWorkspaceP);
         Context.getInstance().setDemandCount(Context.getInstance().getDemandCount() + 1);
         Context.getInstance().setCurveCount(Context.getInstance().getCurveCount() + 1);
         createRadioButton("Demand " + Context.getInstance().getDemandCount(), Context.getInstance().getCurveCount(), 0);
@@ -188,7 +188,7 @@ public class GraphMakerController {
     public void insertSupply() {
         System.out.println("START SUPPLY SIMPLE");
         setUpSupply();
-        Supply supply = new Supply(Context.getInstance().getStaticGraphMakerWorkspaceP(), Context.getInstance().getCurveCount()); //200,50,550,400
+        Supply supply = new Supply(graphMakerWorkspaceP, Context.getInstance().getCurveCount()); //200,50,550,400
         Context.getInstance().getCurvesLL().add(supply);
         System.out.println(Context.getInstance().getCurvesLL());
         System.out.println("Supply Count : " + Context.getInstance().getSupplyCount());
@@ -199,7 +199,7 @@ public class GraphMakerController {
     public void insertSupply(String name, int centreX, int elasticityGap, String colour, int thickness, boolean dotted) {
         System.out.println("START SUPPLY");
         setUpSupply();
-        Supply supply = new Supply(Context.getInstance().getStaticGraphMakerWorkspaceP(), Context.getInstance().getCurveCount(), name, centreX, elasticityGap, colour, thickness, dotted); //200,50,550,400
+        Supply supply = new Supply(graphMakerWorkspaceP, Context.getInstance().getCurveCount(), name, centreX, elasticityGap, colour, thickness, dotted); //200,50,550,400
         Context.getInstance().getCurvesLL().add(supply);
         System.out.println(Context.getInstance().getCurvesLL());
         System.out.println("Supply Count : " + Context.getInstance().getSupplyCount());
@@ -208,14 +208,14 @@ public class GraphMakerController {
     }
 
     public void setUpSupply() {
-        Context.getInstance().setStaticGraphMakerWorkspaceP(graphMakerWorkspaceP);
+        //Context.getInstance().setStaticGraphMakerWorkspaceP(graphMakerWorkspaceP);
         Context.getInstance().setSupplyCount(Context.getInstance().getSupplyCount() + 1);
         Context.getInstance().setCurveCount(Context.getInstance().getCurveCount() + 1);
         createRadioButton("Supply " + Context.getInstance().getSupplyCount(), Context.getInstance().getCurveCount(), 1);
     }
 
     public void createRadioButton(String name, int index, int type) {
-        Context.getInstance().setStaticGraphMakerRadioButtonsFP(graphMakerRadioButtonsFP);
+        //Context.getInstance().setStaticGraphMakerRadioButtonsFP(graphMakerRadioButtonsFP);
         //TODO: Make createRadioButton() compatible with other curves!
         RadioButton radioButton = new RadioButton(name);
         switch (type) {
@@ -238,7 +238,8 @@ public class GraphMakerController {
         }
         radioButton.setToggleGroup(Context.getInstance().getToggleGroup());
         radioButton.setOnAction(e -> setAppropriateCurveSettings(index, type));
-        Context.getInstance().getStaticGraphMakerRadioButtonsFP().getChildren().add(radioButton);
+        graphMakerRadioButtonsFP.getChildren().add(radioButton);
+        //Context.getInstance().getStaticGraphMakerRadioButtonsFP().getChildren().add(radioButton);
 
         radioButton.setSelected(true);
         setAppropriateCurveSettings(index, type);
@@ -298,5 +299,13 @@ public class GraphMakerController {
 
     public void setGraphMakerWorkspaceP(Pane graphMakerWorkspaceP) {
         this.graphMakerWorkspaceP = graphMakerWorkspaceP;
+    }
+
+    public FlowPane getGraphMakerRadioButtonsFP() {
+        return graphMakerRadioButtonsFP;
+    }
+
+    public void setGraphMakerRadioButtonsFP(FlowPane graphMakerRadioButtonsFP) {
+        this.graphMakerRadioButtonsFP = graphMakerRadioButtonsFP;
     }
 }

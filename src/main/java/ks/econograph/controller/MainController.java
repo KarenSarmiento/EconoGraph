@@ -2,6 +2,8 @@ package ks.econograph.controller;
 
 import javafx.fxml.FXML;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.FlowPane;
+import javafx.scene.layout.Pane;
 import ks.econograph.Context;
 import ks.econograph.controller.screens.GraphMakerController;
 import ks.econograph.controller.screens.LibraryController;
@@ -83,14 +85,17 @@ public class MainController {
         Context.getInstance().setKeynesianCount(0);
         Context.getInstance().setCurveCount(0);
 
-        if (Context.getInstance().getStaticGraphMakerWorkspaceP() != null && Context.getInstance().getCurvesLL().size() > 0) {
-            Context.getInstance().getStaticGraphMakerWorkspaceP().getChildren().remove(1, Context.getInstance().getStaticGraphMakerWorkspaceP().getChildren().size());
+        if (graphMakerController.getGraphMakerWorkspaceP() != null && Context.getInstance().getCurvesLL().size() > 0) {
+            graphMakerController.getGraphMakerWorkspaceP().getChildren().remove(1, graphMakerController.getGraphMakerWorkspaceP().getChildren().size());
             Context.getInstance().setCurvesLL(new LinkedList<>());
         }
 
-        if (Context.getInstance().getStaticGraphMakerRadioButtonsFP() != null && Context.getInstance().getStaticGraphMakerRadioButtonsFP().getChildren().size() > 0) {
-            Context.getInstance().getStaticGraphMakerRadioButtonsFP().getChildren().remove(1, Context.getInstance().getStaticGraphMakerRadioButtonsFP().getChildren().size());
+        if (graphMakerController.getGraphMakerRadioButtonsFP() != null && graphMakerController.getGraphMakerRadioButtonsFP().getChildren().size() > 0) {
+            graphMakerController.getGraphMakerRadioButtonsFP().getChildren().remove(1, graphMakerController.getGraphMakerRadioButtonsFP().getChildren().size());
         }
+
+        /*graphMakerController.setGraphMakerWorkspaceP(new Pane());
+        graphMakerController.setGraphMakerRadioButtonsFP(new FlowPane()); -> including this prevents edit from working*/
     }
 
     public LibraryController getLibraryController() {

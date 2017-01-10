@@ -40,7 +40,7 @@ public class ControllerITest extends ApplicationTest {
         System.out.println(Context.getInstance().getCurvesLL());
         System.out.println("demand count : " + Context.getInstance().getDemandCount());
         System.out.println("curve count : " + Context.getInstance().getCurveCount());
-        System.out.println(Context.getInstance().getStaticGraphMakerRadioButtonsFP());
+        //System.out.println(Context.getInstance().getStaticGraphMakerRadioButtonsFP());
 
         verifyThat("#demandRadio1", isNotNull());
         verifyThat("#demandRadio1", isVisible());
