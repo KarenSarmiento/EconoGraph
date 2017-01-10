@@ -40,10 +40,18 @@ public class GraphMakerController {
     @FXML
     Slider graphMakerThicknessSlider = new Slider();
 
+
+    public void captureAndSetToSave() {
+        captureShotWorkspace();
+        main.getSaveMenuController().setImageAsCurrentEditingGraphIamge();
+        setScreenToSaveMenu();
+    }
+
     public void captureShotWorkspace() {
-        //TODO: Fix writable image
+        System.out.println("Capturing workspace");
         Context.getInstance().setTempScreenShot(graphMakerWorkspaceP.snapshot(new SnapshotParameters(), null));
-        File imageFile = new File("C:\\Users\\KSarm\\OneDrive\\IB\\Computer Science\\IA\\FileWriting\\tempWorkspace.png");
+        System.out.println(Context.getInstance().getCurrentEditingGraph().toString());
+        File imageFile = new File(Context.getInstance().getFileLocationForSavedImages() + Context.getInstance().getCurrentEditingGraph().getFileName());
         try {
             ImageIO.write(SwingFXUtils.fromFXImage(Context.getInstance().getTempScreenShot(), null), "png", imageFile);
         } catch (IOException e) {
@@ -51,15 +59,7 @@ public class GraphMakerController {
         }
     }
 
-    public void captureAndSetToSave() {
-        captureShotWorkspace(); //sets tempScreenShot
-        setScreenToSaveMenu();
-        //TODO: on click of done set save of file loca
-    }
-
     public void shiftSelectedCurve() {
-        System.out.println(Context.getInstance().getCurvesLL());
-        System.out.println(Context.getInstance().getSelectedCurveIndex());
         switch (Context.getInstance().getSelectedCurveType()) {
             case 0: {
                 Demand demand = (Demand) Context.getInstance().getCurvesLL().get(Context.getInstance().getSelectedCurveIndex() -1);
@@ -79,7 +79,6 @@ public class GraphMakerController {
     }
 
     public void updateElasticityForCurrentCurve() {
-        System.out.println(Context.getInstance().getSelectedCurveType() + " " + Context.getInstance().getSelectedCurveIndex());
         switch (Context.getInstance().getSelectedCurveType()) {
             case 0: {
                 Demand demand = (Demand) Context.getInstance().getCurvesLL().get(Context.getInstance().getSelectedCurveIndex() -1);
@@ -115,8 +114,6 @@ public class GraphMakerController {
                 break;
             }
             case 1: {
-                System.out.println("supply detected");
-                //TODO: supply curve colour not working
                 Supply supply = (Supply) Context.getInstance().getCurvesLL().get(Context.getInstance().getSelectedCurveIndex() -1);
                 supply.getLine().setStroke(graphMakerColourPicker.getValue());
                 supply.setColour(graphMakerColourPicker.getValue().toString());
@@ -216,7 +213,6 @@ public class GraphMakerController {
 
     public void createRadioButton(String name, int index, int type) {
         //Context.getInstance().setStaticGraphMakerRadioButtonsFP(graphMakerRadioButtonsFP);
-        //TODO: Make createRadioButton() compatible with other curves!
         RadioButton radioButton = new RadioButton(name);
         switch (type) {
             case 0: {
@@ -239,8 +235,6 @@ public class GraphMakerController {
         radioButton.setToggleGroup(Context.getInstance().getToggleGroup());
         radioButton.setOnAction(e -> setAppropriateCurveSettings(index, type));
         graphMakerRadioButtonsFP.getChildren().add(radioButton);
-        //Context.getInstance().getStaticGraphMakerRadioButtonsFP().getChildren().add(radioButton);
-
         radioButton.setSelected(true);
         setAppropriateCurveSettings(index, type);
 
@@ -250,7 +244,6 @@ public class GraphMakerController {
     public void setAppropriateCurveSettings(int index, int type) {
         Context.getInstance().setSelectedCurveIndex(index);
         Context.getInstance().setSelectedCurveType(type);
-        //need to set to previously set elasticity or shift
         if (Context.getInstance().getSelectedCurveIndex() - 1 == 0) {
             graphMakerElasticitySlider.setValue(175);
         } else {

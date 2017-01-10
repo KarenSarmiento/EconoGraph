@@ -24,8 +24,8 @@ public class ControllerITest extends ApplicationTest {
             fail("should not have thrown any exceptions");
         }
     }
-    //TODO: requires controller to be split for each screen to fix this
-//    @Ignore
+    //TODO: Create tests for supply and saving properties e.g. shifting/elasticity/colour
+
     @Test
     public void shouldCreateAndDisplayDemandLineWhenDemandButtonIsClicked() {
         //when

@@ -7,6 +7,8 @@ import ks.econograph.Context;
 import ks.econograph.controller.MainController;
 import ks.econograph.graph.components.Graph;
 
+import javax.swing.text.html.ImageView;
+
 /**
  * Created by KSarm on 07/01/2017.
  */
@@ -19,14 +21,19 @@ public class OptionsController {
     @FXML
     TextField optionsTitleTF = new TextField();
 
-    public void setScreenToLibrary() {
-        main.setScreenToLibrary();
+    public void newGraphToGraphMaker() {
+        if (optionsTitleTF.getText() == null) {
+            System.out.println("Please enter a title.");
+        }
+        else {
+            Context.getInstance().setCurrentEditingGraph(new Graph(optionsTitleTF.getText()));
+            System.out.println();
+            setScreenToGraphMaker();
+        }
     }
 
-    public void newGraphToGraphMaker() {
-        setScreenToGraphMaker();
-        Graph actual = new Graph();
-        Context.getInstance().setCurrentEditingGraph(actual);
+    public void setScreenToLibrary() {
+        main.setScreenToLibrary();
     }
 
     public void setScreenToGraphMaker() {

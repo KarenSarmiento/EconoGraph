@@ -5,24 +5,42 @@ package ks.econograph.graph.components;
  */
 public class Graph {
     private String title;
-    private long date; //yyyyMMddhhmm -> greater values of date mean later in timeline
     private String topic;
+    private long time;
     private boolean favourite;
-    private String imageLocation; //this will all be in the same location with name same as title.
+    private String fileName;
 
     public Graph() {
         this.title = "Title";
-        this.topic = "Topic";
+        this.topic = "";
         this.favourite = false;
-        this.imageLocation = "C:\\Users\\KSarm\\OneDrive\\IB\\Computer Science\\IA\\FileWriting\\image.png";
+        this.fileName = generateFileName();
     }
 
-    public Graph(String title, int date, String topic, boolean favourite, String imageLocation) {
+    public Graph(String title) {
         this.title = title;
-        this.date = date;
+        this.topic = "";
+        this.favourite = false;
+        this.fileName = generateFileName();
+    }
+
+    public Graph(String title, String topic, long time, boolean favourite) {
+        this.title = title;
+        this.time = time;
         this.topic = topic;
         this.favourite = favourite;
-        this.imageLocation = imageLocation;
+        this.fileName = generateFileName();
+
+    }
+
+    private String generateFileName() {
+        String fileName = "";
+        for (int i = 0; i < 35; i++) {
+            char letter = (char) (97+(int)(Math.random()*(26)));
+            fileName += letter;
+        }
+        fileName += ".png";
+        return fileName;
     }
 
     public String getTitle() {
@@ -33,12 +51,12 @@ public class Graph {
         this.title = title;
     }
 
-    public long getDate() {
-        return date;
+    public long getTime() {
+        return time;
     }
 
-    public void setDate(long date) {
-        this.date = date;
+    public void setTime(long time) {
+        this.time = time;
     }
 
     public String getTopic() {
@@ -57,11 +75,22 @@ public class Graph {
         this.favourite = favourite;
     }
 
-    public String getImageLocation() {
-        return imageLocation;
+    public String getFileName() {
+        return fileName;
     }
 
-    public void setImageLocation(String imageLocation) {
-        this.imageLocation = imageLocation;
+    public void setFileName(String fileName) {
+        this.fileName = fileName;
+    }
+
+    @Override
+    public String toString() {
+        return "Graph{" +
+                "title='" + title + '\'' +
+                ", topic='" + topic + '\'' +
+                ", time=" + time +
+                ", favourite=" + favourite +
+                ", fileName='" + fileName + '\'' +
+                '}';
     }
 }

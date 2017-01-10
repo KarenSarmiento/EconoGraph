@@ -10,8 +10,12 @@ import ks.econograph.controller.screens.LibraryController;
 import ks.econograph.controller.screens.OptionsController;
 import ks.econograph.controller.screens.SaveMenuController;
 import ks.econograph.graph.components.Demand;
+import ks.econograph.graph.components.Graph;
 import ks.econograph.graph.components.Supply;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.LinkedList;
 
 /**
@@ -45,6 +49,8 @@ public class MainController {
         optionsController.init(this);
         saveMenuController.init(this);
 
+        readInGraphsToGraphsLL();
+        System.out.println(Context.getInstance().getGraphsLL());
         setScreenToLibrary();
     }
 
@@ -64,7 +70,6 @@ public class MainController {
     }
 
     public void setScreenToOptions() {
-        System.out.println("setting visibilities");
         libraryAP.setVisible(false);
         graphMakerAP.setVisible(false);
         optionsAP.setVisible(true);
@@ -76,6 +81,30 @@ public class MainController {
         graphMakerAP.setVisible(false);
         optionsAP.setVisible(false);
         saveMenuAP.setVisible(true);
+    }
+
+    public void readInGraphsToGraphsLL() {
+        try {
+            BufferedReader br = new BufferedReader(new FileReader(Context.getInstance().getFilePathForSavedGraphs()));
+            String readLine;
+            String[] splitLine;
+            while ((readLine = br.readLine()) != null) {
+                splitLine = readLine.split(",");
+                if (!splitLine[0].equals("newComp")) {
+                    Graph graph;
+                    if (splitLine[3].equals("true")) {
+                        graph = new Graph(splitLine[0], splitLine[1], Long.parseLong(splitLine[2]), true);
+                    }
+                    else {
+                        graph = new Graph(splitLine[0], splitLine[1], Long.parseLong(splitLine[2]), false);
+                    }
+                    Context.getInstance().getGraphsLL().add(graph);
+                }
+            }
+        }
+        catch (IOException ioe) {
+            System.out.println("Error loading graphs");
+        }
     }
 
     public void resetGraphMaker() {
@@ -93,9 +122,6 @@ public class MainController {
         if (graphMakerController.getGraphMakerRadioButtonsFP() != null && graphMakerController.getGraphMakerRadioButtonsFP().getChildren().size() > 0) {
             graphMakerController.getGraphMakerRadioButtonsFP().getChildren().remove(1, graphMakerController.getGraphMakerRadioButtonsFP().getChildren().size());
         }
-
-        /*graphMakerController.setGraphMakerWorkspaceP(new Pane());
-        graphMakerController.setGraphMakerRadioButtonsFP(new FlowPane()); -> including this prevents edit from working*/
     }
 
     public LibraryController getLibraryController() {

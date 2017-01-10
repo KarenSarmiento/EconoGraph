@@ -1,8 +1,9 @@
 package ks.econograph.controller.screens;
 
-import com.sun.imageio.plugins.gif.GIFImageReader;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import ks.econograph.Context;
 import ks.econograph.controller.MainController;
@@ -26,6 +27,13 @@ public class SaveMenuController {
     CheckBox saveMenuFavouriteCB = new CheckBox();
     @FXML
     TextField saveMenuTitleTF = new TextField();
+    @FXML
+    ImageView saveMenuImageIV = new ImageView();
+
+    public void setImageAsCurrentEditingGraphIamge() {
+        Image image = new Image("file:" + Context.getInstance().getFileLocationForSavedImages() + Context.getInstance().getCurrentEditingGraph().getFileName());
+        saveMenuImageIV.setImage(image);
+    }
 
     public void saveGraph() {
         try {
@@ -35,11 +43,12 @@ public class SaveMenuController {
                 if (saveMenuTitleTF.getText().equals(Context.getInstance().getGraphsLL().get(i).getTitle())) {
                     System.out.println("title already exists");
                     uniqueTitle = false;
+                    System.out.println(Context.getInstance().getGraphsLL().get(i).getTitle());
                     break;
                 }
             }
-
             //TODO: edit these console warnings to GUI
+            //TODO: Make this work with new file naming system.
             if (uniqueTitle == false) {
                 System.out.println("Title already exists");
             }
@@ -50,23 +59,25 @@ public class SaveMenuController {
                 Context.getInstance().getCurrentEditingGraph().setTitle(saveMenuTitleTF.getText());
                 Date date = new Date();
                 long dateOfCreation = date.getTime();
-                Context.getInstance().getCurrentEditingGraph().setDate(dateOfCreation);
-                //TODO: set type
+                Context.getInstance().getCurrentEditingGraph().setTime(dateOfCreation);
+                Context.getInstance().getCurrentEditingGraph().setTopic(saveMenuTopicCB.getValue().toString());
                 Context.getInstance().getCurrentEditingGraph().setFavourite(saveMenuFavouriteCB.isSelected());
 
-                BufferedReader br = new BufferedReader(new FileReader("C:\\Users\\KSarm\\OneDrive\\IB\\Computer Science\\IA\\FileWriting\\test.txt"));
-                //prevents losing all data since printwriter overwrites file
+                BufferedReader br = new BufferedReader(new FileReader(Context.getInstance().getFilePathForSavedGraphs()));
                 LinkedList<String> fileLines = new LinkedList<String>();
                 String line;
                 while ((line = br.readLine()) != null) {
                     fileLines.add(line);
                 }
 
-                PrintWriter pw = new PrintWriter(new FileWriter("C:\\Users\\KSarm\\OneDrive\\IB\\Computer Science\\IA\\FileWriting\\test.txt"));
+                PrintWriter pw = new PrintWriter(new FileWriter(Context.getInstance().getFilePathForSavedGraphs()));
                 for (int i = 0; i < fileLines.size(); i++) {
                     pw.println(fileLines.get(i));
                 }
-                String newGraphDetail = Context.getInstance().getCurrentEditingGraph().getTitle() + "," + Context.getInstance().getCurrentEditingGraph().getTopic() + "," + Context.getInstance().getCurrentEditingGraph().getDate() + "," + Context.getInstance().getCurrentEditingGraph().isFavourite();
+                String newGraphDetail = Context.getInstance().getCurrentEditingGraph().getTitle() + "," + Context.getInstance().getCurrentEditingGraph().getTopic() + "," +
+                        Context.getInstance().getCurrentEditingGraph().getTime() + "," + Context.getInstance().getCurrentEditingGraph().isFavourite() + "," +
+                        Context.getInstance().getCurrentEditingGraph().getFileName();
+
                 pw.println(newGraphDetail);
                 String newCurveLine = "";
                 for (int i = 0; i < Context.getInstance().getCurvesLL().size(); i++) {
