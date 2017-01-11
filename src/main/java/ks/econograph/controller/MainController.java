@@ -1,17 +1,17 @@
 package ks.econograph.controller;
 
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.FlowPane;
-import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import ks.econograph.Context;
 import ks.econograph.controller.screens.GraphMakerController;
 import ks.econograph.controller.screens.LibraryController;
 import ks.econograph.controller.screens.OptionsController;
 import ks.econograph.controller.screens.SaveMenuController;
-import ks.econograph.graph.components.Demand;
 import ks.econograph.graph.components.Graph;
-import ks.econograph.graph.components.Supply;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -50,6 +50,7 @@ public class MainController {
         saveMenuController.init(this);
 
         readInGraphsToGraphsLL();
+        resetAndDisplayGraphsFromGraphsLLToLibrary();
         System.out.println(Context.getInstance().getGraphsLL());
         setScreenToLibrary();
     }
@@ -92,11 +93,11 @@ public class MainController {
                 splitLine = readLine.split(",");
                 if (!splitLine[0].equals("newComp")) {
                     Graph graph;
-                    if (splitLine[3].equals("true")) {
-                        graph = new Graph(splitLine[0], splitLine[1], Long.parseLong(splitLine[2]), true);
+                    if (splitLine[4].equals("true")) {
+                        graph = new Graph(splitLine[0], splitLine[1], Long.parseLong(splitLine[2]), splitLine[3], true, splitLine[5]);
                     }
                     else {
-                        graph = new Graph(splitLine[0], splitLine[1], Long.parseLong(splitLine[2]), false);
+                        graph = new Graph(splitLine[0], splitLine[1], Long.parseLong(splitLine[2]), splitLine[3], false, splitLine[5]);
                     }
                     Context.getInstance().getGraphsLL().add(graph);
                 }
@@ -104,6 +105,34 @@ public class MainController {
         }
         catch (IOException ioe) {
             System.out.println("Error loading graphs");
+        }
+    }
+
+    public void resetAndDisplayGraphsFromGraphsLLToLibrary() {
+        libraryController.libraryGraphGP.getChildren().remove(5,libraryController.libraryGraphGP.getChildren().size());
+        libraryController.libraryGraphGP.setGridLinesVisible(true);
+        for (int i = 0; i < Context.getInstance().getGraphsLL().size(); i++) {
+            Label title = new Label(Context.getInstance().getGraphsLL().get(i).getTitle());
+            libraryController.libraryGraphGP.setConstraints(title, 0, i+1);
+            ImageView graphImage = new ImageView(new Image("file:" + Context.getInstance().getFileLocationForSavedImages() +
+                    Context.getInstance().getGraphsLL().get(i).getFileName()));
+            System.out.println(Context.getInstance().getFileLocationForSavedImages() +
+                    Context.getInstance().getGraphsLL().get(i).getFileName());
+            graphImage.setFitWidth(250);
+            graphImage.setFitHeight(152);
+            VBox graphColumnContents = new VBox(3);
+            graphColumnContents.getChildren().addAll(title, graphImage);
+            libraryController.libraryGraphGP.setConstraints(graphColumnContents, 0, i+1);
+            Label description = new Label(Context.getInstance().getGraphsLL().get(i).getDescription());
+            libraryController.libraryGraphGP.setConstraints(description, 1, i+1);
+            if (Context.getInstance().getGraphsLL().get(i).isFavourite()) {
+                ImageView favouriteStar = new ImageView(new Image("file:C:\\Users\\KSarm\\Documents\\Intellij Projects\\EconoGraph2\\src\\main\\resources\\FavouritesStar.png"));
+                favouriteStar.setFitHeight(50);
+                favouriteStar.setFitWidth(50);
+                libraryController.libraryGraphGP.setConstraints(favouriteStar, 2, i+1);
+                libraryController.libraryGraphGP.getChildren().add(favouriteStar);
+            }
+            libraryController.libraryGraphGP.getChildren().addAll(graphColumnContents, description);
         }
     }
 

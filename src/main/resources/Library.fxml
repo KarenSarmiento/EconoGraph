@@ -27,7 +27,7 @@
             <Button fx:id="libraryMakeAGraphB" mnemonicParsing="false" onAction="#setScreenToOptions" text="Make a Graph" />
             <Button fx:id="librarySaveB" mnemonicParsing="false" prefHeight="31.0" prefWidth="113.0" text="Save" />
             <Button fx:id="libraryDeleteB" mnemonicParsing="false" prefWidth="113.0" text="Delete" />
-            <Button fx:id="tempTestB" mnemonicParsing="false" onAction="#updateLibrary" text="Temp Test" />
+            <Button fx:id="editGraph" mnemonicParsing="false" onAction="#oldGraphToGraphMaker" prefHeight="31.0" prefWidth="129.0" text="Edit" />
          </children>
       </VBox>
       <ComboBox fx:id="librarySortCB" prefWidth="150.0" promptText="Sort by.." GridPane.columnIndex="0" GridPane.rowIndex="1">
@@ -38,9 +38,6 @@
             <String fx:value="Type" />
          </FXCollections>
       </items>
-      <!--<value>
-         <String fx:value="NVT" />
-      </value>-->
       </ComboBox>
       <ComboBox fx:id="libraryFilterCB" prefWidth="150.0" promptText="Filter by.." GridPane.columnIndex="1" GridPane.rowIndex="1">
       <items>
@@ -57,23 +54,21 @@
       <TextField fx:id="librarySearchTF" text="Search" GridPane.columnIndex="3" GridPane.rowIndex="1" />
       <ScrollPane fx:id="libraryGraphsSP" prefHeight="507.0" prefWidth="764.0" GridPane.columnSpan="4" GridPane.rowIndex="2">
          <content>
-            <GridPane fx:id="libraryGraphGP" gridLinesVisible="true" prefHeight="38.0" prefWidth="922.0">
+            <GridPane fx:id="libraryGraphGP" gridLinesVisible="true" prefHeight="40.0" prefWidth="961.0">
                <columnConstraints>
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="350.0" minWidth="10.0" prefWidth="349.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="480.0" minWidth="10.0" prefWidth="316.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="235.0" minWidth="0.0" prefWidth="123.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="176.0" minWidth="10.0" prefWidth="165.0" />
                </columnConstraints>
                <rowConstraints>
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                </rowConstraints>
                <children>
-                  <Label fx:id="libraryGraphL" prefHeight="21.0" prefWidth="179.0" style="-fx-alignment: center; -fx-font-size: 20px; -fx-font-family: &quot;Lucida Sans&quot;;" styleClass="label-heading" stylesheets="@sample.css" text="Graph" />
+                  <Label fx:id="libraryGraphL" prefHeight="23.0" prefWidth="346.0" style="-fx-alignment: center; -fx-font-size: 20px; -fx-font-family: &quot;Lucida Sans&quot;;" styleClass="label-heading" stylesheets="@sample.css" text="Graph" />
                   <Label fx:id="libraryDescriptionL" text="Description" GridPane.columnIndex="1" />
-                  <Label fx:id="libraryOptionsL" text="Options" GridPane.columnIndex="2" />
-                  <Label fx:id="libraryFavouritesL" text="Favourites" GridPane.columnIndex="3" />
-                  <Button fx:id="editGraph" mnemonicParsing="false" onAction="#oldGraphToGraphMaker" prefHeight="31.0" prefWidth="129.0" text="Edit" GridPane.columnIndex="4" />
+                  <Label fx:id="libraryFavouritesL" text="Favourite" GridPane.columnIndex="2" />
+                  <Label fx:id="libraryOptionsL" text="Options" GridPane.columnIndex="3" />
                </children>
             </GridPane>
          </content>

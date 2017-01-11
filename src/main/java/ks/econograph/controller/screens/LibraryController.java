@@ -29,7 +29,8 @@ public class LibraryController {
 
     public void displayGraphs() {
         for (int i = 0; i < Context.getInstance().getGraphsLL().size(); i++) {
-
+            Label label = new Label(Context.getInstance().getGraphsLL().get(i).getTitle());
+            Context.getInstance().getGraphsLL().get(i).getFileName();
         }
     }
 
@@ -57,7 +58,8 @@ public class LibraryController {
             System.out.println(loadOldGraph.getTitle());
             loadOldGraph.setTopic(splittedLine[1]);
             loadOldGraph.setTime(Long.parseLong(splittedLine[2]));
-            if (splittedLine[3].equals("true"))
+            loadOldGraph.setDescription(splittedLine[3]);
+            if (splittedLine[4].equals("true"))
                 loadOldGraph.setFavourite(true);
             else
                 loadOldGraph.setFavourite(false);
@@ -104,26 +106,6 @@ public class LibraryController {
         }
     }
 
-    public void updateLibrary() {
-        tempAddGraphsToLL();
-        System.out.println(Context.getInstance().getGraphsLL());
-        //GridPane.setConstraints(label, 3, 1); // column=3 row=1
-
-        for (int i = 0; i < Context.getInstance().getGraphsLL().size(); i++) {
-            Label title = new Label(Context.getInstance().getGraphsLL().get(i).getTitle());
-            libraryGraphGP.setConstraints(title, 0, i+1);
-            libraryGraphGP.getChildren().add(title);
-        }
-    }
-
-    public void tempAddGraphsToLL() {
-        for(int i = 0; i < 10; i++) {
-            Graph graph = new Graph();
-            graph.setTitle(Character.toString((char)(i+65)));
-            System.out.println(graph.getTitle());
-            Context.getInstance().getGraphsLL().add(graph);
-        }
-    }
     public void setScreenToOptions() {
         main.setScreenToOptions();
     }

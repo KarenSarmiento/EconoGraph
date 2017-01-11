@@ -18,7 +18,7 @@ public class Context {
     private final static Context context = new Context(); //singleton - only 1 context is ever created
 
     private String fileLocationForSavedImages = "C:\\Users\\KSarm\\OneDrive\\IB\\Computer Science\\IA\\FileWriting\\";
-    private String filePathForSavedGraphs = "C:\\Users\\KSarm\\OneDrive\\IB\\Computer Science\\IA\\FileWriting\\test.txt";
+    private String filePathForSaveTextFile = "C:\\Users\\KSarm\\OneDrive\\IB\\Computer Science\\IA\\FileWriting\\test.txt";
     private Parent mainRoot;
 
     private List<Graph> graphsLL = new LinkedList<>();
@@ -49,11 +49,11 @@ public class Context {
     }
 
     public String getFilePathForSavedGraphs() {
-        return filePathForSavedGraphs;
+        return filePathForSaveTextFile;
     }
 
     public void setFilePathForSavedGraphs(String filePathForSavedGraphs) {
-        this.filePathForSavedGraphs = filePathForSavedGraphs;
+        this.filePathForSaveTextFile = filePathForSavedGraphs;
     }
 
     public Parent getMainRoot() {

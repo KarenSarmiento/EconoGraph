@@ -8,6 +8,7 @@ public class Graph {
     private String topic;
     private long time;
     private boolean favourite;
+    private String description;
     private String fileName;
 
     public Graph() {
@@ -24,12 +25,13 @@ public class Graph {
         this.fileName = generateFileName();
     }
 
-    public Graph(String title, String topic, long time, boolean favourite) {
+    public Graph(String title, String topic, long time, String description, boolean favourite, String fileName) {
         this.title = title;
         this.time = time;
         this.topic = topic;
         this.favourite = favourite;
-        this.fileName = generateFileName();
+        this.description = description;
+        this.fileName = fileName;
 
     }
 
@@ -75,6 +77,14 @@ public class Graph {
         this.favourite = favourite;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
     public String getFileName() {
         return fileName;
     }
@@ -90,6 +100,7 @@ public class Graph {
                 ", topic='" + topic + '\'' +
                 ", time=" + time +
                 ", favourite=" + favourite +
+                ", description='" + description + '\'' +
                 ", fileName='" + fileName + '\'' +
                 '}';
     }
