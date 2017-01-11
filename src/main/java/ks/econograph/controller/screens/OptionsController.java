@@ -27,6 +27,7 @@ public class OptionsController {
         }
         else {
             Context.getInstance().setCurrentEditingGraph(new Graph(optionsTitleTF.getText()));
+            main.getSaveMenuController().getSaveMenuTitleTF().setText(optionsTitleTF.getText());
             System.out.println();
             setScreenToGraphMaker();
         }

@@ -6,6 +6,7 @@
 <?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -37,24 +38,28 @@
             </items>
         </ComboBox>
 
-        <CheckBox fx:id="saveMenuFavouriteCB" mnemonicParsing="false" text="Favourite" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+        <CheckBox fx:id="saveMenuFavouriteCB" mnemonicParsing="false" text="Favourite" GridPane.columnIndex="1" GridPane.rowIndex="4" />
 
-        <Button fx:id="saveMenuDoneB" layoutX="671.0" layoutY="14.0" mnemonicParsing="false" onAction="#saveGraph" text="Done" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-        <Button fx:id="saveMenuBackB" layoutX="671.0" layoutY="14.0" mnemonicParsing="false" onAction="#setScreenToGraphMaker" text="Back" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+        <Button fx:id="saveMenuDoneB" layoutX="671.0" layoutY="14.0" mnemonicParsing="false" onAction="#saveGraph" text="Done" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+        <Button fx:id="saveMenuBackB" layoutX="671.0" layoutY="14.0" mnemonicParsing="false" onAction="#setScreenToGraphMaker" text="Back" GridPane.columnIndex="2" GridPane.rowIndex="5" />
+      <Label fx:id="saveMenuDescriptionL" alignment="TOP_CENTER" prefHeight="84.0" prefWidth="265.0" text="Description" GridPane.rowIndex="3" />
+      <TextArea fx:id="saveMenuDescriptionTA" prefHeight="92.0" prefWidth="336.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
 
 
 
     </children>
    <columnConstraints>
-      <ColumnConstraints />
-      <ColumnConstraints />
+      <ColumnConstraints maxWidth="393.0" minWidth="196.0" prefWidth="264.0" />
+      <ColumnConstraints maxWidth="404.0" minWidth="207.0" prefWidth="336.0" />
       <ColumnConstraints />
       <ColumnConstraints />
    </columnConstraints>
    <rowConstraints>
       <RowConstraints />
       <RowConstraints maxHeight="31.0" minHeight="31.0" prefHeight="31.0" />
-      <RowConstraints maxHeight="45.0" minHeight="0.0" prefHeight="31.0" />
-      <RowConstraints maxHeight="55.0" minHeight="0.0" prefHeight="40.0" />
+      <RowConstraints maxHeight="31.0" minHeight="31.0" prefHeight="31.0" />
+      <RowConstraints maxHeight="90.0" minHeight="0.0" prefHeight="90.0" />
+      <RowConstraints maxHeight="45.0" minHeight="0.0" prefHeight="18.0" />
+      <RowConstraints maxHeight="55.0" minHeight="0.0" prefHeight="31.0" />
    </rowConstraints>
 </GridPane>

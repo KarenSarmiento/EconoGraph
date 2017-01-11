@@ -29,6 +29,8 @@ public class SaveMenuController {
     TextField saveMenuTitleTF = new TextField();
     @FXML
     ImageView saveMenuImageIV = new ImageView();
+    @FXML
+    TextArea saveMenuDescriptionTA = new TextArea();
 
     public void setImageAsCurrentEditingGraphIamge() {
         Image image = new Image("file:" + Context.getInstance().getFileLocationForSavedImages() + Context.getInstance().getCurrentEditingGraph().getFileName());
@@ -55,7 +57,14 @@ public class SaveMenuController {
             System.out.println("Topic not selected");
         }
         else {
-            //String title, String topic, long time, String description, boolean favourite, String fileName
+            Context.getInstance().getCurrentEditingGraph().setTitle(saveMenuTitleTF.getText());
+            Date date = new Date();
+            long dateOfCreation = date.getTime();
+            Context.getInstance().getCurrentEditingGraph().setTime(dateOfCreation);
+            Context.getInstance().getCurrentEditingGraph().setTopic(saveMenuTopicCB.getValue().toString());
+            Context.getInstance().getCurrentEditingGraph().setDescription(saveMenuDescriptionTA.getText());
+            Context.getInstance().getCurrentEditingGraph().setFavourite(saveMenuFavouriteCB.isSelected());
+
             Context.getInstance().getGraphsLL().add(Context.getInstance().getCurrentEditingGraph());
             saveGraphToTextFile();
             setScreenToLibrary();
@@ -66,13 +75,6 @@ public class SaveMenuController {
 
     public void saveGraphToTextFile() {
         try {
-            Context.getInstance().getCurrentEditingGraph().setTitle(saveMenuTitleTF.getText());
-            Date date = new Date();
-            long dateOfCreation = date.getTime();
-            Context.getInstance().getCurrentEditingGraph().setTime(dateOfCreation);
-            Context.getInstance().getCurrentEditingGraph().setTopic(saveMenuTopicCB.getValue().toString());
-            Context.getInstance().getCurrentEditingGraph().setFavourite(saveMenuFavouriteCB.isSelected());
-
             BufferedReader br = new BufferedReader(new FileReader(Context.getInstance().getFilePathForSavedGraphs()));
             LinkedList<String> fileLines = new LinkedList<String>();
             String line;
@@ -117,5 +119,13 @@ public class SaveMenuController {
 
     public void init(MainController mainController) {
         main = mainController;
+    }
+
+    public TextField getSaveMenuTitleTF() {
+        return saveMenuTitleTF;
+    }
+
+    public void setSaveMenuTitleTF(TextField saveMenuTitleTF) {
+        this.saveMenuTitleTF = saveMenuTitleTF;
     }
 }

@@ -67,7 +67,7 @@ public class ControllerITest extends ApplicationTest {
         clickOn("Done");
 
         //when
-        clickOn("#editGraph");
+        clickOn("Edit");
 
         //then
         verifyThat("#demandRadio1", isNotNull());
