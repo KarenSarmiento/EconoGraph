@@ -36,6 +36,10 @@ public class Context {
     private int selectedCurveIndex = -1;
     private int selectedCurveType = -1; // 0 = demand, 1 = supply, 2 = newClassical, 3 = keynesian
 
+    private String filterSearch = null;
+    private boolean filterFavourite = false;
+    private String filterTopic = null;
+
     public void initializeMainRoot() throws Exception {
         mainRoot = FXMLLoader.load(getClass().getClassLoader().getResource("Main.fxml"));
     }
@@ -162,5 +166,37 @@ public class Context {
 
     public void setSelectedCurveType(int selectedCurveType) {
         this.selectedCurveType = selectedCurveType;
+    }
+
+    public String getFilePathForSaveTextFile() {
+        return filePathForSaveTextFile;
+    }
+
+    public void setFilePathForSaveTextFile(String filePathForSaveTextFile) {
+        this.filePathForSaveTextFile = filePathForSaveTextFile;
+    }
+
+    public String getFilterSearch() {
+        return filterSearch;
+    }
+
+    public void setFilterSearch(String filterSearch) {
+        this.filterSearch = filterSearch;
+    }
+
+    public boolean isFilterFavourite() {
+        return filterFavourite;
+    }
+
+    public void setFilterFavourite(boolean filterFavourite) {
+        this.filterFavourite = filterFavourite;
+    }
+
+    public String getFilterTopic() {
+        return filterTopic;
+    }
+
+    public void setFilterTopic(String filterTopic) {
+        this.filterTopic = filterTopic;
     }
 }

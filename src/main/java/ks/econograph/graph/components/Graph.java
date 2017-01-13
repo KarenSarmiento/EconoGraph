@@ -10,12 +10,14 @@ public class Graph {
     private boolean favourite;
     private String description;
     private String fileName;
+    private boolean visible;
 
     public Graph() {
         this.title = "Title";
         this.topic = "";
         this.favourite = false;
         this.fileName = generateFileName();
+        this.visible = true;
     }
 
     public Graph(String title) {
@@ -23,6 +25,7 @@ public class Graph {
         this.topic = "";
         this.favourite = false;
         this.fileName = generateFileName();
+        this.visible = true;
     }
 
     public Graph(String title, String topic, long time, String description, boolean favourite, String fileName) {
@@ -32,7 +35,7 @@ public class Graph {
         this.favourite = favourite;
         this.description = description;
         this.fileName = fileName;
-
+        this.visible = true;
     }
 
     private String generateFileName() {
@@ -93,6 +96,14 @@ public class Graph {
         this.fileName = fileName;
     }
 
+    public boolean isVisible() {
+        return visible;
+    }
+
+    public void setVisible(boolean visible) {
+        this.visible = visible;
+    }
+
     @Override
     public String toString() {
         return "Graph{" +
@@ -102,6 +113,7 @@ public class Graph {
                 ", favourite=" + favourite +
                 ", description='" + description + '\'' +
                 ", fileName='" + fileName + '\'' +
+                ", visible=" + visible +
                 '}';
     }
 }

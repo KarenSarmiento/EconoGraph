@@ -1,9 +1,7 @@
 package ks.econograph.controller.screens;
 
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.Label;
+import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import ks.econograph.Context;
 import ks.econograph.controller.MainController;
@@ -26,11 +24,65 @@ public class LibraryController {
     CheckBox libraryFavouritesCB = new CheckBox();
     @FXML
     Button editGraph = new Button();
+    @FXML
+    ComboBox libraryFilterCB = new ComboBox();
+    @FXML
+    TextField librarySearchTF = new TextField();
 
-    public void displayGraphs() {
-        for (int i = 0; i < Context.getInstance().getGraphsLL().size(); i++) {
-            Label label = new Label(Context.getInstance().getGraphsLL().get(i).getTitle());
-            Context.getInstance().getGraphsLL().get(i).getFileName();
+    public void resetSearchAndFilterOptions() {
+        Context.getInstance().setFilterSearch(null);
+        Context.getInstance().setFilterTopic(null);
+        Context.getInstance().setFilterFavourite(false);
+        libraryFilterCB.setValue("Show All");
+        libraryFavouritesCB.setSelected(false);
+        librarySearchTF.setText("");
+        updateGraphsVisibilityInLibrary();
+    }
+
+    public void setFilterFromSearch() {
+        Context.getInstance().setFilterSearch(librarySearchTF.getText());
+        updateGraphsVisibilityInLibrary();
+    }
+
+    public void setFilterByType() {
+        if (libraryFilterCB.getValue().toString().equals("Show All")) {
+            Context.getInstance().setFilterTopic(null);
+        }
+        else {
+            Context.getInstance().setFilterTopic(libraryFilterCB.getValue().toString());
+        }
+        updateGraphsVisibilityInLibrary();
+    }
+
+    public void setFilterFavourites() {
+        if (libraryFavouritesCB.isSelected()) {
+            Context.getInstance().setFilterFavourite(true);
+        }
+        else {
+            Context.getInstance().setFilterFavourite(false);
+        }
+        updateGraphsVisibilityInLibrary();
+
+    }
+
+    private void updateGraphsVisibilityInLibrary() {
+        System.out.println(Context.getInstance().getGraphsLL().toString());
+        for(int i = 0; i < Context.getInstance().getGraphsLL().size(); i++){
+            if ((Context.getInstance().getFilterSearch() != null && Context.getInstance().getGraphsLL().get(i).getTitle().contains(Context.getInstance().getFilterSearch()) == false) ||
+                    (Context.getInstance().getFilterTopic() != null && Context.getInstance().getGraphsLL().get(i).getTopic().equals(Context.getInstance().getFilterTopic()) == false) ||
+                    (Context.getInstance().isFilterFavourite() == true && Context.getInstance().getGraphsLL().get(i).isFavourite() == false)) {
+                System.out.println("Condition met : FilterSearch " + Context.getInstance().getFilterSearch() + ", Filter Topic " + Context.getInstance().getFilterTopic() +
+                        ", FilterFavourite " + Context.getInstance().isFilterFavourite());
+                System.out.println(Context.getInstance().getGraphsLL().get(i).isFavourite());
+                Context.getInstance().getGraphsLL().get(i).setVisible(false);
+            }
+            else {
+                Context.getInstance().getGraphsLL().get(i).setVisible(true);
+            }
+        }
+        System.out.println(Context.getInstance().getGraphsLL().toString());
+        if (main != null) {
+            main.resetAndDisplayGraphsFromGraphsLLToLibrary();
         }
     }
 

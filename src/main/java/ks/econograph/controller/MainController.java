@@ -112,27 +112,30 @@ public class MainController {
         libraryController.libraryGraphGP.getChildren().remove(5,libraryController.libraryGraphGP.getChildren().size());
         libraryController.libraryGraphGP.setGridLinesVisible(true);
         for (int i = 0; i < Context.getInstance().getGraphsLL().size(); i++) {
-            Label title = new Label(Context.getInstance().getGraphsLL().get(i).getTitle());
-            libraryController.libraryGraphGP.setConstraints(title, 0, i+1);
-            ImageView graphImage = new ImageView(new Image("file:" + Context.getInstance().getFileLocationForSavedImages() +
-                    Context.getInstance().getGraphsLL().get(i).getFileName()));
-            System.out.println(Context.getInstance().getFileLocationForSavedImages() +
-                    Context.getInstance().getGraphsLL().get(i).getFileName());
-            graphImage.setFitWidth(250);
-            graphImage.setFitHeight(152);
-            VBox graphColumnContents = new VBox(3);
-            graphColumnContents.getChildren().addAll(title, graphImage);
-            libraryController.libraryGraphGP.setConstraints(graphColumnContents, 0, i+1);
-            Label description = new Label(Context.getInstance().getGraphsLL().get(i).getDescription());
-            libraryController.libraryGraphGP.setConstraints(description, 1, i+1);
-            if (Context.getInstance().getGraphsLL().get(i).isFavourite()) {
-                ImageView favouriteStar = new ImageView(new Image("file:C:\\Users\\KSarm\\Documents\\Intellij Projects\\EconoGraph2\\src\\main\\resources\\FavouritesStar.png"));
-                favouriteStar.setFitHeight(50);
-                favouriteStar.setFitWidth(50);
-                libraryController.libraryGraphGP.setConstraints(favouriteStar, 2, i+1);
-                libraryController.libraryGraphGP.getChildren().add(favouriteStar);
+            if (Context.getInstance().getGraphsLL().get(i).isVisible() == true) {
+                Label title = new Label(Context.getInstance().getGraphsLL().get(i).getTitle());
+                libraryController.libraryGraphGP.setConstraints(title, 0, i + 1);
+                ImageView graphImage = new ImageView(new Image("file:" + Context.getInstance().getFileLocationForSavedImages() +
+                        Context.getInstance().getGraphsLL().get(i).getFileName()));
+                System.out.println(Context.getInstance().getFileLocationForSavedImages() +
+                        Context.getInstance().getGraphsLL().get(i).getFileName());
+                graphImage.setFitWidth(250);
+                graphImage.setFitHeight(152);
+                VBox graphColumnContents = new VBox(3);
+                graphColumnContents.getChildren().addAll(title, graphImage);
+                libraryController.libraryGraphGP.setConstraints(graphColumnContents, 0, i + 1);
+                Label description = new Label(Context.getInstance().getGraphsLL().get(i).getDescription());
+                libraryController.libraryGraphGP.setConstraints(description, 1, i + 1);
+                if (Context.getInstance().getGraphsLL().get(i).isFavourite()) {
+                    ImageView favouriteStar = new ImageView(new Image("file:C:\\Users\\KSarm\\Documents\\Intellij Projects\\EconoGraph2\\src\\main\\resources\\FavouritesStar.png"));
+                    favouriteStar.setFitHeight(50);
+                    favouriteStar.setFitWidth(50);
+                    libraryController.libraryGraphGP.setConstraints(favouriteStar, 2, i + 1);
+                    libraryController.libraryGraphGP.getChildren().add(favouriteStar);
+
+                }
+                libraryController.libraryGraphGP.getChildren().addAll(graphColumnContents, description);
             }
-            libraryController.libraryGraphGP.getChildren().addAll(graphColumnContents, description);
         }
     }
 
@@ -151,6 +154,7 @@ public class MainController {
         if (graphMakerController.getGraphMakerRadioButtonsFP() != null && graphMakerController.getGraphMakerRadioButtonsFP().getChildren().size() > 0) {
             graphMakerController.getGraphMakerRadioButtonsFP().getChildren().remove(1, graphMakerController.getGraphMakerRadioButtonsFP().getChildren().size());
         }
+        libraryController.resetSearchAndFilterOptions();
     }
 
     public LibraryController getLibraryController() {

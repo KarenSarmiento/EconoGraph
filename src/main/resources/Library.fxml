@@ -15,76 +15,94 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<GridPane fx:id="libraryGP" alignment="center" hgap="10" prefHeight="800.0" prefWidth="1200.0" stylesheets="/sample/sample.css" vgap="10" xmlns="http://javafx.com/javafx/8.0.76-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ks.econograph.controller.screens.LibraryController">
-   <children>
-      <ImageView fx:id="libraryTitleIV" fitHeight="53.0" fitWidth="409.0" pickOnBounds="true" preserveRatio="true" GridPane.columnSpan="6" GridPane.halignment="CENTER">
-         <image>
-            <Image url="File:C:\Users\KSarm\OneDrive\IB\Computer Science\IA\Images\Title.png" />
-         </image>
-      </ImageView>
-      <VBox fx:id="librarySideMenuVB" prefWidth="105.0" GridPane.columnIndex="4" GridPane.rowIndex="1" GridPane.rowSpan="2">
-         <children>
-            <Button fx:id="libraryMakeAGraphB" mnemonicParsing="false" onAction="#setScreenToOptions" text="Make a Graph" />
-            <Button fx:id="librarySaveB" mnemonicParsing="false" prefHeight="31.0" prefWidth="113.0" text="Save" />
-            <Button fx:id="libraryDeleteB" mnemonicParsing="false" prefWidth="113.0" text="Delete" />
-            <Button fx:id="editGraph" mnemonicParsing="false" onAction="#oldGraphToGraphMaker" prefHeight="31.0" prefWidth="129.0" text="Edit" />
-         </children>
-      </VBox>
-      <ComboBox fx:id="librarySortCB" prefWidth="150.0" promptText="Sort by.." GridPane.columnIndex="0" GridPane.rowIndex="1">
-      <items>
-         <FXCollections fx:factory="observableArrayList">
-            <String fx:value="A to Z" />
-            <String fx:value="Date of Creation" />
-            <String fx:value="Type" />
-         </FXCollections>
-      </items>
-      </ComboBox>
-      <ComboBox fx:id="libraryFilterCB" prefWidth="150.0" promptText="Filter by.." GridPane.columnIndex="1" GridPane.rowIndex="1">
-      <items>
-         <FXCollections fx:factory="observableArrayList">
-            <String fx:value="Micro" />
-            <String fx:value="Macro" />
-            <String fx:value="Trade" />
-            <String fx:value="Development" />
-            <String fx:value="Other" />
-         </FXCollections>
-      </items>
-      </ComboBox>
-      <CheckBox fx:id="libraryFavouritesCB" mnemonicParsing="false" prefHeight="33.0" prefWidth="192.0" text="Show Only Favourites" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-      <TextField fx:id="librarySearchTF" text="Search" GridPane.columnIndex="3" GridPane.rowIndex="1" />
-      <ScrollPane fx:id="libraryGraphsSP" prefHeight="507.0" prefWidth="764.0" GridPane.columnSpan="4" GridPane.rowIndex="2">
-         <content>
-            <GridPane fx:id="libraryGraphGP" gridLinesVisible="true" prefHeight="40.0" prefWidth="961.0">
-               <columnConstraints>
-                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="350.0" minWidth="10.0" prefWidth="349.0" />
-                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="480.0" minWidth="10.0" prefWidth="316.0" />
-                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="235.0" minWidth="0.0" prefWidth="123.0" />
-                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="176.0" minWidth="10.0" prefWidth="165.0" />
-               </columnConstraints>
-               <rowConstraints>
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-               </rowConstraints>
-               <children>
-                  <Label fx:id="libraryGraphL" prefHeight="23.0" prefWidth="346.0" style="-fx-alignment: center; -fx-font-size: 20px; -fx-font-family: &quot;Lucida Sans&quot;;" styleClass="label-heading" stylesheets="@sample.css" text="Graph" />
-                  <Label fx:id="libraryDescriptionL" text="Description" GridPane.columnIndex="1" />
-                  <Label fx:id="libraryFavouritesL" text="Favourite" GridPane.columnIndex="2" />
-                  <Label fx:id="libraryOptionsL" text="Options" GridPane.columnIndex="3" />
-               </children>
-            </GridPane>
-         </content>
-      </ScrollPane>
-   </children>
-   <columnConstraints>
-      <ColumnConstraints maxWidth="262.0" minWidth="150.0" prefWidth="227.0" />
-      <ColumnConstraints maxWidth="328.0" minWidth="150.0" prefWidth="276.0" />
-      <ColumnConstraints maxWidth="271.0" minWidth="150.0" prefWidth="208.0" />
-      <ColumnConstraints maxWidth="286.0" minWidth="150.0" prefWidth="224.0" />
-      <ColumnConstraints maxWidth="250.0" minWidth="150.0" prefWidth="165.0" />
-      <ColumnConstraints maxWidth="8.0" minWidth="0.0" prefWidth="0.0" />
-   </columnConstraints>
-   <rowConstraints>
-      <RowConstraints maxHeight="100.0" minHeight="50.0" prefHeight="75.0" />
-      <RowConstraints maxHeight="36.0" minHeight="36.0" prefHeight="36.0" />
-      <RowConstraints maxHeight="650.0" minHeight="550.0" prefHeight="600.0" />
-   </rowConstraints>
+<GridPane fx:id="libraryGP" alignment="center" hgap="10" prefHeight="800.0" prefWidth="1200.0"
+          stylesheets="/sample/sample.css" vgap="10" xmlns="http://javafx.com/javafx/8.0.76-ea"
+          xmlns:fx="http://javafx.com/fxml/1" fx:controller="ks.econograph.controller.screens.LibraryController">
+    <children>
+        <ImageView fx:id="libraryTitleIV" fitHeight="53.0" fitWidth="409.0" pickOnBounds="true" preserveRatio="true"
+                   GridPane.columnSpan="6" GridPane.halignment="CENTER">
+            <image>
+                <Image url="File:C:\Users\KSarm\OneDrive\IB\Computer Science\IA\Images\Title.png"/>
+            </image>
+        </ImageView>
+        <VBox fx:id="librarySideMenuVB" prefWidth="105.0" GridPane.columnIndex="5" GridPane.rowIndex="1"
+              GridPane.rowSpan="2">
+            <children>
+                <Button fx:id="libraryMakeAGraphB" mnemonicParsing="false" onAction="#setScreenToOptions"
+                        text="Make a Graph"/>
+                <Button fx:id="librarySaveB" mnemonicParsing="false" prefHeight="31.0" prefWidth="113.0" text="Save"/>
+                <Button fx:id="libraryDeleteB" mnemonicParsing="false" prefWidth="113.0" text="Delete"/>
+                <Button fx:id="editGraph" mnemonicParsing="false" onAction="#oldGraphToGraphMaker" prefHeight="31.0"
+                        prefWidth="113.0" text="Edit"/>
+                <Button fx:id="libraryResetOptionsB" mnemonicParsing="false" onAction="#resetSearchAndFilterOptions"
+                        prefHeight="31.0" prefWidth="114.0" text="Reset Options"/>
+            </children>
+        </VBox>
+        <ComboBox fx:id="librarySortCB" prefWidth="150.0" promptText="Sort by.." GridPane.columnIndex="0"
+                  GridPane.rowIndex="1">
+            <items>
+                <FXCollections fx:factory="observableArrayList">
+                    <String fx:value="A to Z"/>
+                    <String fx:value="Date of Creation"/>
+                    <String fx:value="Type"/>
+                </FXCollections>
+            </items>
+        </ComboBox>
+        <ComboBox fx:id="libraryFilterCB" onAction="#setFilterByType" prefWidth="150.0" promptText="Filter by.."
+                  GridPane.columnIndex="1" GridPane.rowIndex="1">
+            <items>
+                <FXCollections fx:factory="observableArrayList">
+                    <String fx:value="Micro"/>
+                    <String fx:value="Macro"/>
+                    <String fx:value="Trade"/>
+                    <String fx:value="Development"/>
+                    <String fx:value="Other"/>
+                    <String fx:value="Show All"/>
+                </FXCollections>
+            </items>
+        </ComboBox>
+        <CheckBox fx:id="libraryFavouritesCB" mnemonicParsing="false" onAction="#setFilterFavourites" prefHeight="33.0"
+                  prefWidth="192.0" text="Show Only Favourites" GridPane.columnIndex="2" GridPane.rowIndex="1"/>
+        <TextField fx:id="librarySearchTF" GridPane.columnIndex="3" GridPane.rowIndex="1"/>
+        <ScrollPane fx:id="libraryGraphsSP" prefHeight="507.0" prefWidth="764.0" GridPane.columnSpan="5"
+                    GridPane.rowIndex="2">
+            <content>
+                <GridPane fx:id="libraryGraphGP" gridLinesVisible="true" prefHeight="40.0" prefWidth="961.0">
+                    <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="350.0" minWidth="10.0" prefWidth="349.0"/>
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="480.0" minWidth="10.0" prefWidth="316.0"/>
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="235.0" minWidth="0.0" prefWidth="123.0"/>
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="176.0" minWidth="10.0" prefWidth="165.0"/>
+                    </columnConstraints>
+                    <rowConstraints>
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                    </rowConstraints>
+                    <children>
+                        <Label fx:id="libraryGraphL" prefHeight="23.0" prefWidth="346.0"
+                               style="-fx-alignment: center; -fx-font-size: 20px; -fx-font-family: &quot;Lucida Sans&quot;;"
+                               styleClass="label-heading" stylesheets="@sample.css" text="Graph"/>
+                        <Label fx:id="libraryDescriptionL" text="Description" GridPane.columnIndex="1"/>
+                        <Label fx:id="libraryFavouritesL" text="Favourite" GridPane.columnIndex="2"/>
+                        <Label fx:id="libraryOptionsL" text="Options" GridPane.columnIndex="3"/>
+                    </children>
+                </GridPane>
+            </content>
+        </ScrollPane>
+        <Button fx:id="librarySearchB" mnemonicParsing="false" onAction="#setFilterFromSearch" text="Search"
+                GridPane.columnIndex="4" GridPane.rowIndex="1"/>
+    </children>
+    <columnConstraints>
+        <ColumnConstraints maxWidth="262.0" minWidth="142.0" prefWidth="166.0"/>
+        <ColumnConstraints maxWidth="339.0" minWidth="147.0" prefWidth="166.0"/>
+        <ColumnConstraints maxWidth="361.0" minWidth="150.0" prefWidth="205.0"/>
+        <ColumnConstraints maxWidth="446.0" minWidth="150.0" prefWidth="307.0"/>
+        <ColumnConstraints maxWidth="250.0" minWidth="150.0" prefWidth="165.0"/>
+        <ColumnConstraints maxWidth="250.0" minWidth="150.0" prefWidth="165.0"/>
+        <ColumnConstraints maxWidth="8.0" minWidth="0.0" prefWidth="0.0"/>
+    </columnConstraints>
+    <rowConstraints>
+        <RowConstraints maxHeight="100.0" minHeight="50.0" prefHeight="75.0"/>
+        <RowConstraints maxHeight="36.0" minHeight="36.0" prefHeight="36.0"/>
+        <RowConstraints maxHeight="650.0" minHeight="550.0" prefHeight="600.0"/>
+    </rowConstraints>
 </GridPane>

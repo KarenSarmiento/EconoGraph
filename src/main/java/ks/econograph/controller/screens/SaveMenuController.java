@@ -49,7 +49,6 @@ public class SaveMenuController {
             }
         }
         //TODO: edit these console warnings to GUI
-        //TODO: Make this work with new file naming system.
         if (uniqueTitle == false) {
             System.out.println("Title already exists");
         }
