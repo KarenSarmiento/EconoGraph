@@ -28,6 +28,59 @@ public class LibraryController {
     ComboBox libraryFilterCB = new ComboBox();
     @FXML
     TextField librarySearchTF = new TextField();
+    @FXML
+    ComboBox librarySortCB = new ComboBox();
+
+/*switch(Context.getInstance().getSortType()) {
+        case "A to Z": {
+
+        }
+        case "Date of Creation": {
+
+        }
+        case "Topic": {
+
+        }
+    }*/
+
+    public void sortGraphsWithSelectionSort() {
+        Graph[] graphsArray = new Graph[Context.getInstance().getGraphsLL().size()];
+        for (int i = 0; i < Context.getInstance().getGraphsLL().size(); i++) {
+            graphsArray[i] = Context.getInstance().getGraphsLL().get(i);
+        }
+        int i,j,first;
+        Graph temp;
+        for (i = graphsArray.length -1; i > 0; i--) {
+            first = 0;
+            for (j = 1; j <= i; j++) {
+                switch(librarySortCB.getValue().toString()) {
+                    case "A to Z": {
+                        if (graphsArray[j].getTitle().compareTo(graphsArray[first].getTitle()) > 0)
+                            first = j;
+                        break;
+                    }
+                    case "Date of Creation": {
+                        if (graphsArray[j].getTime() > graphsArray[first].getTime())
+                            first = j;
+                        break;
+                    }
+                    case "Topic": {
+                        if (graphsArray[j].getTopic().compareTo(graphsArray[first].getTopic()) > 0)
+                            first = j;
+                        break;
+                    }
+                }
+            }
+            temp = graphsArray[first];
+            graphsArray[first] = graphsArray[i];
+            graphsArray[i] = temp;
+        }
+        Context.getInstance().getGraphsLL().clear();
+        for(int k = 0; k < graphsArray.length; k++) {
+            Context.getInstance().getGraphsLL().add(graphsArray[k]);
+        }
+        main.resetAndDisplayGraphsFromGraphsLLToLibrary();
+    }
 
     public void resetSearchAndFilterOptions() {
         Context.getInstance().setFilterSearch(null);
