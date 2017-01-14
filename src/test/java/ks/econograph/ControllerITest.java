@@ -92,10 +92,10 @@ public class ControllerITest extends ApplicationTest {
         verifyThat("#optionsTitleTF", isVisible());
         verifyThat("#optionsSelectACanvasL", isVisible());
         verifyThat("#optionsTopicsSP", isVisible());
-        verifyThat("#optionsMacroB", isVisible());
-        verifyThat("#optionsMicroB", isVisible());
-        verifyThat("#optionsLabourForceB", isVisible());
-        verifyThat("#optionsSubsidyB", isVisible());
+        verifyThat("#optionsMacroRB", isVisible());
+        verifyThat("#optionsMicroRB", isVisible());
+        verifyThat("#optionsLabourForceRB", isVisible());
+        verifyThat("#optionsSubsidyRB", isVisible());
         verifyThat("#optionsBeginB", isVisible());
         verifyThat("#optionsCancelB", isVisible());
     }

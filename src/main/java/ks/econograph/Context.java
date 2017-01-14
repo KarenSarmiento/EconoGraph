@@ -4,6 +4,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.image.WritableImage;
+
 import ks.econograph.graph.components.Curve;
 import ks.econograph.graph.components.Graph;
 
@@ -23,7 +24,8 @@ public class Context {
 
     private List<Graph> graphsLL = new LinkedList<>();
     private List<Curve> curvesLL = new LinkedList<>();
-    private ToggleGroup toggleGroup = new ToggleGroup();
+    private ToggleGroup graphMakerInsertedCurvesTG = new ToggleGroup();
+    private ToggleGroup optionsTemplateTG = new ToggleGroup();
     private WritableImage tempScreenShot;
 
     private int demandCount = 0;
@@ -96,12 +98,16 @@ public class Context {
         this.currentEditingGraph = currentEditingGraph;
     }
 
-    public ToggleGroup getToggleGroup() {
-        return toggleGroup;
+    public ToggleGroup getGraphMakerInsertedCurvesTG() {
+        return graphMakerInsertedCurvesTG;
     }
 
-    public void setToggleGroup(ToggleGroup toggleGroup) {
-        this.toggleGroup = toggleGroup;
+    public ToggleGroup getOptionsTemplateTG() {
+        return optionsTemplateTG;
+    }
+
+    public void setGraphMakerInsertedCurvesTG(ToggleGroup graphMakerInsertedCurvesTG) {
+        this.graphMakerInsertedCurvesTG = graphMakerInsertedCurvesTG;
     }
 
     public WritableImage getTempScreenShot() {

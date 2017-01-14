@@ -42,15 +42,17 @@ public class MainController {
 
     @FXML public void initialize() {
         System.out.println("Application started");
-        resetGraphMaker();
 
         libraryController.init(this);
         graphMakerController.init(this);
         optionsController.init(this);
         saveMenuController.init(this);
 
+        resetGraphMaker();
         readInGraphsToGraphsLL();
         resetAndDisplayGraphsFromGraphsLLToLibrary();
+        optionsController.setUpTemplateButtons();
+
         System.out.println(Context.getInstance().getGraphsLL());
         setScreenToLibrary();
     }

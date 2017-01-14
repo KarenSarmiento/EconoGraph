@@ -127,4 +127,12 @@ public class SaveMenuController {
     public void setSaveMenuTitleTF(TextField saveMenuTitleTF) {
         this.saveMenuTitleTF = saveMenuTitleTF;
     }
+
+    public ComboBox getSaveMenuTopicCB() {
+        return saveMenuTopicCB;
+    }
+
+    public void setSaveMenuTopicCB(ComboBox saveMenuTopicCB) {
+        this.saveMenuTopicCB = saveMenuTopicCB;
+    }
 }

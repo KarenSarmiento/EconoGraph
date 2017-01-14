@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
-
+<?import javafx.scene.control.RadioButton?>
 <GridPane fx:id="optionsGP" alignment="center" hgap="10" prefHeight="800.0" prefWidth="1200.0" stylesheets="/src/main/resources/sample.css" vgap="10" xmlns="http://javafx.com/javafx/8.0.76-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ks.econograph.controller.screens.OptionsController">
     <children>
         <Label fx:id="optionsCreateYourOwnGraphL" alignment="CENTER" contentDisplay="CENTER" prefHeight="21.0" prefWidth="1200.0" text="Create your own new Graph" textAlignment="CENTER" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="0" />
@@ -18,10 +18,12 @@
         <ScrollPane fx:id="optionsTopicsSP" prefHeight="507.0" prefWidth="764.0" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="2">
             <content>
                 <FlowPane fx:id="optionsTopicFP" prefHeight="630.0" prefWidth="1150.0">
-                    <Button fx:id="optionsMacroB" mnemonicParsing="false" onAction="#test" text="Microeconomic Equilibrium" />
-                    <Button fx:id="optionsMicroB" mnemonicParsing="false" onAction="#test" text="Macroeconomic Equilibrium" />
-                    <Button fx:id="optionsLabourForceB" mnemonicParsing="false" onAction="#test" text="Labour Force" />
-                    <Button fx:id="optionsSubsidyB" mnemonicParsing="false" onAction="#test" text="Subsidy" />
+                    <RadioButton fx:id="optionsBlankCanvasRB" mnemonicParsing="false" onAction="#test" text="BlankCanvas" />
+                    <RadioButton fx:id="optionsMicroRB" mnemonicParsing="false" onAction="#test" text="Microeconomic Equilibrium" />
+                    <RadioButton fx:id="optionsMacroRB" mnemonicParsing="false" onAction="#test" text="Macroeconomic Equilibrium" />
+                    <RadioButton fx:id="optionsExternalityRB" mnemonicParsing="false" onAction="#test" text="Externality" />
+                    <RadioButton fx:id="optionsLabourForceRB" mnemonicParsing="false" onAction="#test" text="Labour Force" />
+                    <RadioButton fx:id="optionsSubsidyRB" mnemonicParsing="false" onAction="#test" text="Subsidy" />
                 </FlowPane>
             </content>
         </ScrollPane>

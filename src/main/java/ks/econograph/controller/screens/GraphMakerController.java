@@ -205,14 +205,12 @@ public class GraphMakerController {
     }
 
     public void setUpSupply() {
-        //Context.getInstance().setStaticGraphMakerWorkspaceP(graphMakerWorkspaceP);
         Context.getInstance().setSupplyCount(Context.getInstance().getSupplyCount() + 1);
         Context.getInstance().setCurveCount(Context.getInstance().getCurveCount() + 1);
         createRadioButton("Supply " + Context.getInstance().getSupplyCount(), Context.getInstance().getCurveCount(), 1);
     }
 
     public void createRadioButton(String name, int index, int type) {
-        //Context.getInstance().setStaticGraphMakerRadioButtonsFP(graphMakerRadioButtonsFP);
         RadioButton radioButton = new RadioButton(name);
         switch (type) {
             case 0: {
@@ -232,7 +230,7 @@ public class GraphMakerController {
                 break;
             }
         }
-        radioButton.setToggleGroup(Context.getInstance().getToggleGroup());
+        radioButton.setToggleGroup(Context.getInstance().getGraphMakerInsertedCurvesTG());
         radioButton.setOnAction(e -> setAppropriateCurveSettings(index, type));
         graphMakerRadioButtonsFP.getChildren().add(radioButton);
         radioButton.setSelected(true);
@@ -246,7 +244,8 @@ public class GraphMakerController {
         Context.getInstance().setSelectedCurveType(type);
         if (Context.getInstance().getSelectedCurveIndex() - 1 == 0) {
             graphMakerElasticitySlider.setValue(175);
-        } else {
+        }
+        else {
             graphMakerElasticitySlider.setValue(Context.getInstance().getCurvesLL().get(Context.getInstance().getSelectedCurveIndex() - 2).getElasticityGap());
         }
         graphMakerShiftSlider.setValue(0);
