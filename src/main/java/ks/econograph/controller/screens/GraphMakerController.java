@@ -9,6 +9,7 @@ import javafx.scene.control.Slider;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.shape.Line;
 import ks.econograph.Context;
 import ks.econograph.controller.MainController;
 import ks.econograph.graph.components.Demand;
@@ -40,6 +41,31 @@ public class GraphMakerController {
     @FXML
     Slider graphMakerThicknessSlider = new Slider();
 
+    public void findIntersectionofDemandWithOtherCurves() {
+        System.out.println("findIntersectionofDemandWithOtherCurves() reached");
+        Line newLine = ((Demand) Context.getInstance().getCurvesLL().get(Context.getInstance().getCurvesLL().size()-1)).getLine();
+        double newGradient = (newLine.getStartY() - newLine.getEndY())/(newLine.getStartX() - newLine.getEndX());
+        double newYIntercept = newLine.getStartY() - newGradient * newLine.getStartX();
+        System.out.println("newGradient : " + newGradient);
+        System.out.println("newYIntercept : " + newYIntercept);
+
+        //for (int i = 0; i < Context.getInstance().getCurvesLL().size() -1; i++) {
+            //TODO: curveType should be a curve field and set as a default and final value in constructor for specific curve types
+            Line comparedLine = ((Supply) Context.getInstance().getCurvesLL().get(0)).getLine();
+            double comparedGradient = (comparedLine.getStartY() - comparedLine.getEndY())/(comparedLine.getStartX() - comparedLine.getEndX());
+            double comparedYIntercept = comparedLine.getStartY() - comparedGradient * comparedLine.getStartX();
+
+            System.out.println("comparedGradient : " + comparedGradient);
+            System.out.println("comparedYIntercept : " + comparedYIntercept);
+
+            //Intersection at
+            double x = (comparedYIntercept - newYIntercept)/(newGradient - comparedGradient);
+            double y = newGradient * x + newYIntercept;
+            Line line = new Line(x, y, x, y+200);
+            Line line2 = new Line(x, y, x-200, y);
+            main.getGraphMakerController().getGraphMakerWorkspaceP().getChildren().addAll(line, line2);
+        //}
+    }
 
     public void captureAndSetToSave() {
         captureShotWorkspace();

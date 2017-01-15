@@ -24,6 +24,7 @@
                  <Button fx:id="graphMakerSupplyB" mnemonicParsing="false" onAction="#insertSupply" text="Supply" />
                <Button fx:id="screenshotB" mnemonicParsing="false" onAction="#captureShotWorkspace" text="ScreenshotTempTest" />
                <Button fx:id="graphMakerSaveB" mnemonicParsing="false" onAction="#captureAndSetToSave" text="Save" />
+               <Button mnemonicParsing="false" onAction="#findIntersectionofDemandWithOtherCurves" text="Interection Test" />
              </FlowPane>
          </content>
       </ScrollPane>
