@@ -16,7 +16,7 @@ public class Demand extends Curve {
         this.line = new Line(200,50,550,400);
         this.line.setId("line" + index);
         setName("D");
-        setType("Demand"); //never changes
+        setCurveType("Demand"); //never changes
         setCentreX(375);
         setElasticityGap(175);
         setColour("Black");
@@ -30,7 +30,7 @@ public class Demand extends Curve {
         this.line = new Line(centreX - elasticityGap,50,centreX + elasticityGap,400);
         this.line.setId("line" + index);
         setName(name);
-        setType("Demand"); //never changes
+        setCurveType("Demand"); //never changes
         setCentreX(centreX);
         setElasticityGap(elasticityGap);
         setColour(colour);      this.line.setStroke(Paint.valueOf(colour));

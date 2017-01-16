@@ -5,6 +5,7 @@ import javafx.scene.Parent;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.image.WritableImage;
 
+import javafx.scene.shape.Line;
 import ks.econograph.graph.components.Curve;
 import ks.econograph.graph.components.Graph;
 
@@ -24,6 +25,8 @@ public class Context {
 
     private List<Graph> graphsLL = new LinkedList<>();
     private List<Curve> curvesLL = new LinkedList<>();
+    private List<Line> intersectionLL = new LinkedList<>();
+
     private ToggleGroup graphMakerInsertedCurvesTG = new ToggleGroup();
     private ToggleGroup optionsTemplateTG = new ToggleGroup();
     private WritableImage tempScreenShot;
@@ -88,6 +91,14 @@ public class Context {
 
     public void setCurvesLL(List<Curve> curvesLL) {
         Context.getInstance().curvesLL = curvesLL;
+    }
+
+    public List<Line> getIntersectionLL() {
+        return intersectionLL;
+    }
+
+    public void setIntersectionLL(List<Line> intersectionLL) {
+        this.intersectionLL = intersectionLL;
     }
 
     public Graph getCurrentEditingGraph() {

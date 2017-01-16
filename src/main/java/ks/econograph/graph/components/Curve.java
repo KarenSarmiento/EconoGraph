@@ -7,7 +7,7 @@ import javafx.scene.shape.Line;
  */
 public class Curve extends Line{
     private String name;
-    private String type;
+    private String curveType;
     private int centreX;
     private int elasticityGap;
     private String colour;
@@ -23,12 +23,12 @@ public class Curve extends Line{
         this.name = name;
     }
 
-    public String getType() {
-        return type;
+    public String getCurveType() {
+        return curveType;
     }
 
-    public void setType(String type) {
-        this.type = type;
+    public void setCurveType(String curveType) {
+        this.curveType = curveType;
     }
 
     public int getCentreX() {
