@@ -35,6 +35,8 @@
                     <Image url="File:C:\Users\KSarm\Documents\Intellij Projects\EconoGraph2\src\main\resources\Axis.png" />
                 </image>
             </ImageView>
+         <Label fx:id="graphMakerYAxisL" layoutX="34.0" layoutY="42.0" text="Price" />
+         <Label fx:id="graphMakerXAxisL" layoutX="596.0" layoutY="443.0" text="Quantity" />
         </Pane>
         <!--Edit-->
         <Label fx:id="graphMakerEditL" alignment="CENTER" prefHeight="21.0" prefWidth="800.0" text="Edit" GridPane.columnIndex="1" GridPane.rowIndex="2" />

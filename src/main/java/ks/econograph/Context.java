@@ -1,6 +1,7 @@
 package ks.econograph;
 
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.image.WritableImage;
@@ -25,7 +26,7 @@ public class Context {
 
     private List<Graph> graphsLL = new LinkedList<>();
     private List<Curve> curvesLL = new LinkedList<>();
-    private List<Line> intersectionLL = new LinkedList<>();
+    private List<Node> intersectionLL = new LinkedList<>();
 
     private ToggleGroup graphMakerInsertedCurvesTG = new ToggleGroup();
     private ToggleGroup optionsTemplateTG = new ToggleGroup();
@@ -93,11 +94,11 @@ public class Context {
         Context.getInstance().curvesLL = curvesLL;
     }
 
-    public List<Line> getIntersectionLL() {
+    public List<Node> getIntersectionLL() {
         return intersectionLL;
     }
 
-    public void setIntersectionLL(List<Line> intersectionLL) {
+    public void setIntersectionLL(List<Node> intersectionLL) {
         this.intersectionLL = intersectionLL;
     }
 

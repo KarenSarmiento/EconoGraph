@@ -1,5 +1,6 @@
 package ks.econograph.graph.components;
 
+import javafx.scene.control.Label;
 import javafx.scene.shape.Line;
 
 /**
@@ -12,7 +13,7 @@ public class Curve extends Line{
     private int elasticityGap;
     private String colour;
     private int thickness;
-//    private GraphLabel label;
+    private Label label;
     private boolean dotted;
 
     public String getName() {
@@ -63,13 +64,13 @@ public class Curve extends Line{
         this.thickness = thickness;
     }
 
-//    public GraphLabel getLabel() {
-//        return label;
-//    }
-//
-//    public void setLabel(GraphLabel label) {
-//        this.label = label;
-//    }
+    public Label getLabel() {
+        return label;
+    }
+
+    public void setLabel(Label label) {
+        this.label = label;
+    }
 
     public boolean isDotted() {
         return dotted;

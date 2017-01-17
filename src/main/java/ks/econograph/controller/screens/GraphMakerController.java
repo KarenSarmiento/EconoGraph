@@ -4,6 +4,7 @@ import javafx.embed.swing.SwingFXUtils;
 import javafx.fxml.FXML;
 import javafx.scene.SnapshotParameters;
 import javafx.scene.control.ColorPicker;
+import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.Slider;
 import javafx.scene.layout.FlowPane;
@@ -40,6 +41,10 @@ public class GraphMakerController {
     ColorPicker graphMakerColourPicker = new ColorPicker();
     @FXML
     Slider graphMakerThicknessSlider = new Slider();
+    @FXML
+    Label graphMakerXAxisL = new Label();
+    @FXML
+    Label graphMakerYAxisL = new Label();
 
     public void insertIntersections() {
         for (int i = 0; i < Context.getInstance().getIntersectionLL().size(); i++) {
@@ -88,13 +93,21 @@ public class GraphMakerController {
                     double x = (comparedYIntercept - newYIntercept) / (newGradient - comparedGradient);
                     double y = newGradient * x + newYIntercept;
                     System.out.println("x" + x + "/ny" + y);
-                    Line line = new Line(x, y, x, 425);
-                    Line line2 = new Line(x, y, 87, y);
-                    line.getStrokeDashArray().addAll(10d, 5d);
-                    line2.getStrokeDashArray().addAll(10d, 5d);
-                    Context.getInstance().getIntersectionLL().add(line);
-                    Context.getInstance().getIntersectionLL().add(line2);
-                    main.getGraphMakerController().getGraphMakerWorkspaceP().getChildren().addAll(line, line2);
+                    Line intersectionLine1 = new Line(x, y, x, 425);
+                    Line intersectionLine2 = new Line(x, y, 87, y);
+                    intersectionLine1.getStrokeDashArray().addAll(10d, 5d);
+                    intersectionLine2.getStrokeDashArray().addAll(10d, 5d);
+                    Context.getInstance().getIntersectionLL().add(intersectionLine1);
+                    Context.getInstance().getIntersectionLL().add(intersectionLine2);
+                    Label intersectionLabel1 = new Label("Q");
+                    intersectionLabel1.setTranslateX(x);
+                    intersectionLabel1.setTranslateY(435);
+                    Label intersectionLabel2 = new Label("P");
+                    intersectionLabel2.setTranslateX(60);
+                    intersectionLabel2.setTranslateY(y);
+                    Context.getInstance().getIntersectionLL().add(intersectionLabel1);
+                    Context.getInstance().getIntersectionLL().add(intersectionLabel2);
+                    main.getGraphMakerController().getGraphMakerWorkspaceP().getChildren().addAll(intersectionLine1, intersectionLine2, intersectionLabel1, intersectionLabel2);
                 }
             }
 
@@ -126,6 +139,7 @@ public class GraphMakerController {
                 demand.setCentreX(375 + (int) graphMakerShiftSlider.getValue());
                 demand.getLine().setStartX(demand.getCentreX() - demand.getElasticityGap());
                 demand.getLine().setEndX(demand.getCentreX() + demand.getElasticityGap());
+                demand.getLabel().setTranslateX(demand.getCentreX() + demand.getElasticityGap() + 15);
                 break;
             }
             case 1: {
@@ -133,6 +147,7 @@ public class GraphMakerController {
                 supply.setCentreX(375 + (int) graphMakerShiftSlider.getValue());
                 supply.getLine().setStartX(supply.getCentreX() - supply.getElasticityGap());
                 supply.getLine().setEndX(supply.getCentreX() + supply.getElasticityGap());
+                supply.getLabel().setTranslateX(supply.getCentreX() + supply.getElasticityGap() + 15);
                 break;
             }
         }
@@ -146,6 +161,7 @@ public class GraphMakerController {
                 demand.setElasticityGap((int) graphMakerElasticitySlider.getValue());
                 demand.getLine().setStartX(demand.getCentreX() - demand.getElasticityGap());
                 demand.getLine().setEndX(demand.getCentreX() + demand.getElasticityGap());
+                demand.getLabel().setTranslateX(demand.getCentreX() + demand.getElasticityGap() + 15);
                 break;
             }
             case 1: {
@@ -153,6 +169,7 @@ public class GraphMakerController {
                 supply.setElasticityGap((int) graphMakerElasticitySlider.getValue());
                 supply.getLine().setStartX(supply.getCentreX() - supply.getElasticityGap());
                 supply.getLine().setEndX(supply.getCentreX() + supply.getElasticityGap());
+                supply.getLabel().setTranslateX(supply.getCentreX() + supply.getElasticityGap() + 15);
                 break;
             }
             case 2: {
@@ -217,7 +234,7 @@ public class GraphMakerController {
 
     public void insertDemand() {
         System.out.println("START DEMAND SIMPLE");
-        Demand demand = new Demand(graphMakerWorkspaceP, Context.getInstance().getCurveCount()); //200,50,550,400
+        Demand demand = new Demand(graphMakerWorkspaceP, Context.getInstance().getDemandCount()); //200,50,550,400
         Context.getInstance().getCurvesLL().add(demand);
         System.out.println(Context.getInstance().getCurvesLL());
         setUpDemand();
@@ -228,7 +245,7 @@ public class GraphMakerController {
 
     public void insertDemand(String name, int centreX, int elasticityGap, String colour, int thickness, boolean dotted) {
         System.out.println("START DEMAND");
-        Demand demand = new Demand(graphMakerWorkspaceP, Context.getInstance().getCurveCount(), name, centreX, elasticityGap, colour, thickness, dotted); //200,50,550,400
+        Demand demand = new Demand(graphMakerWorkspaceP, Context.getInstance().getDemandCount(), name, centreX, elasticityGap, colour, thickness, dotted); //200,50,550,400
         Context.getInstance().getCurvesLL().add(demand);
         setUpDemand();
         System.out.println(Context.getInstance().getCurvesLL());
@@ -246,7 +263,7 @@ public class GraphMakerController {
 
     public void insertSupply() {
         System.out.println("START SUPPLY SIMPLE");
-        Supply supply = new Supply(graphMakerWorkspaceP, Context.getInstance().getCurveCount()); //200,50,550,400
+        Supply supply = new Supply(graphMakerWorkspaceP, Context.getInstance().getSupplyCount()); //200,50,550,400
         Context.getInstance().getCurvesLL().add(supply);
         System.out.println(Context.getInstance().getCurvesLL());
         setUpSupply();
@@ -257,7 +274,7 @@ public class GraphMakerController {
 
     public void insertSupply(String name, int centreX, int elasticityGap, String colour, int thickness, boolean dotted) {
         System.out.println("START SUPPLY");
-        Supply supply = new Supply(graphMakerWorkspaceP, Context.getInstance().getCurveCount(), name, centreX, elasticityGap, colour, thickness, dotted); //200,50,550,400
+        Supply supply = new Supply(graphMakerWorkspaceP, Context.getInstance().getSupplyCount(), name, centreX, elasticityGap, colour, thickness, dotted); //200,50,550,400
         Context.getInstance().getCurvesLL().add(supply);
         System.out.println(Context.getInstance().getCurvesLL());
         setUpSupply();
