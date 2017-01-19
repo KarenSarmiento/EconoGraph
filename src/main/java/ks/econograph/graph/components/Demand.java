@@ -9,13 +9,11 @@ import javafx.scene.shape.StrokeLineCap;
 /**
  * Created by KSarm on 03/11/2016.
  */
-public class Demand extends Curve {
-
-    private Line line;
+public class Demand extends StraightCurve {
 
     public Demand(Pane pane, int curveIndex){
-        this.line = new Line(200,50,550,400);
-        this.line.setId("line" + curveIndex);
+        setLine(new Line(200,50,550,400));
+        getLine().setId("line" + curveIndex);
         if (curveIndex == 0)
             setName("D");
         else
@@ -28,15 +26,16 @@ public class Demand extends Curve {
         label.setTranslateY(400);
         setLabel(label);
         setColour("Black");
-        setThickness(3);    this.line.setStrokeWidth(3);
+        setThickness(3);    getLine().setStrokeWidth(3);
         setDotted(false);
         setStrokeLineCap(StrokeLineCap.ROUND);
-        pane.getChildren().addAll(line, label);
+        calculateAndSetGradientAndYIntercept();
+        pane.getChildren().addAll(getLine(), label);
     }
 
     public Demand(Pane pane, int index, String name, int centreX, int elasticityGap, String colour, int thickness, boolean dotted) {
-        this.line = new Line(centreX - elasticityGap,50,centreX + elasticityGap,400);
-        this.line.setId("line" + index);
+        setLine(new Line(centreX - elasticityGap,50,centreX + elasticityGap,400));
+        getLine().setId("line" + index);
         setName(name);
         setCurveType("Demand"); //never changes
         setCentreX(centreX);
@@ -44,25 +43,12 @@ public class Demand extends Curve {
         Label label = new Label(getName());
         label.setTranslateX(getCentreX() + getElasticityGap() + 15);
         label.setTranslateY(400);
-        setColour(colour);      this.line.setStroke(Paint.valueOf(colour));
-        setThickness(thickness);    this.line.setStrokeWidth(thickness);
+        setColour(colour);      getLine().setStroke(Paint.valueOf(colour));
+        setThickness(thickness);    getLine().setStrokeWidth(thickness);
         setDotted(dotted);
         setStrokeLineCap(StrokeLineCap.ROUND);
-        pane.getChildren().addAll(line, label);
+        calculateAndSetGradientAndYIntercept();
+        pane.getChildren().addAll(getLine(), label);
     }
 
-    public Line getLine() {
-        return line;
-    }
-
-    public void setLine(Line line) {
-        this.line = line;
-    }
-
-    @Override
-    public String toString() {
-        return "Demand{" +
-                "line=" + line +
-                '}';
-    }
 }

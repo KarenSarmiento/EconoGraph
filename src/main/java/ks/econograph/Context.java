@@ -27,6 +27,7 @@ public class Context {
     private List<Graph> graphsLL = new LinkedList<>();
     private List<Curve> curvesLL = new LinkedList<>();
     private List<Node> intersectionLL = new LinkedList<>();
+    private List<Node> shiftArrowsLL = new LinkedList<>();
 
     private ToggleGroup graphMakerInsertedCurvesTG = new ToggleGroup();
     private ToggleGroup optionsTemplateTG = new ToggleGroup();
@@ -37,6 +38,8 @@ public class Context {
     private int newClassicalCount = 0;
     private int keynesianCount = 0;
     private int curveCount = demandCount + supplyCount + newClassicalCount + keynesianCount;
+    private int xIntersectionCount = 0;
+    private int yIntersectionCount = 0;
 
     private Graph currentEditingGraph = new Graph();
     private int selectedCurveIndex = -1;
@@ -100,6 +103,14 @@ public class Context {
 
     public void setIntersectionLL(List<Node> intersectionLL) {
         this.intersectionLL = intersectionLL;
+    }
+
+    public List<Node> getShiftArrowsLL() {
+        return shiftArrowsLL;
+    }
+
+    public void setShiftArrowsLL(List<Node> shiftArrowsLL) {
+        this.shiftArrowsLL = shiftArrowsLL;
     }
 
     public Graph getCurrentEditingGraph() {
@@ -168,6 +179,22 @@ public class Context {
 
     public void setCurveCount(int curveCount) {
         this.curveCount = curveCount;
+    }
+
+    public int getxIntersectionCount() {
+        return xIntersectionCount;
+    }
+
+    public void setxIntersectionCount(int xIntersectionCount) {
+        this.xIntersectionCount = xIntersectionCount;
+    }
+
+    public int getyIntersectionCount() {
+        return yIntersectionCount;
+    }
+
+    public void setyIntersectionCount(int yIntersectionCount) {
+        this.yIntersectionCount = yIntersectionCount;
     }
 
     public int getSelectedCurveIndex() {

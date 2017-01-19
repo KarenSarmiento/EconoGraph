@@ -11,14 +11,21 @@ import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Line;
+import javafx.scene.shape.Polygon;
 import ks.econograph.Context;
 import ks.econograph.controller.MainController;
 import ks.econograph.graph.components.Demand;
+import ks.econograph.graph.components.StraightCurve;
 import ks.econograph.graph.components.Supply;
 
 import javax.imageio.ImageIO;
 import java.io.File;
 import java.io.IOException;
+import java.util.LinkedList;
+import java.util.List;
+
+import static jdk.nashorn.internal.objects.Global.Infinity;
+import static jdk.nashorn.internal.objects.Global.loadWithNewGlobal;
 
 /**
  * Created by KSarm on 01/01/2017.
@@ -47,71 +54,76 @@ public class GraphMakerController {
     Label graphMakerYAxisL = new Label();
 
     public void insertIntersections() {
+        resetIntersectionLLAndIntersectionCounts();
+
+        for (int i = 0; i < Context.getInstance().getCurvesLL().size() -1; i++) {
+            for (int j = Context.getInstance().getCurvesLL().size() -1; j > i; j--) {
+                double newGradient = ((StraightCurve)Context.getInstance().getCurvesLL().get(i)).getGradient();
+                double newYIntercept = ((StraightCurve)Context.getInstance().getCurvesLL().get(i)).getyIntercept();
+                double comparedGradient = ((StraightCurve)Context.getInstance().getCurvesLL().get(j)).getGradient();
+                double comparedYIntercept = ((StraightCurve)Context.getInstance().getCurvesLL().get(j)).getyIntercept();
+                double x = 0;
+                double y = 0;
+                if (newGradient != comparedGradient && newGradient != Infinity && comparedGradient != Infinity) {
+                    x = (comparedYIntercept - newYIntercept) / (newGradient - comparedGradient);
+                    y = newGradient * x + newYIntercept;
+                }
+                else if (Math.abs(newGradient) == Infinity) {
+                    x = Context.getInstance().getCurvesLL().get(i).getCentreX();
+                    y = comparedGradient * x + comparedYIntercept;
+                }
+                else if (Math.abs(comparedGradient) == Infinity){
+                    x = Context.getInstance().getCurvesLL().get(j).getCentreX();
+                    y = newGradient * x + newYIntercept;
+                }
+                if (x >= 87 && y <= 425 ) {
+                    System.out.println("x = " + x + ", y = " + y);
+                    generateIntersectionLines(x, y);
+                    generateIntersectionLabels(x, y);
+                }
+            }
+        }
+    }
+
+    private void resetIntersectionLLAndIntersectionCounts() {
         for (int i = 0; i < Context.getInstance().getIntersectionLL().size(); i++) {
             Context.getInstance().getIntersectionLL().get(i).setVisible(false);
         }
         Context.getInstance().getIntersectionLL().clear();
+        Context.getInstance().setxIntersectionCount(0);
+        Context.getInstance().setyIntersectionCount(0);
+    }
 
-        for (int i = 0; i < Context.getInstance().getCurvesLL().size() -1; i++) {
-            for (int j = Context.getInstance().getCurvesLL().size() -1; j > i; j--) {
-                System.out.println(i + " checks " + j);
-                Line newLine = new Line();
-                switch(Context.getInstance().getCurvesLL().get(i).getCurveType()) {
-                    case "Demand": {
-                        newLine = ((Demand) Context.getInstance().getCurvesLL().get(i)).getLine();
-                        break;
-                    }
-                    case "Supply": {
-                        newLine = ((Supply) Context.getInstance().getCurvesLL().get(i)).getLine();
-                    }
-                }
-                double newGradient = (newLine.getStartY() - newLine.getEndY())/(newLine.getStartX() - newLine.getEndX());
-                double newYIntercept = newLine.getStartY() - newGradient * newLine.getStartX();
-                System.out.println("newGradient : " + newGradient);
-                System.out.println("newYIntercept : " + newYIntercept);
+    private void generateIntersectionLines(double x, double y) {
+        Line intersectionLine1 = new Line(x, y, x, 425);
+        Line intersectionLine2 = new Line(x, y, 87, y);
+        intersectionLine1.getStrokeDashArray().addAll(10d, 5d);
+        intersectionLine2.getStrokeDashArray().addAll(10d, 5d);
+        Context.getInstance().getIntersectionLL().add(intersectionLine1);
+        Context.getInstance().getIntersectionLL().add(intersectionLine2);
+        main.getGraphMakerController().getGraphMakerWorkspaceP().getChildren().addAll(intersectionLine1, intersectionLine2);
+    }
 
-                Line comparedLine = new Line();
-                switch (Context.getInstance().getCurvesLL().get(j).getCurveType()) {
-                    case "Demand": {
-                        comparedLine = ((Demand) Context.getInstance().getCurvesLL().get(j)).getLine();
-                        break;
-                    }
-                    case "Supply": {
-                        comparedLine = ((Supply) Context.getInstance().getCurvesLL().get(j)).getLine();
-                        break;
-                    }
-                }
-
-                double comparedGradient = (comparedLine.getStartY() - comparedLine.getEndY()) / (comparedLine.getStartX() - comparedLine.getEndX());
-                double comparedYIntercept = comparedLine.getStartY() - comparedGradient * comparedLine.getStartX();
-
-                System.out.println("comparedGradient : " + comparedGradient);
-                System.out.println("comparedYIntercept : " + comparedYIntercept);
-
-                if (newGradient != comparedGradient) {
-                    //Intersection at
-                    double x = (comparedYIntercept - newYIntercept) / (newGradient - comparedGradient);
-                    double y = newGradient * x + newYIntercept;
-                    System.out.println("x" + x + "/ny" + y);
-                    Line intersectionLine1 = new Line(x, y, x, 425);
-                    Line intersectionLine2 = new Line(x, y, 87, y);
-                    intersectionLine1.getStrokeDashArray().addAll(10d, 5d);
-                    intersectionLine2.getStrokeDashArray().addAll(10d, 5d);
-                    Context.getInstance().getIntersectionLL().add(intersectionLine1);
-                    Context.getInstance().getIntersectionLL().add(intersectionLine2);
-                    Label intersectionLabel1 = new Label("Q");
-                    intersectionLabel1.setTranslateX(x);
-                    intersectionLabel1.setTranslateY(435);
-                    Label intersectionLabel2 = new Label("P");
-                    intersectionLabel2.setTranslateX(60);
-                    intersectionLabel2.setTranslateY(y);
-                    Context.getInstance().getIntersectionLL().add(intersectionLabel1);
-                    Context.getInstance().getIntersectionLL().add(intersectionLabel2);
-                    main.getGraphMakerController().getGraphMakerWorkspaceP().getChildren().addAll(intersectionLine1, intersectionLine2, intersectionLabel1, intersectionLabel2);
-                }
-            }
-
-        }
+    private void generateIntersectionLabels(double x, double y) {
+        Label intersectionLabel1;
+        if (Context.getInstance().getxIntersectionCount() == 0)
+            intersectionLabel1 = new Label("Q");
+        else
+            intersectionLabel1 = new Label("Q" + Context.getInstance().getxIntersectionCount());
+        Label intersectionLabel2;
+        if (Context.getInstance().getyIntersectionCount() == 0)
+            intersectionLabel2 = new Label("P");
+        else
+            intersectionLabel2 = new Label("P" + Context.getInstance().getyIntersectionCount());
+        intersectionLabel1.setTranslateX(x);
+        intersectionLabel1.setTranslateY(435);
+        intersectionLabel2.setTranslateX(60);
+        intersectionLabel2.setTranslateY(y);
+        Context.getInstance().setxIntersectionCount(Context.getInstance().getxIntersectionCount()+1);
+        Context.getInstance().setyIntersectionCount(Context.getInstance().getyIntersectionCount()+1);
+        Context.getInstance().getIntersectionLL().add(intersectionLabel1);
+        Context.getInstance().getIntersectionLL().add(intersectionLabel2);
+        graphMakerWorkspaceP.getChildren().addAll(intersectionLabel1, intersectionLabel2);
     }
 
     public void captureAndSetToSave() {
@@ -140,6 +152,8 @@ public class GraphMakerController {
                 demand.getLine().setStartX(demand.getCentreX() - demand.getElasticityGap());
                 demand.getLine().setEndX(demand.getCentreX() + demand.getElasticityGap());
                 demand.getLabel().setTranslateX(demand.getCentreX() + demand.getElasticityGap() + 15);
+                demand.calculateAndSetGradientAndYIntercept();
+                calculateAndGenerateShiftArrows(); //TODO: move to bottom when compatible with supply
                 break;
             }
             case 1: {
@@ -148,6 +162,7 @@ public class GraphMakerController {
                 supply.getLine().setStartX(supply.getCentreX() - supply.getElasticityGap());
                 supply.getLine().setEndX(supply.getCentreX() + supply.getElasticityGap());
                 supply.getLabel().setTranslateX(supply.getCentreX() + supply.getElasticityGap() + 15);
+                supply.calculateAndSetGradientAndYIntercept();
                 break;
             }
         }
@@ -162,6 +177,8 @@ public class GraphMakerController {
                 demand.getLine().setStartX(demand.getCentreX() - demand.getElasticityGap());
                 demand.getLine().setEndX(demand.getCentreX() + demand.getElasticityGap());
                 demand.getLabel().setTranslateX(demand.getCentreX() + demand.getElasticityGap() + 15);
+                demand.calculateAndSetGradientAndYIntercept();
+                calculateAndGenerateShiftArrows(); //TODO: move to bottom when compatible with supply
                 break;
             }
             case 1: {
@@ -170,6 +187,7 @@ public class GraphMakerController {
                 supply.getLine().setStartX(supply.getCentreX() - supply.getElasticityGap());
                 supply.getLine().setEndX(supply.getCentreX() + supply.getElasticityGap());
                 supply.getLabel().setTranslateX(supply.getCentreX() + supply.getElasticityGap() + 15);
+                supply.calculateAndSetGradientAndYIntercept();
                 break;
             }
             case 2: {
@@ -259,6 +277,119 @@ public class GraphMakerController {
         Context.getInstance().setDemandCount(Context.getInstance().getDemandCount() + 1);
         Context.getInstance().setCurveCount(Context.getInstance().getCurveCount() + 1);
         insertIntersections();
+        calculateAndGenerateShiftArrows();
+    }
+
+    public void calculateAndGenerateShiftArrows() {
+        //TODO: create specific curve linked lists in context so that they dont have to reloaded every time.
+        for (int i = 0; i < Context.getInstance().getShiftArrowsLL().size(); i++) {
+            Context.getInstance().getShiftArrowsLL().get(i).setVisible(false);
+        }
+        Context.getInstance().getShiftArrowsLL().clear();
+
+        if (Context.getInstance().getDemandCount() > 0) {
+            List<StraightCurve> demandCurves = new LinkedList<>();
+            for (int i = 0; i < Context.getInstance().getCurvesLL().size(); i++) {
+                switch (Context.getInstance().getCurvesLL().get(i).getCurveType()) {
+                    case "Demand": {
+                        demandCurves.add((Demand) Context.getInstance().getCurvesLL().get(i));
+                    }
+                }
+            }
+            for (int i = 1; i < demandCurves.size(); i++) {
+                insertShiftArrows(demandCurves.get(i), demandCurves.get(i-1));
+            }
+        }
+    }
+
+    public void insertShiftArrows(StraightCurve line1, StraightCurve line2) {
+        //Calculates x coordinates for each line at y=142,383
+        double topX1 = (106 - line1.getyIntercept())/line1.getGradient();
+        double topX2 = (106 - line2.getyIntercept())/line2.getGradient();
+        double bottomX1 = (319 - line1.getyIntercept())/line1.getGradient();
+        double bottomX2 = (319 - line2.getyIntercept())/line2.getGradient();
+
+        //arrows start and finish 1/4 to 3/4 of the distance between the lines
+        double topArrowStartX = ((topX1+topX2)/2)-Math.abs(topX1 - topX2)/4;
+        double topArrowEndX = ((topX1+topX2)/2)+Math.abs(topX1 - topX2)/4;
+        double bottomArrowStartX = (((bottomX1+bottomX2)/2)-Math.abs(bottomX1 - bottomX2)/4);
+        double bottomArrowEndX = (((bottomX1+bottomX2)/2)+Math.abs(bottomX1 - bottomX2)/4);
+
+        //generate lines at calculated values
+        Line topArrow = new Line(topArrowStartX, 106, topArrowEndX, 106);
+        Line bottomArrow = new Line(bottomArrowStartX, 319, bottomArrowEndX, 319);
+
+        double topHeadX = 0;
+        double bottomHeadX = 0;
+        int topDirection = 0; //-1 is left +1 is right
+        int bottomDirection = 0;
+
+        if (line1.getName().compareTo(line2.getName()) < 0) { //A to Z :. D to Dinfinity
+            //head points towards line2 since line1 is D and line2 is D1.
+            if (topX1 > topX2) {
+                //this means that line 1 is on the right of line2 :. it needs to point towards the left
+                topHeadX = topArrowStartX;
+                topDirection = -1;
+
+            }
+            else {
+                //right
+                topHeadX = topArrowEndX;
+                topDirection = 1;
+            }
+            if (bottomX1 > bottomX2) {
+                //left
+                bottomHeadX = bottomArrowStartX;
+                bottomDirection = -1;
+            }
+            else {
+                //right
+                bottomHeadX = bottomArrowEndX;
+                bottomDirection = 1;
+            }
+        }
+        else {
+            //points towards line1
+            if (topX1 > topX2) {
+                //right
+                topHeadX = topArrowEndX;
+                topDirection = 1;
+            }
+            else {
+                //left
+                topHeadX = topArrowStartX;
+                topDirection = -1;
+            }
+            if (bottomX1 > bottomX2) {
+                //right
+                bottomHeadX = bottomArrowEndX;
+                bottomDirection = 1;
+            }
+            else {
+                //left
+                bottomHeadX = bottomArrowStartX;
+                bottomDirection = -1;
+            }
+        }
+
+        Polygon topHead = new Polygon();
+        topHead.getPoints().addAll(new Double[]{
+                topHeadX +1*topDirection, 106.0,
+                topHeadX -6*topDirection, 102.0,
+                topHeadX -6*topDirection, 110.0 });
+
+        Polygon bottomHead = new Polygon();
+        bottomHead.getPoints().addAll(new Double[]{
+                bottomHeadX +1*bottomDirection, 319.0,
+                bottomHeadX -6*bottomDirection, 315.0,
+                bottomHeadX -6*bottomDirection, 323.0 });
+
+        Context.getInstance().getShiftArrowsLL().add(topArrow);
+        Context.getInstance().getShiftArrowsLL().add(bottomArrow);
+        Context.getInstance().getShiftArrowsLL().add(topHead);
+        Context.getInstance().getShiftArrowsLL().add(bottomHead);
+
+        graphMakerWorkspaceP.getChildren().addAll(topArrow, bottomArrow, topHead, bottomHead);
     }
 
     public void insertSupply() {
@@ -288,6 +419,7 @@ public class GraphMakerController {
         Context.getInstance().setSupplyCount(Context.getInstance().getSupplyCount() + 1);
         Context.getInstance().setCurveCount(Context.getInstance().getCurveCount() + 1);
         insertIntersections();
+        //calculateAndGenerateShiftArrows(); -> not compatible yet
     }
 
     public void createRadioButton(String name, int index, int type) {
