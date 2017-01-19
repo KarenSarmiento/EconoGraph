@@ -8,7 +8,9 @@ import javafx.scene.image.WritableImage;
 
 import javafx.scene.shape.Line;
 import ks.econograph.graph.components.Curve;
+import ks.econograph.graph.components.Demand;
 import ks.econograph.graph.components.Graph;
+import ks.econograph.graph.components.Supply;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -26,6 +28,8 @@ public class Context {
 
     private List<Graph> graphsLL = new LinkedList<>();
     private List<Curve> curvesLL = new LinkedList<>();
+    private List<Demand> demandCurves = new LinkedList<>();
+    private List<Supply> supplyCurve = new LinkedList<>();
     private List<Node> intersectionLL = new LinkedList<>();
     private List<Node> shiftArrowsLL = new LinkedList<>();
 
@@ -95,6 +99,22 @@ public class Context {
 
     public void setCurvesLL(List<Curve> curvesLL) {
         Context.getInstance().curvesLL = curvesLL;
+    }
+
+    public List<Demand> getDemandCurves() {
+        return demandCurves;
+    }
+
+    public void setDemandCurves(List<Demand> demandCurves) {
+        this.demandCurves = demandCurves;
+    }
+
+    public List<Supply> getSupplyCurve() {
+        return supplyCurve;
+    }
+
+    public void setSupplyCurve(List<Supply> supplyCurve) {
+        this.supplyCurve = supplyCurve;
     }
 
     public List<Node> getIntersectionLL() {

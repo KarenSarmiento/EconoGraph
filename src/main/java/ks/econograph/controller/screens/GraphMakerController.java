@@ -25,7 +25,6 @@ import java.util.LinkedList;
 import java.util.List;
 
 import static jdk.nashorn.internal.objects.Global.Infinity;
-import static jdk.nashorn.internal.objects.Global.loadWithNewGlobal;
 
 /**
  * Created by KSarm on 01/01/2017.
@@ -280,118 +279,6 @@ public class GraphMakerController {
         calculateAndGenerateShiftArrows();
     }
 
-    public void calculateAndGenerateShiftArrows() {
-        //TODO: create specific curve linked lists in context so that they dont have to reloaded every time.
-        for (int i = 0; i < Context.getInstance().getShiftArrowsLL().size(); i++) {
-            Context.getInstance().getShiftArrowsLL().get(i).setVisible(false);
-        }
-        Context.getInstance().getShiftArrowsLL().clear();
-
-        if (Context.getInstance().getDemandCount() > 0) {
-            List<StraightCurve> demandCurves = new LinkedList<>();
-            for (int i = 0; i < Context.getInstance().getCurvesLL().size(); i++) {
-                switch (Context.getInstance().getCurvesLL().get(i).getCurveType()) {
-                    case "Demand": {
-                        demandCurves.add((Demand) Context.getInstance().getCurvesLL().get(i));
-                    }
-                }
-            }
-            for (int i = 1; i < demandCurves.size(); i++) {
-                insertShiftArrows(demandCurves.get(i), demandCurves.get(i-1));
-            }
-        }
-    }
-
-    public void insertShiftArrows(StraightCurve line1, StraightCurve line2) {
-        //Calculates x coordinates for each line at y=142,383
-        double topX1 = (106 - line1.getyIntercept())/line1.getGradient();
-        double topX2 = (106 - line2.getyIntercept())/line2.getGradient();
-        double bottomX1 = (319 - line1.getyIntercept())/line1.getGradient();
-        double bottomX2 = (319 - line2.getyIntercept())/line2.getGradient();
-
-        //arrows start and finish 1/4 to 3/4 of the distance between the lines
-        double topArrowStartX = ((topX1+topX2)/2)-Math.abs(topX1 - topX2)/4;
-        double topArrowEndX = ((topX1+topX2)/2)+Math.abs(topX1 - topX2)/4;
-        double bottomArrowStartX = (((bottomX1+bottomX2)/2)-Math.abs(bottomX1 - bottomX2)/4);
-        double bottomArrowEndX = (((bottomX1+bottomX2)/2)+Math.abs(bottomX1 - bottomX2)/4);
-
-        //generate lines at calculated values
-        Line topArrow = new Line(topArrowStartX, 106, topArrowEndX, 106);
-        Line bottomArrow = new Line(bottomArrowStartX, 319, bottomArrowEndX, 319);
-
-        double topHeadX = 0;
-        double bottomHeadX = 0;
-        int topDirection = 0; //-1 is left +1 is right
-        int bottomDirection = 0;
-
-        if (line1.getName().compareTo(line2.getName()) < 0) { //A to Z :. D to Dinfinity
-            //head points towards line2 since line1 is D and line2 is D1.
-            if (topX1 > topX2) {
-                //this means that line 1 is on the right of line2 :. it needs to point towards the left
-                topHeadX = topArrowStartX;
-                topDirection = -1;
-
-            }
-            else {
-                //right
-                topHeadX = topArrowEndX;
-                topDirection = 1;
-            }
-            if (bottomX1 > bottomX2) {
-                //left
-                bottomHeadX = bottomArrowStartX;
-                bottomDirection = -1;
-            }
-            else {
-                //right
-                bottomHeadX = bottomArrowEndX;
-                bottomDirection = 1;
-            }
-        }
-        else {
-            //points towards line1
-            if (topX1 > topX2) {
-                //right
-                topHeadX = topArrowEndX;
-                topDirection = 1;
-            }
-            else {
-                //left
-                topHeadX = topArrowStartX;
-                topDirection = -1;
-            }
-            if (bottomX1 > bottomX2) {
-                //right
-                bottomHeadX = bottomArrowEndX;
-                bottomDirection = 1;
-            }
-            else {
-                //left
-                bottomHeadX = bottomArrowStartX;
-                bottomDirection = -1;
-            }
-        }
-
-        Polygon topHead = new Polygon();
-        topHead.getPoints().addAll(new Double[]{
-                topHeadX +1*topDirection, 106.0,
-                topHeadX -6*topDirection, 102.0,
-                topHeadX -6*topDirection, 110.0 });
-
-        Polygon bottomHead = new Polygon();
-        bottomHead.getPoints().addAll(new Double[]{
-                bottomHeadX +1*bottomDirection, 319.0,
-                bottomHeadX -6*bottomDirection, 315.0,
-                bottomHeadX -6*bottomDirection, 323.0 });
-
-        Context.getInstance().getShiftArrowsLL().add(topArrow);
-        Context.getInstance().getShiftArrowsLL().add(bottomArrow);
-        Context.getInstance().getShiftArrowsLL().add(topHead);
-        Context.getInstance().getShiftArrowsLL().add(bottomHead);
-
-        graphMakerWorkspaceP.getChildren().addAll(topArrow, bottomArrow, topHead, bottomHead);
-    }
-
     public void insertSupply() {
         System.out.println("START SUPPLY SIMPLE");
         Supply supply = new Supply(graphMakerWorkspaceP, Context.getInstance().getSupplyCount()); //200,50,550,400
@@ -420,6 +307,78 @@ public class GraphMakerController {
         Context.getInstance().setCurveCount(Context.getInstance().getCurveCount() + 1);
         insertIntersections();
         //calculateAndGenerateShiftArrows(); -> not compatible yet
+    }
+
+    public void calculateAndGenerateShiftArrows() {
+        //TODO: create specific curve linked lists in context so that they dont have to reloaded every time.
+        for (int i = 0; i < Context.getInstance().getShiftArrowsLL().size(); i++) {
+            Context.getInstance().getShiftArrowsLL().get(i).setVisible(false);
+        }
+        Context.getInstance().getShiftArrowsLL().clear();
+
+        if (Context.getInstance().getDemandCount() > 0) {
+            List<Demand> demandCurves = new LinkedList<>();
+            for (int i = 0; i < Context.getInstance().getCurvesLL().size(); i++) {
+                switch (Context.getInstance().getCurvesLL().get(i).getCurveType()) {
+                    case "Demand": {
+                        demandCurves.add((Demand) Context.getInstance().getCurvesLL().get(i));
+                    }
+                }
+            }
+            for (int i = 1; i < demandCurves.size(); i++) {
+                insertTopAndBottomShiftArrows(demandCurves.get(i), demandCurves.get(i-1));
+            }
+        }
+    }
+
+    private void insertTopAndBottomShiftArrows(StraightCurve line1, StraightCurve line2) {
+        insertShiftArrow(line1, line2, 108);
+        insertShiftArrow(line1, line2, 319);
+    }
+
+    private void insertShiftArrow(StraightCurve line1, StraightCurve line2 , double yCoordinate) {
+        double x1 = (yCoordinate - line1.getyIntercept())/line1.getGradient();
+        double x2 = (yCoordinate - line2.getyIntercept())/line2.getGradient();
+
+        double arrowStartX = ((x1+x2)/2)-Math.abs(x1 - x2)/4;
+        double arrowEndX = ((x1+x2)/2)+Math.abs(x1 - x2)/4;
+
+        Line topArrow = new Line(arrowStartX, yCoordinate, arrowEndX, yCoordinate);
+
+        double headX = 0;
+        int direction = 0;
+
+        if (line1.getName().compareTo(line2.getName()) < 0) {
+            if (x1 > x2) {
+                headX = arrowStartX;
+                direction = -1;
+            }
+            else {
+                headX = arrowEndX;
+                direction = 1;
+            }
+        }
+        else {
+            if (x1 > x2) {
+                headX = arrowEndX;
+                direction = 1;
+            }
+            else {
+                headX = arrowStartX;
+                direction = -1;
+            }
+        }
+
+        Polygon topHead = new Polygon();
+        topHead.getPoints().addAll(new Double[]{
+                headX +1*direction, yCoordinate,
+                headX -6*direction, yCoordinate -4,
+                headX -6*direction, yCoordinate +4 });
+
+        Context.getInstance().getShiftArrowsLL().add(topArrow);
+        Context.getInstance().getShiftArrowsLL().add(topHead);
+
+        graphMakerWorkspaceP.getChildren().addAll(topArrow, topHead);
     }
 
     public void createRadioButton(String name, int index, int type) {

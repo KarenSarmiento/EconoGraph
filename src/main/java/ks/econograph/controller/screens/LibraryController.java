@@ -31,18 +31,6 @@ public class LibraryController {
     @FXML
     ComboBox librarySortCB = new ComboBox();
 
-/*switch(Context.getInstance().getSortType()) {
-        case "A to Z": {
-
-        }
-        case "Date of Creation": {
-
-        }
-        case "Topic": {
-
-        }
-    }*/
-
     public void sortGraphsWithSelectionSort() {
         Graph[] graphsArray = new Graph[Context.getInstance().getGraphsLL().size()];
         for (int i = 0; i < Context.getInstance().getGraphsLL().size(); i++) {
@@ -139,9 +127,9 @@ public class LibraryController {
         }
     }
 
-    public void oldGraphToGraphMaker() {
+    public void oldGraphToGraphMaker(String graphName) {
         main.setScreenToGraphMaker();
-        loadGraph("Test Graph");
+        loadGraph(graphName);
     }
 
     public void loadGraph(String graphName){ //loading graph named "TestGraph"

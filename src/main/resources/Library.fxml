@@ -27,7 +27,6 @@
                 <Button fx:id="libraryMakeAGraphB" mnemonicParsing="false" onAction="#setScreenToOptions" text="Make a Graph" />
                 <Button fx:id="librarySaveB" mnemonicParsing="false" prefHeight="31.0" prefWidth="113.0" text="Save" />
                 <Button fx:id="libraryDeleteB" mnemonicParsing="false" prefWidth="113.0" text="Delete" />
-                <Button fx:id="editGraph" mnemonicParsing="false" onAction="#oldGraphToGraphMaker" prefHeight="31.0" prefWidth="113.0" text="Edit" />
                 <Button fx:id="libraryResetOptionsB" mnemonicParsing="false" onAction="#resetSearchAndFilterOptions" prefHeight="31.0" prefWidth="114.0" text="Reset Options" />
             </children>
         </VBox>
@@ -56,11 +55,11 @@
         <TextField fx:id="librarySearchTF" GridPane.columnIndex="3" GridPane.rowIndex="1" />
         <ScrollPane fx:id="libraryGraphsSP" prefHeight="507.0" prefWidth="764.0" GridPane.columnSpan="5" GridPane.rowIndex="2">
             <content>
-                <GridPane fx:id="libraryGraphGP" gridLinesVisible="true" prefHeight="40.0" prefWidth="961.0">
+                <GridPane fx:id="libraryGraphGP" gridLinesVisible="true" prefHeight="42.0" prefWidth="992.0">
                     <columnConstraints>
-                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="350.0" minWidth="10.0" prefWidth="349.0" />
-                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="480.0" minWidth="10.0" prefWidth="316.0" />
-                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="235.0" minWidth="0.0" prefWidth="123.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="428.0" minWidth="10.0" prefWidth="428.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="480.0" minWidth="10.0" prefWidth="327.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="235.0" minWidth="0.0" prefWidth="67.0" />
                         <ColumnConstraints hgrow="SOMETIMES" maxWidth="176.0" minWidth="10.0" prefWidth="165.0" />
                     </columnConstraints>
                     <rowConstraints>
