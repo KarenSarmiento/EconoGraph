@@ -1,5 +1,8 @@
 package ks.econograph.controller.screens;
 
+import com.itextpdf.text.Document;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.pdf.PdfWriter;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
@@ -7,9 +10,8 @@ import ks.econograph.Context;
 import ks.econograph.controller.MainController;
 import ks.econograph.graph.components.Graph;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
+import java.util.Date;
 
 /**
  * Created by KSarm on 01/01/2017.
@@ -30,6 +32,21 @@ public class LibraryController {
     TextField librarySearchTF = new TextField();
     @FXML
     ComboBox librarySortCB = new ComboBox();
+
+    public void pdf() {
+        try {
+            OutputStream file = new FileOutputStream(new File("C:\\Users\\KSarm\\OneDrive\\IB\\Computer Science\\IA\\FileWriting\\helloworld.pdf"));
+            Document document = new Document();
+            PdfWriter.getInstance(document, file);
+            document.open();
+            document.add(new Paragraph("Hello World, iText"));
+            document.add(new Paragraph(new Date().toString()));
+            document.close();
+            file.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
     public void sortGraphsWithSelectionSort() {
         Graph[] graphsArray = new Graph[Context.getInstance().getGraphsLL().size()];

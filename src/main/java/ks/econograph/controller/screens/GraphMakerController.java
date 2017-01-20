@@ -21,8 +21,6 @@ import ks.econograph.graph.components.Supply;
 import javax.imageio.ImageIO;
 import java.io.File;
 import java.io.IOException;
-import java.util.LinkedList;
-import java.util.List;
 
 import static jdk.nashorn.internal.objects.Global.Infinity;
 
@@ -152,7 +150,6 @@ public class GraphMakerController {
                 demand.getLine().setEndX(demand.getCentreX() + demand.getElasticityGap());
                 demand.getLabel().setTranslateX(demand.getCentreX() + demand.getElasticityGap() + 15);
                 demand.calculateAndSetGradientAndYIntercept();
-                calculateAndGenerateShiftArrows(); //TODO: move to bottom when compatible with supply
                 break;
             }
             case 1: {
@@ -165,6 +162,7 @@ public class GraphMakerController {
                 break;
             }
         }
+        calculateAndGenerateShiftArrows();
         insertIntersections();
     }
 
@@ -177,7 +175,6 @@ public class GraphMakerController {
                 demand.getLine().setEndX(demand.getCentreX() + demand.getElasticityGap());
                 demand.getLabel().setTranslateX(demand.getCentreX() + demand.getElasticityGap() + 15);
                 demand.calculateAndSetGradientAndYIntercept();
-                calculateAndGenerateShiftArrows(); //TODO: move to bottom when compatible with supply
                 break;
             }
             case 1: {
@@ -198,6 +195,7 @@ public class GraphMakerController {
                 break;
             }
         }
+        calculateAndGenerateShiftArrows();
         insertIntersections();
     }
 
@@ -252,9 +250,8 @@ public class GraphMakerController {
     public void insertDemand() {
         System.out.println("START DEMAND SIMPLE");
         Demand demand = new Demand(graphMakerWorkspaceP, Context.getInstance().getDemandCount()); //200,50,550,400
-        Context.getInstance().getCurvesLL().add(demand);
         System.out.println(Context.getInstance().getCurvesLL());
-        setUpDemand();
+        setUpDemand(demand);
         System.out.println("Demand Count : " + Context.getInstance().getDemandCount());
         System.out.println("Curve Count : " + Context.getInstance().getCurveCount());
         System.out.println("END DEMAND SIMPLE");
@@ -263,28 +260,28 @@ public class GraphMakerController {
     public void insertDemand(String name, int centreX, int elasticityGap, String colour, int thickness, boolean dotted) {
         System.out.println("START DEMAND");
         Demand demand = new Demand(graphMakerWorkspaceP, Context.getInstance().getDemandCount(), name, centreX, elasticityGap, colour, thickness, dotted); //200,50,550,400
-        Context.getInstance().getCurvesLL().add(demand);
-        setUpDemand();
+        setUpDemand(demand);
         System.out.println(Context.getInstance().getCurvesLL());
         System.out.println("Demand Count : " + Context.getInstance().getDemandCount());
         System.out.println("Curve Count : " + Context.getInstance().getCurveCount());
         System.out.println("END DEMAND");
     }
 
-    private void setUpDemand() {
+    private void setUpDemand(Demand demand) {
         createRadioButton("Demand " + Context.getInstance().getDemandCount(), Context.getInstance().getCurveCount(), 0);
         Context.getInstance().setDemandCount(Context.getInstance().getDemandCount() + 1);
         Context.getInstance().setCurveCount(Context.getInstance().getCurveCount() + 1);
         insertIntersections();
         calculateAndGenerateShiftArrows();
+        Context.getInstance().getCurvesLL().add(demand);
+        Context.getInstance().getDemandCurves().add(demand);
     }
 
     public void insertSupply() {
         System.out.println("START SUPPLY SIMPLE");
         Supply supply = new Supply(graphMakerWorkspaceP, Context.getInstance().getSupplyCount()); //200,50,550,400
-        Context.getInstance().getCurvesLL().add(supply);
         System.out.println(Context.getInstance().getCurvesLL());
-        setUpSupply();
+        setUpSupply(supply);
         System.out.println("Supply Count : " + Context.getInstance().getSupplyCount());
         System.out.println("Curve Count : " + Context.getInstance().getCurveCount());
         System.out.println("END SUPPLY SIMPLE");
@@ -293,45 +290,39 @@ public class GraphMakerController {
     public void insertSupply(String name, int centreX, int elasticityGap, String colour, int thickness, boolean dotted) {
         System.out.println("START SUPPLY");
         Supply supply = new Supply(graphMakerWorkspaceP, Context.getInstance().getSupplyCount(), name, centreX, elasticityGap, colour, thickness, dotted); //200,50,550,400
-        Context.getInstance().getCurvesLL().add(supply);
         System.out.println(Context.getInstance().getCurvesLL());
-        setUpSupply();
+        setUpSupply(supply);
         System.out.println("Supply Count : " + Context.getInstance().getSupplyCount());
         System.out.println("Curve Count : " + Context.getInstance().getCurveCount());
         System.out.println("END SUPPLY");
     }
 
-    private void setUpSupply() {
+    private void setUpSupply(Supply supply) {
         createRadioButton("Supply " + Context.getInstance().getSupplyCount(), Context.getInstance().getCurveCount(), 1);
         Context.getInstance().setSupplyCount(Context.getInstance().getSupplyCount() + 1);
         Context.getInstance().setCurveCount(Context.getInstance().getCurveCount() + 1);
         insertIntersections();
-        //calculateAndGenerateShiftArrows(); -> not compatible yet
+        Context.getInstance().getSupplyCurve().add(supply);
+        Context.getInstance().getCurvesLL().add(supply);
+        calculateAndGenerateShiftArrows();
     }
 
     public void calculateAndGenerateShiftArrows() {
-        //TODO: create specific curve linked lists in context so that they dont have to reloaded every time.
         for (int i = 0; i < Context.getInstance().getShiftArrowsLL().size(); i++) {
             Context.getInstance().getShiftArrowsLL().get(i).setVisible(false);
         }
         Context.getInstance().getShiftArrowsLL().clear();
 
-        if (Context.getInstance().getDemandCount() > 0) {
-            List<Demand> demandCurves = new LinkedList<>();
-            for (int i = 0; i < Context.getInstance().getCurvesLL().size(); i++) {
-                switch (Context.getInstance().getCurvesLL().get(i).getCurveType()) {
-                    case "Demand": {
-                        demandCurves.add((Demand) Context.getInstance().getCurvesLL().get(i));
-                    }
-                }
-            }
-            for (int i = 1; i < demandCurves.size(); i++) {
-                insertTopAndBottomShiftArrows(demandCurves.get(i), demandCurves.get(i-1));
-            }
+        for (int i = 1; i < Context.getInstance().getDemandCurves().size(); i++) {
+            insertTopAndBottomShiftArrowsForStraightCurves(Context.getInstance().getDemandCurves().get(i), Context.getInstance().getDemandCurves().get(i-1));
+        }
+
+        for (int i = 1; i < Context.getInstance().getSupplyCurve().size(); i++) {
+            insertTopAndBottomShiftArrowsForStraightCurves(Context.getInstance().getSupplyCurve().get(i), Context.getInstance().getSupplyCurve().get(i-1));
         }
     }
 
-    private void insertTopAndBottomShiftArrows(StraightCurve line1, StraightCurve line2) {
+    private void insertTopAndBottomShiftArrowsForStraightCurves(StraightCurve line1, StraightCurve line2) {
         insertShiftArrow(line1, line2, 108);
         insertShiftArrow(line1, line2, 319);
     }
