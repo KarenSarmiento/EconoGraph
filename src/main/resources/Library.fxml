@@ -28,7 +28,6 @@
                 <Button fx:id="librarySaveB" mnemonicParsing="false" prefHeight="31.0" prefWidth="113.0" text="Save" />
                 <Button fx:id="libraryDeleteB" mnemonicParsing="false" prefWidth="113.0" text="Delete" />
                 <Button fx:id="libraryResetOptionsB" mnemonicParsing="false" onAction="#resetSearchAndFilterOptions" prefHeight="31.0" prefWidth="114.0" text="Reset Options" />
-            <Button mnemonicParsing="false" onAction="#pdf" text="Test PDF" />
             </children>
         </VBox>
         <ComboBox fx:id="librarySortCB" onAction="#sortGraphsWithSelectionSort" prefWidth="150.0" promptText="Sort by.." GridPane.columnIndex="0" GridPane.rowIndex="1">

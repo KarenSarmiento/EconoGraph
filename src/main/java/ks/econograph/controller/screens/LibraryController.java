@@ -1,14 +1,21 @@
 package ks.econograph.controller.screens;
 
 import com.itextpdf.text.Document;
+import com.itextpdf.text.Image;
 import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.pdf.PdfWriter;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.VBox;
+import javafx.stage.FileChooser;
 import ks.econograph.Context;
 import ks.econograph.controller.MainController;
 import ks.econograph.graph.components.Graph;
+import javafx.stage.FileChooser.ExtensionFilter;
 
 import java.io.*;
 import java.util.Date;
@@ -25,27 +32,79 @@ public class LibraryController {
     @FXML
     CheckBox libraryFavouritesCB = new CheckBox();
     @FXML
-    Button editGraph = new Button();
-    @FXML
     ComboBox libraryFilterCB = new ComboBox();
     @FXML
     TextField librarySearchTF = new TextField();
     @FXML
     ComboBox librarySortCB = new ComboBox();
 
-    public void pdf() {
+    public void resetAndDisplayGraphsFromGraphsLLToLibrary() {
+        libraryGraphGP.getChildren().remove(5,libraryGraphGP.getChildren().size());
+        libraryGraphGP.setGridLinesVisible(true);
+        for (int i = 0; i < Context.getInstance().getGraphsLL().size(); i++) {
+            if (Context.getInstance().getGraphsLL().get(i).isVisible() == true) {
+                String title = Context.getInstance().getGraphsLL().get(i).getTitle();
+                Label titleLabel = new Label(title);
+                libraryGraphGP.setConstraints(titleLabel, 0, i + 1);
+                ImageView graphImage = new ImageView(new javafx.scene.image.Image("file:" + Context.getInstance().getFileLocationForSavedImages() +
+                        Context.getInstance().getGraphsLL().get(i).getFileName()));
+                System.out.println(Context.getInstance().getFileLocationForSavedImages() +
+                        Context.getInstance().getGraphsLL().get(i).getFileName());
+                graphImage.setFitWidth(375);
+                graphImage.setFitHeight(225);
+                VBox graphColumnContents = new VBox(3);
+                graphColumnContents.getChildren().addAll(titleLabel, graphImage);
+                libraryGraphGP.setConstraints(graphColumnContents, 0, i + 1);
+                Label description = new Label(Context.getInstance().getGraphsLL().get(i).getDescription());
+                libraryGraphGP.setConstraints(description, 1, i + 1);
+                if (Context.getInstance().getGraphsLL().get(i).isFavourite()) {
+                    ImageView favouriteStar = new ImageView(new javafx.scene.image.Image("file:C:\\Users\\KSarm\\Documents\\Intellij Projects\\EconoGraph2\\src\\main\\resources\\FavouritesStar.png"));
+                    favouriteStar.setFitHeight(50);
+                    favouriteStar.setFitWidth(50);
+                    libraryGraphGP.setConstraints(favouriteStar, 2, i + 1);
+                    libraryGraphGP.getChildren().add(favouriteStar);
+                }
+                Button editButton = new Button("Edit " + title);
+                editButton.setOnAction(e -> oldGraphToGraphMaker(title));
+                Button deleteButton = new Button("Delete");
+                Button saveToDocuments = new Button("Save to Documents");
+                int curveIndex = i;
+                saveToDocuments.setOnAction(e -> savePdfToSelectedFileLocation(curveIndex));
+                VBox buttonMenu = new VBox(5);
+                buttonMenu.getChildren().addAll(editButton, deleteButton, saveToDocuments);
+                libraryGraphGP.setConstraints(buttonMenu, 3, i + 1);
+                libraryGraphGP.getChildren().addAll(graphColumnContents, description, buttonMenu);
+            }
+        }
+    }
+
+
+    private void savePdfToSelectedFileLocation(int curveIndex) {
         try {
-            OutputStream file = new FileOutputStream(new File("C:\\Users\\KSarm\\OneDrive\\IB\\Computer Science\\IA\\FileWriting\\helloworld.pdf"));
+            OutputStream file = new FileOutputStream(openFileDirectoryAndOutputDesiredFileLocation());
             Document document = new Document();
             PdfWriter.getInstance(document, file);
             document.open();
-            document.add(new Paragraph("Hello World, iText"));
+            document.add(new Paragraph(Context.getInstance().getGraphsLL().get(curveIndex).getTitle()));
             document.add(new Paragraph(new Date().toString()));
+            Image graphImage = Image.getInstance(Context.getInstance().getFileLocationForSavedImages() + Context.getInstance().getGraphsLL().get(curveIndex).getFileName());
+            graphImage.scaleToFit(550f, 550f);
+            document.add(graphImage);
+            document.add(new Paragraph(Context.getInstance().getGraphsLL().get(curveIndex).getDescription()));
             document.close();
             file.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public File openFileDirectoryAndOutputDesiredFileLocation() {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Open Resource File");
+        fileChooser.getExtensionFilters().add(new ExtensionFilter("PDF Files", "*.pdf"));
+        File selectedFile = fileChooser.showSaveDialog(null);
+
+        return selectedFile;
     }
 
     public void sortGraphsWithSelectionSort() {
@@ -84,7 +143,7 @@ public class LibraryController {
         for(int k = 0; k < graphsArray.length; k++) {
             Context.getInstance().getGraphsLL().add(graphsArray[k]);
         }
-        main.resetAndDisplayGraphsFromGraphsLLToLibrary();
+        resetAndDisplayGraphsFromGraphsLLToLibrary();
     }
 
     public void resetSearchAndFilterOptions() {
@@ -139,9 +198,7 @@ public class LibraryController {
             }
         }
         System.out.println(Context.getInstance().getGraphsLL().toString());
-        if (main != null) {
-            main.resetAndDisplayGraphsFromGraphsLLToLibrary();
-        }
+            resetAndDisplayGraphsFromGraphsLLToLibrary();
     }
 
     public void oldGraphToGraphMaker(String graphName) {

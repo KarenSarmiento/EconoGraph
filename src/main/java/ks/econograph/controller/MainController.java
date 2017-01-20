@@ -1,12 +1,7 @@
 package ks.econograph.controller;
 
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.VBox;
 import ks.econograph.Context;
 import ks.econograph.controller.screens.GraphMakerController;
 import ks.econograph.controller.screens.LibraryController;
@@ -51,10 +46,9 @@ public class MainController {
 
         resetGraphMaker();
         readInGraphsToGraphsLL();
-        resetAndDisplayGraphsFromGraphsLLToLibrary();
+        libraryController.resetAndDisplayGraphsFromGraphsLLToLibrary();
         optionsController.setUpTemplateButtons();
 
-        System.out.println(Context.getInstance().getGraphsLL());
         setScreenToLibrary();
     }
 
@@ -108,44 +102,6 @@ public class MainController {
         }
         catch (IOException ioe) {
             System.out.println("Error loading graphs");
-        }
-    }
-
-    public void resetAndDisplayGraphsFromGraphsLLToLibrary() {
-        libraryController.libraryGraphGP.getChildren().remove(5,libraryController.libraryGraphGP.getChildren().size());
-        libraryController.libraryGraphGP.setGridLinesVisible(true);
-        for (int i = 0; i < Context.getInstance().getGraphsLL().size(); i++) {
-            if (Context.getInstance().getGraphsLL().get(i).isVisible() == true) {
-                String title = Context.getInstance().getGraphsLL().get(i).getTitle();
-                Label titleLabel = new Label(title);
-                libraryController.libraryGraphGP.setConstraints(titleLabel, 0, i + 1);
-                ImageView graphImage = new ImageView(new Image("file:" + Context.getInstance().getFileLocationForSavedImages() +
-                        Context.getInstance().getGraphsLL().get(i).getFileName()));
-                System.out.println(Context.getInstance().getFileLocationForSavedImages() +
-                        Context.getInstance().getGraphsLL().get(i).getFileName());
-                graphImage.setFitWidth(375);
-                graphImage.setFitHeight(225);
-                VBox graphColumnContents = new VBox(3);
-                graphColumnContents.getChildren().addAll(titleLabel, graphImage);
-                libraryController.libraryGraphGP.setConstraints(graphColumnContents, 0, i + 1);
-                Label description = new Label(Context.getInstance().getGraphsLL().get(i).getDescription());
-                libraryController.libraryGraphGP.setConstraints(description, 1, i + 1);
-                if (Context.getInstance().getGraphsLL().get(i).isFavourite()) {
-                    ImageView favouriteStar = new ImageView(new Image("file:C:\\Users\\KSarm\\Documents\\Intellij Projects\\EconoGraph2\\src\\main\\resources\\FavouritesStar.png"));
-                    favouriteStar.setFitHeight(50);
-                    favouriteStar.setFitWidth(50);
-                    libraryController.libraryGraphGP.setConstraints(favouriteStar, 2, i + 1);
-                    libraryController.libraryGraphGP.getChildren().add(favouriteStar);
-                }
-                Button editButton = new Button("Edit " + title);
-                editButton.setOnAction(e -> libraryController.oldGraphToGraphMaker(title));
-                Button deleteButton = new Button("Delete");
-                Button saveToDocuments = new Button("Save to Documents");
-                VBox buttonMenu = new VBox(5);
-                buttonMenu.getChildren().addAll(editButton, deleteButton, saveToDocuments);
-                libraryController.libraryGraphGP.setConstraints(buttonMenu, 3, i + 1);
-                libraryController.libraryGraphGP.getChildren().addAll(graphColumnContents, description, buttonMenu);
-            }
         }
     }
 

@@ -67,7 +67,7 @@ public class SaveMenuController {
             Context.getInstance().getGraphsLL().add(Context.getInstance().getCurrentEditingGraph());
             saveGraphToTextFile();
             setScreenToLibrary();
-            main.resetAndDisplayGraphsFromGraphsLLToLibrary();
+            main.getLibraryController().resetAndDisplayGraphsFromGraphsLLToLibrary();
         }
         resetGraphMaker();
     }
