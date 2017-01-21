@@ -4,16 +4,19 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.shape.Line;
+import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 import ks.econograph.Context;
 import ks.econograph.controller.MainController;
+
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  * Created by KSarm on 20/01/2017.
@@ -23,7 +26,9 @@ public class ShadedRegionOptionsController {
     private MainController main;
 
     @FXML
-    ComboBox shadedRegionFromCB = new ComboBox();
+    GridPane shadedRegionGP = new GridPane();
+    @FXML
+    ComboBox shadedRegionFromCB = new ComboBox(); //shadedRegionFromCB
     @FXML
     ComboBox shadedRegionToCB = new ComboBox();
     @FXML
@@ -35,23 +40,31 @@ public class ShadedRegionOptionsController {
     @FXML
     ColorPicker shadedRegionColourPicker = new ColorPicker();
 
-    public void addComboBoxValues() {
-        ObservableList<String> comboBoxValues = FXCollections.observableArrayList(
-                "Sort",
-                "Filter" );
-        for (int i = 0; i < Context.getInstance().getIntersectionLL().size(); i++) {
-            try {
-                //Line line = (Line) Context.getInstance().getIntersectionLL().get(i);
-                //comboBoxValues.add(line.getId());
-                //double xOrdinate = label.getTranslateX();
+    //TODO: Validate combobox so that only vertical lines are picked vice versa
+    //public void updateComboBox(ComboBox comboBox, boolean vertical, boolean horizontal) {
+    public void addIntersectionComboBoxValues() {
+        addComboBoxValue(shadedRegionFromCB, Context.getInstance().getIntersectionLL(), false);
+        addComboBoxValue(shadedRegionToCB, Context.getInstance().getIntersectionLL(), false);
+        addComboBoxValue(shadedRegionBetween1CB, Context.getInstance().getCurvesLL(), true);
+        addComboBoxValue(shadedRegionBetween2CB, Context.getInstance().getCurvesLL(), true);
+    }
+
+    public void addComboBoxValue(ComboBox comboBox, List list, boolean curve) {
+        List<String> rawList = new LinkedList<>();
+        for (int i = 0; i < list.size(); i++) {
+            if (curve) {
+                rawList.add(Context.getInstance().getCurvesLL().get(i).getLabel().getText());
             }
-            catch (Exception e) {
-                System.out.println("node is not a label");
+            else {
+                Group group = (Group) list.get(i);
+                rawList.add(group.getChildren().get(0).getId());
+                System.out.println(rawList);
             }
         }
-        shadedRegionFromCB.setItems(comboBoxValues);
-        shadedRegionFromCB.setValue(comboBoxValues.get(0));
-
+        ObservableList<String> comboBoxValues = FXCollections.observableArrayList(rawList);
+        System.out.println(comboBoxValues);
+        comboBox.setItems(comboBoxValues);
+        comboBox.setValue(comboBoxValues.get(0));
     }
 
     public void initializeShadedRegionScreen() {
@@ -65,6 +78,7 @@ public class ShadedRegionOptionsController {
         catch (Exception e) {
             e.printStackTrace();
         }
+        addIntersectionComboBoxValues();
     }
 
     public void init(MainController mainController) {
