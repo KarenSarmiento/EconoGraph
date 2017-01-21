@@ -2,9 +2,7 @@ package ks.econograph.controller.screens;
 
 import javafx.embed.swing.SwingFXUtils;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
+import javafx.scene.Group;
 import javafx.scene.SnapshotParameters;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.Label;
@@ -15,7 +13,6 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Polygon;
-import javafx.stage.Stage;
 import ks.econograph.Context;
 import ks.econograph.controller.MainController;
 import ks.econograph.graph.components.Demand;
@@ -58,14 +55,6 @@ public class GraphMakerController {
         main.getShadedRegionOptionsController().initializeShadedRegionScreen();
     }
 
-    public void insertShadedRegion() {
-
-    }
-
-    private void getShadedRegionOptionsInput() {
-
-    }
-
     public void insertIntersections() {
         resetIntersectionLLAndIntersectionCounts();
 
@@ -91,11 +80,24 @@ public class GraphMakerController {
                 }
                 if (x >= 87 && y <= 425 ) {
                     System.out.println("x = " + x + ", y = " + y);
-                    generateIntersectionLines(x, y);
-                    generateIntersectionLabels(x, y);
+
+                    graphMakerWorkspaceP.getChildren().addAll(generateIntersectionLineAndLabelGroup(x, y, "Q", true),
+                            generateIntersectionLineAndLabelGroup(x, y, "P", false));
+
+                    Context.getInstance().setxIntersectionCount(Context.getInstance().getxIntersectionCount()+1);
+                    Context.getInstance().setyIntersectionCount(Context.getInstance().getyIntersectionCount()+1);
                 }
             }
         }
+    }
+
+    private Group generateIntersectionLineAndLabelGroup(double x, double y, String axisLabel, boolean vertical) {
+        Label intersectionLabel = generateIntersectionLabel(x, y, axisLabel, vertical);
+        Line intersectionLine = generateIntersectionLine(x, y, axisLabel, vertical);
+        Group group = new Group();
+        group.getChildren().addAll(intersectionLabel, intersectionLine);
+        Context.getInstance().getIntersectionLL().add(group);
+        return group;
     }
 
     private void resetIntersectionLLAndIntersectionCounts() {
@@ -107,36 +109,43 @@ public class GraphMakerController {
         Context.getInstance().setyIntersectionCount(0);
     }
 
-    private void generateIntersectionLines(double x, double y) {
-        Line intersectionLine1 = new Line(x, y, x, 425);
-        Line intersectionLine2 = new Line(x, y, 87, y);
-        intersectionLine1.getStrokeDashArray().addAll(10d, 5d);
-        intersectionLine2.getStrokeDashArray().addAll(10d, 5d);
-        Context.getInstance().getIntersectionLL().add(intersectionLine1);
-        Context.getInstance().getIntersectionLL().add(intersectionLine2);
-        main.getGraphMakerController().getGraphMakerWorkspaceP().getChildren().addAll(intersectionLine1, intersectionLine2);
+    private Line generateIntersectionLine(double x, double y, String axisLabel, boolean vertical) {
+        Line intersectionLine;
+        if (vertical) {
+            intersectionLine = new Line(x, y, x, 425);
+        }
+        else {
+            intersectionLine = new Line(x, y, 87, y);
+        }
+        intersectionLine.setId(generateIntersectionId(axisLabel));
+        intersectionLine.getStrokeDashArray().addAll(10d, 5d);
+
+        return intersectionLine;
     }
 
-    private void generateIntersectionLabels(double x, double y) {
-        Label intersectionLabel1;
+    private Label generateIntersectionLabel(double x, double y, String axisLabel, boolean vertical) {
+        String generatedAxisLabel = generateIntersectionId(axisLabel);
+        Label intersectionLabel = new Label(generatedAxisLabel);
+        intersectionLabel.setId(generatedAxisLabel);
+        if (vertical) {
+            intersectionLabel.setTranslateX(x);
+            intersectionLabel.setTranslateY(435);
+        }
+        else {
+            intersectionLabel.setTranslateX(60);
+            intersectionLabel.setTranslateY(y);
+        }
+        return intersectionLabel;
+    }
+
+    private String generateIntersectionId(String axisLabel) {
+        String id;
         if (Context.getInstance().getxIntersectionCount() == 0)
-            intersectionLabel1 = new Label("Q");
+            id = axisLabel;
         else
-            intersectionLabel1 = new Label("Q" + Context.getInstance().getxIntersectionCount());
-        Label intersectionLabel2;
-        if (Context.getInstance().getyIntersectionCount() == 0)
-            intersectionLabel2 = new Label("P");
-        else
-            intersectionLabel2 = new Label("P" + Context.getInstance().getyIntersectionCount());
-        intersectionLabel1.setTranslateX(x);
-        intersectionLabel1.setTranslateY(435);
-        intersectionLabel2.setTranslateX(60);
-        intersectionLabel2.setTranslateY(y);
-        Context.getInstance().setxIntersectionCount(Context.getInstance().getxIntersectionCount()+1);
-        Context.getInstance().setyIntersectionCount(Context.getInstance().getyIntersectionCount()+1);
-        Context.getInstance().getIntersectionLL().add(intersectionLabel1);
-        Context.getInstance().getIntersectionLL().add(intersectionLabel2);
-        graphMakerWorkspaceP.getChildren().addAll(intersectionLabel1, intersectionLabel2);
+            id = axisLabel + Context.getInstance().getxIntersectionCount();
+
+        return id;
     }
 
     public void captureAndSetToSave() {
@@ -317,9 +326,9 @@ public class GraphMakerController {
         createRadioButton("Supply " + Context.getInstance().getSupplyCount(), Context.getInstance().getCurveCount(), 1);
         Context.getInstance().setSupplyCount(Context.getInstance().getSupplyCount() + 1);
         Context.getInstance().setCurveCount(Context.getInstance().getCurveCount() + 1);
-        insertIntersections();
         Context.getInstance().getSupplyCurve().add(supply);
         Context.getInstance().getCurvesLL().add(supply);
+        insertIntersections();
         calculateAndGenerateShiftArrows();
     }
 
