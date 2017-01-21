@@ -2,6 +2,9 @@ package ks.econograph.controller.screens;
 
 import javafx.embed.swing.SwingFXUtils;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.SnapshotParameters;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.Label;
@@ -12,6 +15,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Polygon;
+import javafx.stage.Stage;
 import ks.econograph.Context;
 import ks.econograph.controller.MainController;
 import ks.econograph.graph.components.Demand;
@@ -49,6 +53,18 @@ public class GraphMakerController {
     Label graphMakerXAxisL = new Label();
     @FXML
     Label graphMakerYAxisL = new Label();
+
+    public void initializeShadedRegionTest() {
+        main.getShadedRegionOptionsController().initializeShadedRegionScreen();
+    }
+
+    public void insertShadedRegion() {
+
+    }
+
+    private void getShadedRegionOptionsInput() {
+
+    }
 
     public void insertIntersections() {
         resetIntersectionLLAndIntersectionCounts();
@@ -404,12 +420,8 @@ public class GraphMakerController {
     public void setAppropriateCurveSettings(int index, int type) {
         Context.getInstance().setSelectedCurveIndex(index);
         Context.getInstance().setSelectedCurveType(type);
-//        if (Context.getInstance().getSelectedCurveIndex() == 0 || Context.getInstance().getSelectedCurveIndex() == 1) {
-            graphMakerElasticitySlider.setValue(175);
-//        }
-//        else {
-//            graphMakerElasticitySlider.setValue(Context.getInstance().getCurvesLL().get(Context.getInstance().getSelectedCurveIndex()).getElasticityGap());
-//        }
+        //TODO : set appropriate settings
+        graphMakerElasticitySlider.setValue(175);
         graphMakerShiftSlider.setValue(0);
         graphMakerThicknessSlider.setValue(5);
     }

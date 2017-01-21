@@ -3,10 +3,7 @@ package ks.econograph.controller;
 import javafx.fxml.FXML;
 import javafx.scene.layout.AnchorPane;
 import ks.econograph.Context;
-import ks.econograph.controller.screens.GraphMakerController;
-import ks.econograph.controller.screens.LibraryController;
-import ks.econograph.controller.screens.OptionsController;
-import ks.econograph.controller.screens.SaveMenuController;
+import ks.econograph.controller.screens.*;
 import ks.econograph.graph.components.Graph;
 
 import java.io.BufferedReader;
@@ -27,6 +24,8 @@ public class MainController {
     @FXML
     SaveMenuController saveMenuController;
 
+    ShadedRegionOptionsController shadedRegionOptionsController = new ShadedRegionOptionsController();
+
     @FXML
     AnchorPane libraryAP;
     @FXML
@@ -43,6 +42,7 @@ public class MainController {
         graphMakerController.init(this);
         optionsController.init(this);
         saveMenuController.init(this);
+        shadedRegionOptionsController.init(this);
 
         resetGraphMaker();
         readInGraphsToGraphsLL();
@@ -153,5 +153,13 @@ public class MainController {
 
     public void setSaveMenuController(SaveMenuController saveMenuController) {
         this.saveMenuController = saveMenuController;
+    }
+
+    public ShadedRegionOptionsController getShadedRegionOptionsController() {
+        return shadedRegionOptionsController;
+    }
+
+    public void setShadedRegionOptionsController(ShadedRegionOptionsController shadedRegionOptionsController) {
+        this.shadedRegionOptionsController = shadedRegionOptionsController;
     }
 }
