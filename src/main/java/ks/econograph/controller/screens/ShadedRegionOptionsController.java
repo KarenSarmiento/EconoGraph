@@ -40,8 +40,11 @@ public class ShadedRegionOptionsController {
     @FXML
     ColorPicker shadedRegionColourPicker = new ColorPicker();
 
+    public void calculateShadedRegionVertices() {
+
+    }
+
     //TODO: Validate combobox so that only vertical lines are picked vice versa
-    //public void updateComboBox(ComboBox comboBox, boolean vertical, boolean horizontal) {
     public void addIntersectionComboBoxValues() {
         addComboBoxValue(shadedRegionFromCB, Context.getInstance().getIntersectionLL(), false);
         addComboBoxValue(shadedRegionToCB, Context.getInstance().getIntersectionLL(), false);
