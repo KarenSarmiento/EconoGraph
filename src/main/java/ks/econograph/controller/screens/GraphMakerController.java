@@ -15,15 +15,10 @@ import javafx.scene.shape.Line;
 import javafx.scene.shape.Polygon;
 import ks.econograph.Context;
 import ks.econograph.controller.MainController;
-import ks.econograph.graph.components.Demand;
-import ks.econograph.graph.components.StraightCurve;
-import ks.econograph.graph.components.Supply;
-
+import ks.econograph.graph.components.*;
 import javax.imageio.ImageIO;
 import java.io.File;
 import java.io.IOException;
-
-import static jdk.nashorn.internal.objects.Global.Infinity;
 
 /**
  * Created by KSarm on 01/01/2017.
@@ -60,44 +55,12 @@ public class GraphMakerController {
 
         for (int i = 0; i < Context.getInstance().getCurvesLL().size() -1; i++) {
             for (int j = Context.getInstance().getCurvesLL().size() -1; j > i; j--) {
-                double newGradient = ((StraightCurve)Context.getInstance().getCurvesLL().get(i)).getGradient();
-                double newYIntercept = ((StraightCurve)Context.getInstance().getCurvesLL().get(i)).getyIntercept();
-                double comparedGradient = ((StraightCurve)Context.getInstance().getCurvesLL().get(j)).getGradient();
-                double comparedYIntercept = ((StraightCurve)Context.getInstance().getCurvesLL().get(j)).getyIntercept();
-                double x = 0;
-                double y = 0;
-                if (newGradient != comparedGradient && newGradient != Infinity && comparedGradient != Infinity) {
-                    x = (comparedYIntercept - newYIntercept) / (newGradient - comparedGradient);
-                    y = newGradient * x + newYIntercept;
-                }
-                else if (Math.abs(newGradient) == Infinity) {
-                    x = Context.getInstance().getCurvesLL().get(i).getCentreX();
-                    y = comparedGradient * x + comparedYIntercept;
-                }
-                else if (Math.abs(comparedGradient) == Infinity){
-                    x = Context.getInstance().getCurvesLL().get(j).getCentreX();
-                    y = newGradient * x + newYIntercept;
-                }
-                if (x >= 87 && y <= 425 ) {
-                    System.out.println("x = " + x + ", y = " + y);
+                Intersection intersection = new Intersection((StraightCurve) Context.getInstance().getCurvesLL().get(i),
+                        (StraightCurve) Context.getInstance().getCurvesLL().get(j), graphMakerWorkspaceP);
+                Context.getInstance().getIntersectionLL().add(intersection);
 
-                    graphMakerWorkspaceP.getChildren().addAll(generateIntersectionLineAndLabelGroup(x, y, "Q", true),
-                            generateIntersectionLineAndLabelGroup(x, y, "P", false));
-
-                    Context.getInstance().setxIntersectionCount(Context.getInstance().getxIntersectionCount()+1);
-                    Context.getInstance().setyIntersectionCount(Context.getInstance().getyIntersectionCount()+1);
-                }
             }
         }
-    }
-
-    private Group generateIntersectionLineAndLabelGroup(double x, double y, String axisLabel, boolean vertical) {
-        Label intersectionLabel = generateIntersectionLabel(x, y, axisLabel, vertical);
-        Line intersectionLine = generateIntersectionLine(x, y, axisLabel, vertical);
-        Group group = new Group();
-        group.getChildren().addAll(intersectionLabel, intersectionLine);
-        Context.getInstance().getIntersectionLL().add(group);
-        return group;
     }
 
     private void resetIntersectionLLAndIntersectionCounts() {
@@ -105,47 +68,6 @@ public class GraphMakerController {
             Context.getInstance().getIntersectionLL().get(i).setVisible(false);
         }
         Context.getInstance().getIntersectionLL().clear();
-        Context.getInstance().setxIntersectionCount(0);
-        Context.getInstance().setyIntersectionCount(0);
-    }
-
-    private Line generateIntersectionLine(double x, double y, String axisLabel, boolean vertical) {
-        Line intersectionLine;
-        if (vertical) {
-            intersectionLine = new Line(x, y, x, 425);
-        }
-        else {
-            intersectionLine = new Line(x, y, 87, y);
-        }
-        intersectionLine.setId(generateIntersectionId(axisLabel));
-        intersectionLine.getStrokeDashArray().addAll(10d, 5d);
-
-        return intersectionLine;
-    }
-
-    private Label generateIntersectionLabel(double x, double y, String axisLabel, boolean vertical) {
-        String generatedAxisLabel = generateIntersectionId(axisLabel);
-        Label intersectionLabel = new Label(generatedAxisLabel);
-        intersectionLabel.setId(generatedAxisLabel);
-        if (vertical) {
-            intersectionLabel.setTranslateX(x);
-            intersectionLabel.setTranslateY(435);
-        }
-        else {
-            intersectionLabel.setTranslateX(60);
-            intersectionLabel.setTranslateY(y);
-        }
-        return intersectionLabel;
-    }
-
-    private String generateIntersectionId(String axisLabel) {
-        String id;
-        if (Context.getInstance().getxIntersectionCount() == 0)
-            id = axisLabel;
-        else
-            id = axisLabel + Context.getInstance().getxIntersectionCount();
-
-        return id;
     }
 
     public void captureAndSetToSave() {

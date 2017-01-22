@@ -8,10 +8,7 @@ import javafx.scene.control.ToggleGroup;
 import javafx.scene.image.WritableImage;
 
 import javafx.scene.shape.Line;
-import ks.econograph.graph.components.Curve;
-import ks.econograph.graph.components.Demand;
-import ks.econograph.graph.components.Graph;
-import ks.econograph.graph.components.Supply;
+import ks.econograph.graph.components.*;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -31,7 +28,7 @@ public class Context {
     private List<Curve> curvesLL = new LinkedList<>();
     private List<Demand> demandCurves = new LinkedList<>();
     private List<Supply> supplyCurve = new LinkedList<>();
-    private List<Group> intersectionLL = new LinkedList<>();
+    private List<Intersection> intersectionLL = new LinkedList<>();
     private List<Node> shiftArrowsLL = new LinkedList<>();
 
     private ToggleGroup graphMakerInsertedCurvesTG = new ToggleGroup();
@@ -118,11 +115,11 @@ public class Context {
         this.supplyCurve = supplyCurve;
     }
 
-    public List<Group> getIntersectionLL() {
+    public List<Intersection> getIntersectionLL() {
         return intersectionLL;
     }
 
-    public void setIntersectionLL(List<Group> intersectionLL) {
+    public void setIntersectionLL(List<Intersection> intersectionLL) {
         this.intersectionLL = intersectionLL;
     }
 
