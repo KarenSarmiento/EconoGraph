@@ -40,6 +40,7 @@
       <Label text="Colour" GridPane.columnIndex="1" GridPane.rowIndex="4" />
       <ColorPicker fx:id="shadedRegionColourPicker" GridPane.columnIndex="2" GridPane.rowIndex="4" />
       <TextField fx:id="shadedRegionLabelTextTF" GridPane.columnIndex="2" GridPane.rowIndex="3" />
-      <Button mnemonicParsing="false" onAction="#addIntersectionComboBoxValues" text="Combobox test" GridPane.columnIndex="3" GridPane.rowIndex="5" />
+      <Button mnemonicParsing="false" onAction="#addAllComboBoxValues" text="Combobox test" GridPane.columnIndex="3" GridPane.rowIndex="5" />
+      <Button mnemonicParsing="false" onAction="#calculateShadedRegionVertices" text="Find lines test" GridPane.columnIndex="3" GridPane.rowIndex="4" />
    </children>
 </GridPane>

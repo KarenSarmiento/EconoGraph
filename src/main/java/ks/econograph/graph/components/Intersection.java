@@ -91,6 +91,13 @@ public class Intersection {
         }
     }
 
+    public boolean isNull() {
+        if (verticalLine == null && horizontalLine == null && xAxisLabel == null && yAxisLabel == null)
+            return true;
+        else
+            return false;
+    }
+
     public Line getVerticalLine() {
         return verticalLine;
     }

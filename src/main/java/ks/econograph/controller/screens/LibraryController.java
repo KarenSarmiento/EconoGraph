@@ -36,6 +36,7 @@ public class LibraryController {
     @FXML
     ComboBox librarySortCB = new ComboBox();
 
+    //TODO: EDITING GRAPH OPTION LOADS GRAPH (CHECK COLOUR) BUT DOES NOT EDIT PROPERLY!
     public void resetAndDisplayGraphsFromGraphsLLToLibrary() {
         libraryGraphGP.getChildren().remove(5,libraryGraphGP.getChildren().size());
         libraryGraphGP.setGridLinesVisible(true);

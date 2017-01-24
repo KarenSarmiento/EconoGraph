@@ -2,7 +2,6 @@ package ks.econograph.controller.screens;
 
 import javafx.embed.swing.SwingFXUtils;
 import javafx.fxml.FXML;
-import javafx.scene.Group;
 import javafx.scene.SnapshotParameters;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.Label;
@@ -15,7 +14,11 @@ import javafx.scene.shape.Line;
 import javafx.scene.shape.Polygon;
 import ks.econograph.Context;
 import ks.econograph.controller.MainController;
-import ks.econograph.graph.components.*;
+import ks.econograph.graph.components.Demand;
+import ks.econograph.graph.components.Intersection;
+import ks.econograph.graph.components.StraightCurve;
+import ks.econograph.graph.components.Supply;
+
 import javax.imageio.ImageIO;
 import java.io.File;
 import java.io.IOException;
@@ -47,23 +50,32 @@ public class GraphMakerController {
     Label graphMakerYAxisL = new Label();
 
     public void initializeShadedRegionTest() {
+        main.getShadedRegionOptionsController().addAllComboBoxValues();
         main.getShadedRegionOptionsController().initializeShadedRegionScreen();
+        main.getShadedRegionOptionsController().init(main);
+        //TODO: Error - ComboBox values do not initialize
+        Double[] coordinates = main.getShadedRegionOptionsController().calculateShadedRegionVertices();
+        Polygon shadedRegion = new Polygon();
+        shadedRegion.getPoints().addAll(coordinates);
+        graphMakerWorkspaceP.getChildren().add(shadedRegion);
     }
 
     public void insertIntersections() {
-        resetIntersectionLLAndIntersectionCounts();
+        resetIntersections();
 
         for (int i = 0; i < Context.getInstance().getCurvesLL().size() -1; i++) {
             for (int j = Context.getInstance().getCurvesLL().size() -1; j > i; j--) {
+                System.out.println(Context.getInstance().getIntersectionLL());
                 Intersection intersection = new Intersection((StraightCurve) Context.getInstance().getCurvesLL().get(i),
                         (StraightCurve) Context.getInstance().getCurvesLL().get(j), graphMakerWorkspaceP);
-                Context.getInstance().getIntersectionLL().add(intersection);
+                if (!intersection.isNull())
+                    Context.getInstance().getIntersectionLL().add(intersection);
 
             }
         }
     }
 
-    private void resetIntersectionLLAndIntersectionCounts() {
+    private void resetIntersections() {
         for (int i = 0; i < Context.getInstance().getIntersectionLL().size(); i++) {
             Context.getInstance().getIntersectionLL().get(i).setVisible(false);
         }
