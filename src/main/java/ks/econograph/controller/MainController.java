@@ -1,7 +1,11 @@
 package ks.econograph.controller;
 
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
 import ks.econograph.Context;
 import ks.econograph.controller.screens.*;
 import ks.econograph.graph.components.Graph;
@@ -24,7 +28,7 @@ public class MainController {
     @FXML
     SaveMenuController saveMenuController;
 
-    ShadedRegionOptionsController shadedRegionOptionsController = new ShadedRegionOptionsController();
+    ShadedRegionOptionsController shadedRegionOptionsController;
 
     @FXML
     AnchorPane libraryAP;
@@ -42,7 +46,6 @@ public class MainController {
         graphMakerController.init(this);
         optionsController.init(this);
         saveMenuController.init(this);
-        shadedRegionOptionsController.init(this);
 
         resetGraphMaker();
         readInGraphsToGraphsLL();
@@ -79,6 +82,24 @@ public class MainController {
         graphMakerAP.setVisible(false);
         optionsAP.setVisible(false);
         saveMenuAP.setVisible(true);
+    }
+
+    public void initializeShadedRegionScreen() {
+        System.out.println("INITIALIZING SHADED REGION SCREEN");
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/ShadedRegionOptions.fxml"));
+            Parent root = (Parent) loader.load();
+            shadedRegionOptionsController = loader.getController();
+            shadedRegionOptionsController.init(this);
+
+            Scene newScene = new Scene(root);
+            Stage newStage = new Stage();
+            newStage.setScene(newScene);
+            newStage.show();
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public void readInGraphsToGraphsLL() {

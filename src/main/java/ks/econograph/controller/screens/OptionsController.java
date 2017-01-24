@@ -63,10 +63,21 @@ public class OptionsController {
                 break;
             }
             case "Subsidy": {
+                generateSubsidyTemplate();
                 break;
             }
 
         }
+    }
+
+    private void generateSubsidyTemplate() {
+        main.getGraphMakerController().insertDemand();
+        main.getGraphMakerController().insertSupply();
+        main.getGraphMakerController().insertSupply();
+        main.getGraphMakerController().getGraphMakerShiftSlider().setValue(100.0);
+        main.getGraphMakerController().shiftSelectedCurve();
+        main.getSaveMenuController().getSaveMenuTopicCB().setValue("Micro");
+        //TODO: Add shaded regions to this
     }
 
     private void generateMicroeconomicEquilibriumTemplate() {

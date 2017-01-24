@@ -14,10 +14,7 @@ import javafx.scene.shape.Line;
 import javafx.scene.shape.Polygon;
 import ks.econograph.Context;
 import ks.econograph.controller.MainController;
-import ks.econograph.graph.components.Demand;
-import ks.econograph.graph.components.Intersection;
-import ks.econograph.graph.components.StraightCurve;
-import ks.econograph.graph.components.Supply;
+import ks.econograph.graph.components.*;
 
 import javax.imageio.ImageIO;
 import java.io.File;
@@ -50,14 +47,7 @@ public class GraphMakerController {
     Label graphMakerYAxisL = new Label();
 
     public void initializeShadedRegionTest() {
-        main.getShadedRegionOptionsController().addAllComboBoxValues();
-        main.getShadedRegionOptionsController().initializeShadedRegionScreen();
-        main.getShadedRegionOptionsController().init(main);
-        //TODO: Error - ComboBox values do not initialize
-        Double[] coordinates = main.getShadedRegionOptionsController().calculateShadedRegionVertices();
-        Polygon shadedRegion = new Polygon();
-        shadedRegion.getPoints().addAll(coordinates);
-        graphMakerWorkspaceP.getChildren().add(shadedRegion);
+        main.initializeShadedRegionScreen();
     }
 
     public void insertIntersections() {
@@ -387,6 +377,22 @@ public class GraphMakerController {
 
     public void setGraphMakerRadioButtonsFP(FlowPane graphMakerRadioButtonsFP) {
         this.graphMakerRadioButtonsFP = graphMakerRadioButtonsFP;
+    }
+
+    public Slider getGraphMakerShiftSlider() {
+        return graphMakerShiftSlider;
+    }
+
+    public void setGraphMakerShiftSlider(Slider graphMakerShiftSlider) {
+        this.graphMakerShiftSlider = graphMakerShiftSlider;
+    }
+
+    public Slider getGraphMakerElasticitySlider() {
+        return graphMakerElasticitySlider;
+    }
+
+    public void setGraphMakerElasticitySlider(Slider graphMakerElasticitySlider) {
+        this.graphMakerElasticitySlider = graphMakerElasticitySlider;
     }
 
     public void init(MainController mainController) {

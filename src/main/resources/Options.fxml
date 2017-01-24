@@ -18,12 +18,12 @@
         <ScrollPane fx:id="optionsTopicsSP" prefHeight="507.0" prefWidth="764.0" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="2">
             <content>
                 <FlowPane fx:id="optionsTopicFP" prefHeight="630.0" prefWidth="1150.0">
-                    <RadioButton fx:id="optionsBlankCanvasRB" mnemonicParsing="false" onAction="#test" text="BlankCanvas" />
-                    <RadioButton fx:id="optionsMicroRB" mnemonicParsing="false" onAction="#test" text="Microeconomic Equilibrium" />
-                    <RadioButton fx:id="optionsMacroRB" mnemonicParsing="false" onAction="#test" text="Macroeconomic Equilibrium" />
-                    <RadioButton fx:id="optionsExternalityRB" mnemonicParsing="false" onAction="#test" text="Externality" />
-                    <RadioButton fx:id="optionsLabourForceRB" mnemonicParsing="false" onAction="#test" text="Labour Force" />
-                    <RadioButton fx:id="optionsSubsidyRB" mnemonicParsing="false" onAction="#test" text="Subsidy" />
+                    <RadioButton fx:id="optionsBlankCanvasRB" mnemonicParsing="false" text="BlankCanvas" />
+                    <RadioButton fx:id="optionsMicroRB" mnemonicParsing="false" text="Microeconomic Equilibrium" />
+                    <RadioButton fx:id="optionsMacroRB" mnemonicParsing="false" text="Macroeconomic Equilibrium" />
+                    <RadioButton fx:id="optionsExternalityRB" mnemonicParsing="false" text="Externality" />
+                    <RadioButton fx:id="optionsLabourForceRB" mnemonicParsing="false" text="Labour Force" />
+                    <RadioButton fx:id="optionsSubsidyRB" mnemonicParsing="false" text="Subsidy" />
                 </FlowPane>
             </content>
         </ScrollPane>
