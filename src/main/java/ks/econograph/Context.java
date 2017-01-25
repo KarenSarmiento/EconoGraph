@@ -1,13 +1,11 @@
 package ks.econograph;
 
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.image.WritableImage;
 
-import javafx.scene.shape.Line;
 import ks.econograph.graph.components.*;
 
 import java.util.LinkedList;
@@ -29,9 +27,11 @@ public class Context {
     private List<Demand> demandCurves = new LinkedList<>();
     private List<Supply> supplyCurve = new LinkedList<>();
     private List<Intersection> intersectionLL = new LinkedList<>();
+    private List<ShadedRegion> shadedRegionsLL = new LinkedList<>();
     private List<Node> shiftArrowsLL = new LinkedList<>();
 
     private ToggleGroup graphMakerInsertedCurvesTG = new ToggleGroup();
+    private ToggleGroup graphMakerInsertedShadedRegionsTG = new ToggleGroup();
     private ToggleGroup optionsTemplateTG = new ToggleGroup();
     private WritableImage tempScreenShot;
 
@@ -45,7 +45,8 @@ public class Context {
 
     private Graph currentEditingGraph = new Graph();
     private int selectedCurveIndex = -1;
-    private int selectedCurveType = -1; // 0 = demand, 1 = supply, 2 = newClassical, 3 = keynesian
+    private int selectedShadedRegionIndex = -1;
+    private int selectedCurveType = -1; //0 = demand, 1 = supply, 2 = newClassical, 3 = keynesian
 
     private String filterSearch = null;
     private boolean filterFavourite = false;
@@ -129,6 +130,14 @@ public class Context {
 
     public void setShiftArrowsLL(List<Node> shiftArrowsLL) {
         this.shiftArrowsLL = shiftArrowsLL;
+    }
+
+    public List<ShadedRegion> getShadedRegionsLL() {
+        return shadedRegionsLL;
+    }
+
+    public void setShadedRegionsLL(List<ShadedRegion> shadedRegionsLL) {
+        this.shadedRegionsLL = shadedRegionsLL;
     }
 
     public Graph getCurrentEditingGraph() {
@@ -261,5 +270,25 @@ public class Context {
 
     public void setFilterTopic(String filterTopic) {
         this.filterTopic = filterTopic;
+    }
+
+    public int getSelectedShadedRegionIndex() {
+        return selectedShadedRegionIndex;
+    }
+
+    public void setSelectedShadedRegionIndex(int selectedShadedRegionIndex) {
+        this.selectedShadedRegionIndex = selectedShadedRegionIndex;
+    }
+
+    public ToggleGroup getGraphMakerInsertedShadedRegionsTG() {
+        return graphMakerInsertedShadedRegionsTG;
+    }
+
+    public void setGraphMakerInsertedShadedRegionsTG(ToggleGroup graphMakerInsertedShadedRegionsTG) {
+        this.graphMakerInsertedShadedRegionsTG = graphMakerInsertedShadedRegionsTG;
+    }
+
+    public void setOptionsTemplateTG(ToggleGroup optionsTemplateTG) {
+        this.optionsTemplateTG = optionsTemplateTG;
     }
 }

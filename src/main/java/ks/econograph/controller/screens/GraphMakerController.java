@@ -32,7 +32,9 @@ public class GraphMakerController {
     @FXML
     Pane graphMakerWorkspaceP = new Pane();
     @FXML
-    FlowPane graphMakerRadioButtonsFP = new FlowPane();
+    FlowPane graphMakerCurveRadioFP = new FlowPane();
+    @FXML
+    FlowPane graphMakerShadedRegionRadioFP = new FlowPane();
     @FXML
     Slider graphMakerShiftSlider = new Slider();
     @FXML
@@ -343,7 +345,7 @@ public class GraphMakerController {
         }
         radioButton.setToggleGroup(Context.getInstance().getGraphMakerInsertedCurvesTG());
         radioButton.setOnAction(e -> setAppropriateCurveSettings(index, type));
-        graphMakerRadioButtonsFP.getChildren().add(radioButton);
+        graphMakerCurveRadioFP.getChildren().add(radioButton);
         radioButton.setSelected(true);
         setAppropriateCurveSettings(index, type);
 
@@ -371,12 +373,12 @@ public class GraphMakerController {
         this.graphMakerWorkspaceP = graphMakerWorkspaceP;
     }
 
-    public FlowPane getGraphMakerRadioButtonsFP() {
-        return graphMakerRadioButtonsFP;
+    public FlowPane getGraphMakerCurveRadioFP() {
+        return graphMakerCurveRadioFP;
     }
 
-    public void setGraphMakerRadioButtonsFP(FlowPane graphMakerRadioButtonsFP) {
-        this.graphMakerRadioButtonsFP = graphMakerRadioButtonsFP;
+    public void setGraphMakerCurveRadioFP(FlowPane graphMakerCurveRadioFP) {
+        this.graphMakerCurveRadioFP = graphMakerCurveRadioFP;
     }
 
     public Slider getGraphMakerShiftSlider() {
@@ -393,6 +395,14 @@ public class GraphMakerController {
 
     public void setGraphMakerElasticitySlider(Slider graphMakerElasticitySlider) {
         this.graphMakerElasticitySlider = graphMakerElasticitySlider;
+    }
+
+    public FlowPane getGraphMakerShadedRegionRadioFP() {
+        return graphMakerShadedRegionRadioFP;
+    }
+
+    public void setGraphMakerShadedRegionRadioFP(FlowPane graphMakerShadedRegionRadioFP) {
+        this.graphMakerShadedRegionRadioFP = graphMakerShadedRegionRadioFP;
     }
 
     public void init(MainController mainController) {

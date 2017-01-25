@@ -138,8 +138,8 @@ public class MainController {
             Context.getInstance().setCurvesLL(new LinkedList<>());
         }
 
-        if (graphMakerController.getGraphMakerRadioButtonsFP() != null && graphMakerController.getGraphMakerRadioButtonsFP().getChildren().size() > 0) {
-            graphMakerController.getGraphMakerRadioButtonsFP().getChildren().remove(1, graphMakerController.getGraphMakerRadioButtonsFP().getChildren().size());
+        if (graphMakerController.getGraphMakerCurveRadioFP() != null && graphMakerController.getGraphMakerCurveRadioFP().getChildren().size() > 0) {
+            graphMakerController.getGraphMakerCurveRadioFP().getChildren().remove(1, graphMakerController.getGraphMakerCurveRadioFP().getChildren().size());
         }
         libraryController.resetSearchAndFilterOptions();
     }

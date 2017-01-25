@@ -7,6 +7,7 @@ import javafx.scene.control.ColorPicker;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
+import javafx.stage.Stage;
 import ks.econograph.Context;
 import ks.econograph.controller.MainController;
 import ks.econograph.graph.components.ShadedRegion;
@@ -42,14 +43,16 @@ public class ShadedRegionOptionsController {
     }
 
     public void insertShadedRegionAndClose() {
-        String a = "Q";
-        String b = "Q1";
-        String c = "D";
-        String d = "S";
-
-        ShadedRegion shadedRegion = new ShadedRegion("hello", main.getGraphMakerController().getGraphMakerWorkspaceP(),
+        ShadedRegion shadedRegion = new ShadedRegion(shadedRegionLabelTextTF.getText(), shadedRegionColourPicker.getValue().toString(),
+                main.getGraphMakerController().getGraphMakerWorkspaceP(), main.getGraphMakerController().getGraphMakerShadedRegionRadioFP(),
                 shadedRegionFromCB.getValue().toString(), shadedRegionToCB.getValue().toString(),
                 shadedRegionBetween1CB.getValue().toString(), shadedRegionBetween2CB.getValue().toString());
+        closeShadedRegionsWindow();
+    }
+
+    public void closeShadedRegionsWindow() {
+        final Stage stage = (Stage) shadedRegionGP.getScene().getWindow();
+        stage.close();
     }
 
     //TODO: Validate combobox so that only vertical lines are picked vice versa

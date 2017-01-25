@@ -5,6 +5,8 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.Slider?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.ColumnConstraints?>
@@ -41,24 +43,40 @@
         </Pane>
         <!--Edit-->
         <Label fx:id="graphMakerEditL" alignment="CENTER" prefHeight="21.0" prefWidth="800.0" text="Edit" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-      <ScrollPane fx:id="graphMakerRadioButtonsSP" GridPane.columnIndex="1" GridPane.rowIndex="3">
-         <content>
-              <FlowPane fx:id="graphMakerRadioButtonsFP" prefHeight="35.0" prefWidth="730.0">
-                  <Label fx:id="graphMakerSelectACurveL" text="Select a Curve:" />
+      <TabPane tabClosingPolicy="UNAVAILABLE" GridPane.columnIndex="1" GridPane.rowIndex="3" GridPane.rowSpan="2">
+         <tabs>
+            <Tab text="Curves">
+               <content>
+                      <FlowPane fx:id="graphMakerEditCurveFP" prefHeight="102.0" prefWidth="747.0">
+                     <ScrollPane fx:id="graphMakerCurveRadioSP">
+                        <content>
+                             <FlowPane fx:id="graphMakerCurveRadioFP" prefHeight="35.0" prefWidth="730.0">
+                                 <Label fx:id="graphMakerSelectACurveL" text="Select a Curve:" />
 
-              </FlowPane>
-         </content>
-      </ScrollPane>
-        <ScrollPane fx:id="graphMakerEditSP" GridPane.columnIndex="1" GridPane.rowIndex="4" GridPane.rowSpan="2">
-            <content>
-                <FlowPane fx:id="graphMakerEditFP" prefHeight="102.0" prefWidth="747.0">
-                <Slider fx:id="graphMakerElasticitySlider" blockIncrement="0.0" max="350.0" minWidth="200.0" onMouseClicked="#updateElasticityForCurrentCurve" onMouseDragged="#updateElasticityForCurrentCurve" showTickMarks="true" value="175.0" />
-                <Slider fx:id="graphMakerShiftSlider" blockIncrement="1.0" min="-100.0" minWidth="200.0" onMouseClicked="#shiftSelectedCurve" onMouseDragged="#shiftSelectedCurve" showTickMarks="true" />
-               <ColorPicker fx:id="graphMakerColourPicker" onAction="#updateCurveColour" />
-               <Slider fx:id="graphMakerThicknessSlider" max="10.0" min="1.0" onMouseClicked="#updateThickness" onMouseDragged="#updateThickness" value="5.0" />
-                </FlowPane>
-            </content>
-        </ScrollPane>
+                             </FlowPane>
+                        </content>
+                     </ScrollPane>
+                      <Slider fx:id="graphMakerElasticitySlider" blockIncrement="0.0" max="350.0" minWidth="200.0" onMouseClicked="#updateElasticityForCurrentCurve" onMouseDragged="#updateElasticityForCurrentCurve" showTickMarks="true" value="175.0" />
+                      <Slider fx:id="graphMakerShiftSlider" blockIncrement="1.0" min="-100.0" minWidth="200.0" onMouseClicked="#shiftSelectedCurve" onMouseDragged="#shiftSelectedCurve" showTickMarks="true" />
+                     <ColorPicker fx:id="graphMakerColourPicker" onAction="#updateCurveColour" />
+                     <Slider fx:id="graphMakerThicknessSlider" max="10.0" min="1.0" onMouseClicked="#updateThickness" onMouseDragged="#updateThickness" value="5.0" />
+                      </FlowPane>
+               </content>
+            </Tab>
+             <Tab text="Shaded Regions">
+                 <FlowPane fx:id="graphMakerEditShadedRegionFP" prefHeight="102.0" prefWidth="747.0">
+                 <ScrollPane fx:id="graphMakerShadedRegionRadioSP">
+                     <content>
+                         <FlowPane fx:id="graphMakerShadedRegionRadioFP" prefHeight="35.0" prefWidth="730.0">
+                             <Label fx:id="graphMakerSelectAShadedRegionL" text="Select a Shaded Region:" />
+
+                         </FlowPane>
+                     </content>
+                 </ScrollPane>
+                 </FlowPane>
+             </Tab>
+         </tabs>
+      </TabPane>
     </children>
    <columnConstraints>
       <ColumnConstraints maxWidth="600.0" minWidth="392.0" prefWidth="400.0" />
@@ -68,8 +86,6 @@
       <RowConstraints maxHeight="200.0" minHeight="22.0" prefHeight="39.0" />
       <RowConstraints maxHeight="422.0" minHeight="50.0" prefHeight="416.0" />
       <RowConstraints maxHeight="200.0" minHeight="31.0" prefHeight="37.0" />
-      <RowConstraints maxHeight="282.0" minHeight="26.0" prefHeight="38.0" />
-      <RowConstraints maxHeight="250.0" minHeight="11.0" prefHeight="238.0" />
-      <RowConstraints />
+      <RowConstraints maxHeight="300.0" minHeight="300.0" prefHeight="300.0" />
    </rowConstraints>
 </GridPane>

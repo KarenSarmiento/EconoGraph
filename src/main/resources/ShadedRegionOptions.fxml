@@ -33,13 +33,12 @@
       <ComboBox fx:id="shadedRegionBetween1CB" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
       <ComboBox fx:id="shadedRegionBetween2CB" prefWidth="150.0" GridPane.columnIndex="3" GridPane.rowIndex="2" />
       <Button mnemonicParsing="false" onAction="#insertShadedRegionAndClose" text="Insert" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-      <Button mnemonicParsing="false" text="Cancel" GridPane.columnIndex="2" GridPane.rowIndex="5" />
+      <Button mnemonicParsing="false" onAction="#closeShadedRegionsWindow" text="Cancel" GridPane.columnIndex="2" GridPane.rowIndex="5" />
       <Label text="Between" GridPane.rowIndex="2" />
       <Label text="and" GridPane.columnIndex="2" GridPane.rowIndex="2" />
       <Label text="Label Text" GridPane.columnIndex="1" GridPane.rowIndex="3" />
       <Label text="Colour" GridPane.columnIndex="1" GridPane.rowIndex="4" />
       <ColorPicker fx:id="shadedRegionColourPicker" GridPane.columnIndex="2" GridPane.rowIndex="4" />
       <TextField fx:id="shadedRegionLabelTextTF" GridPane.columnIndex="2" GridPane.rowIndex="3" />
-      <Button mnemonicParsing="false" onAction="#addAllComboBoxValues" text="Combobox test" GridPane.columnIndex="3" GridPane.rowIndex="5" />
    </children>
 </GridPane>

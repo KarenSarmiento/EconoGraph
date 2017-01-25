@@ -1,7 +1,10 @@
 package ks.econograph.graph.components;
 
 import javafx.scene.control.Label;
+import javafx.scene.control.RadioButton;
+import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Paint;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Polygon;
 import ks.econograph.Context;
@@ -17,14 +20,57 @@ import static jdk.nashorn.internal.objects.Global.Infinity;
 public class ShadedRegion {
     Polygon polygon;
     Label label;
+    double labelPosX;
+    double labelPosY;
 
-    public ShadedRegion(String labelText, Pane pane, String lineName1, String lineName2, String lineName3, String lineName4) {
+    public ShadedRegion(String labelText, String colour, Pane pane, FlowPane flowPane, String lineName1, String lineName2, String lineName3, String lineName4) {
         Double[] coordinates = calculateShadedRegionVertices(lineName1, lineName2, lineName3, lineName4);
         polygon = new Polygon();
         polygon.getPoints().addAll(coordinates);
-        //TODO: calculate position of label text by averaging max and min x and y coordinates of vertices
+        polygon.setFill(Paint.valueOf(colour));
+        calculateLabelPosition(coordinates);
         label = new Label(labelText);
+        System.out.println("x=" + labelPosX + "  y=" + labelPosY);
+        label.setTranslateX(labelPosX);
+        label.setTranslateY(labelPosY);
+        label.toFront();
         pane.getChildren().addAll(polygon, label);
+        createShadedRegionRadio(labelText, flowPane);
+    }
+
+    private void createShadedRegionRadio(String labelText, FlowPane flowPane) {
+        RadioButton radioButton = new RadioButton(labelText + " Region");
+        radioButton.setToggleGroup(Context.getInstance().getGraphMakerInsertedShadedRegionsTG());
+        radioButton.setOnAction(e -> Context.getInstance().setSelectedShadedRegionIndex(Context.getInstance().getShadedRegionsLL().size()));
+        flowPane.getChildren().add(radioButton);
+        radioButton.setSelected(true);
+        Context.getInstance().setSelectedShadedRegionIndex(Context.getInstance().getShadedRegionsLL().size());
+    }
+
+    private void calculateLabelPosition(Double[] coordinates) {
+        double maxX = coordinates[0];
+        double maxY = coordinates[1];
+        double minX = coordinates[0];
+        double minY = coordinates[1];
+        for (int i = 0; i < coordinates.length; i++) {
+            if (i%2 == 0) {
+                if (maxX < coordinates[i])
+                    maxX = coordinates[i];
+                if (minX > coordinates[i])
+                    minX = coordinates[i];
+            }
+            else {
+                if (maxY < coordinates[i])
+                    maxY = coordinates[i];
+                if (minY > coordinates[i])
+                    minY = coordinates[i];
+            }
+        }
+        System.out.println("maxX = " + maxX + "; minX = " + minX);
+        System.out.println("maxY = " + maxY + "; minY = " + minY);
+        System.out.println(coordinates.toString());
+        labelPosX = ((maxX + minX)/2)-20;
+        labelPosY = ((maxY + minY)/2)-10;
     }
 
     private Double[] calculateShadedRegionVertices(String lineName1, String lineName2, String lineName3, String lineName4) {
