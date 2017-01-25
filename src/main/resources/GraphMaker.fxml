@@ -15,7 +15,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<GridPane fx:id="graphMakerGP" alignment="center" hgap="10" prefHeight="800.0" prefWidth="1200.0" stylesheets="/sample/sample.css" vgap="10" xmlns="http://javafx.com/javafx/8.0.76-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ks.econograph.controller.screens.GraphMakerController">
+<GridPane fx:id="graphMakerGP" alignment="center" hgap="10" prefHeight="800.0" prefWidth="1200.0" stylesheets="/sample.css" vgap="10" xmlns="http://javafx.com/javafx/8.0.76-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ks.econograph.controller.screens.GraphMakerController">
     <children>
         <!--Insert-->
         <Label fx:id="graphMakerInsertL" alignment="CENTER" prefHeight="21.0" prefWidth="400.0" text="Insert" GridPane.columnIndex="0" GridPane.rowIndex="0" />
@@ -24,6 +24,9 @@
              <FlowPane fx:id="graphMakerInsertFP">
                  <Button fx:id="graphMakerDemandB" mnemonicParsing="false" onAction="#insertDemand" text="Demand" />
                  <Button fx:id="graphMakerSupplyB" mnemonicParsing="false" onAction="#insertSupply" text="Supply" />
+               <Button mnemonicParsing="false" onAction="#insertAggregateDemand" text="Aggregate Demand" />
+               <Button mnemonicParsing="false" onAction="#insertAggregateSupply" text="Aggregate Supply" />
+               <Button mnemonicParsing="false" text="New Classical LRAS" />
                <Button mnemonicParsing="false" onAction="#initializeShadedRegionTest" text="Shaded Region" />
                <Button fx:id="graphMakerSaveB" mnemonicParsing="false" onAction="#captureAndSetToSave" text="Save" />
              </FlowPane>

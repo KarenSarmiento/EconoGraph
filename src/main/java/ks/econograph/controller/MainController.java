@@ -141,7 +141,7 @@ public class MainController {
 
         context.getCurvesLL().clear();
         context.getDemandCurves().clear();
-        context.getSupplyCurve().clear();
+        context.getSupplyCurves().clear();
         context.getIntersectionLL().clear();
         context.getShiftArrowsLL().clear();
         context.getShadedRegionsLL().clear();
@@ -152,7 +152,7 @@ public class MainController {
         context.setDemandCount(0);
         context.setSupplyCount(0);
         context.setNewClassicalCount(0);
-        context.setKeynesianCount(0);
+        context.setAggregateDemandCount(0);
         context.setCurveCount(0);
 
         context.setSelectedCurveIndex(-1);

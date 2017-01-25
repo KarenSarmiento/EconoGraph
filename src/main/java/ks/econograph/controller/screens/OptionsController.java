@@ -31,6 +31,10 @@ public class OptionsController {
     RadioButton optionsLabourForceRB = new RadioButton();
     @FXML
     RadioButton optionsSubsidyRB = new RadioButton();
+    @FXML
+    TextField optionsXAxisTF = new TextField();
+    @FXML
+    TextField optionsYAxisTF = new TextField();
 
     public void newGraphToGraphMaker() {
         if (optionsTitleTF.getText() == null) {
@@ -39,6 +43,8 @@ public class OptionsController {
         else {
             Context.getInstance().setCurrentEditingGraph(new Graph(optionsTitleTF.getText()));
             main.getSaveMenuController().getSaveMenuTitleTF().setText(optionsTitleTF.getText());
+            main.getGraphMakerController().getGraphMakerXAxisL().setText(optionsXAxisTF.getText());
+            main.getGraphMakerController().getGraphMakerYAxisL().setText(optionsYAxisTF.getText());
             setScreenToGraphMaker();
             if (((RadioButton) Context.getInstance().getOptionsTemplateTG().getSelectedToggle()).getText().equals("Blank Canvas") == false) {
                 generateTemplate();

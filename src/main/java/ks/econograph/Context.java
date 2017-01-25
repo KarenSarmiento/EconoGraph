@@ -24,8 +24,6 @@ public class Context {
 
     private List<Graph> graphsLL = new LinkedList<>();
     private List<Curve> curvesLL = new LinkedList<>();
-    private List<Demand> demandCurves = new LinkedList<>();
-    private List<Supply> supplyCurve = new LinkedList<>();
     private List<Intersection> intersectionLL = new LinkedList<>();
     private List<Node> shiftArrowsLL = new LinkedList<>();
     private List<ShadedRegion> shadedRegionsLL = new LinkedList<>();
@@ -38,14 +36,21 @@ public class Context {
 
     private int demandCount = 0;
     private int supplyCount = 0;
+    private int aggregateDemandCount = 0;
+    private int aggregateSupplyCount = 0;
     private int newClassicalCount = 0;
-    private int keynesianCount = 0;
-    private int curveCount = demandCount + supplyCount + newClassicalCount + keynesianCount;
+    private int curveCount = demandCount + supplyCount + newClassicalCount + aggregateDemandCount + aggregateSupplyCount;
+
+    private List<Demand> demandCurves = new LinkedList<>();
+    private List<Supply> supplyCurves = new LinkedList<>();
+    private List<AggregateSupply> aggregateSupplyCurves = new LinkedList<>();
+    private List<AggregateDemand> aggregateDemandCurves = new LinkedList<>();
+    private List<NewClassical> newClassicalCurves = new LinkedList<>();
 
     private Graph currentEditingGraph = new Graph();
     private int selectedCurveIndex = -1;
     private int selectedShadedRegionIndex = -1;
-    private int selectedCurveType = -1; //0 = demand, 1 = supply, 2 = newClassical, 3 = keynesian
+    private int selectedCurveType = -1; //0 = demand, 1 = supply, 2 = newClassical, 3 = AD, 4 = AS
 
     private String filterSearch = null;
     private boolean filterFavourite = false;
@@ -107,12 +112,12 @@ public class Context {
         this.demandCurves = demandCurves;
     }
 
-    public List<Supply> getSupplyCurve() {
-        return supplyCurve;
+    public List<Supply> getSupplyCurves() {
+        return supplyCurves;
     }
 
-    public void setSupplyCurve(List<Supply> supplyCurve) {
-        this.supplyCurve = supplyCurve;
+    public void setSupplyCurves(List<Supply> supplyCurves) {
+        this.supplyCurves = supplyCurves;
     }
 
     public List<Intersection> getIntersectionLL() {
@@ -191,12 +196,12 @@ public class Context {
         this.newClassicalCount = newClassicalCount;
     }
 
-    public int getKeynesianCount() {
-        return keynesianCount;
+    public int getAggregateDemandCount() {
+        return aggregateDemandCount;
     }
 
-    public void setKeynesianCount(int keynesianCount) {
-        this.keynesianCount = keynesianCount;
+    public void setAggregateDemandCount(int aggregateDemandCount) {
+        this.aggregateDemandCount = aggregateDemandCount;
     }
 
     public int getCurveCount() {
@@ -281,5 +286,37 @@ public class Context {
 
     public void setShadedRegionFieldsLL(List<String> shadedRegionFieldsLL) {
         this.shadedRegionFieldsLL = shadedRegionFieldsLL;
+    }
+
+    public List<AggregateSupply> getAggregateSupplyCurves() {
+        return aggregateSupplyCurves;
+    }
+
+    public void setAggregateSupplyCurves(List<AggregateSupply> aggregateSupplyCurves) {
+        this.aggregateSupplyCurves = aggregateSupplyCurves;
+    }
+
+    public List<AggregateDemand> getAggregateDemandCurves() {
+        return aggregateDemandCurves;
+    }
+
+    public void setAggregateDemandCurves(List<AggregateDemand> aggregateDemandCurves) {
+        this.aggregateDemandCurves = aggregateDemandCurves;
+    }
+
+    public List<NewClassical> getNewClassicalCurves() {
+        return newClassicalCurves;
+    }
+
+    public void setNewClassicalCurves(List<NewClassical> newClassicalCurves) {
+        this.newClassicalCurves = newClassicalCurves;
+    }
+
+    public int getAggregateSupplyCount() {
+        return aggregateSupplyCount;
+    }
+
+    public void setAggregateSupplyCount(int aggregateSupplyCount) {
+        this.aggregateSupplyCount = aggregateSupplyCount;
     }
 }

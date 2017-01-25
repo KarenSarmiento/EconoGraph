@@ -220,61 +220,74 @@ public class GraphMakerController {
     }
 
     public void insertDemand() {
-        System.out.println("START DEMAND SIMPLE");
         Demand demand = new Demand(graphMakerWorkspaceP, Context.getInstance().getDemandCount()); //200,50,550,400
-        System.out.println(Context.getInstance().getCurvesLL());
         setUpDemand(demand);
-        System.out.println("Demand Count : " + Context.getInstance().getDemandCount());
-        System.out.println("Curve Count : " + Context.getInstance().getCurveCount());
-        System.out.println("END DEMAND SIMPLE");
     }
 
     public void insertDemand(String name, int centreX, int elasticityGap, String colour, int thickness, boolean dotted) {
-        System.out.println("START DEMAND");
         Demand demand = new Demand(graphMakerWorkspaceP, Context.getInstance().getDemandCount(), name, centreX, elasticityGap, colour, thickness, dotted); //200,50,550,400
         setUpDemand(demand);
-        System.out.println(Context.getInstance().getCurvesLL());
-        System.out.println("Demand Count : " + Context.getInstance().getDemandCount());
-        System.out.println("Curve Count : " + Context.getInstance().getCurveCount());
-        System.out.println("END DEMAND");
     }
 
     private void setUpDemand(Demand demand) {
         createRadioButton("Demand " + Context.getInstance().getDemandCount(), Context.getInstance().getCurveCount(), 0);
-        Context.getInstance().setDemandCount(Context.getInstance().getDemandCount() + 1);
-        Context.getInstance().setCurveCount(Context.getInstance().getCurveCount() + 1);
-        Context.getInstance().getCurvesLL().add(demand);
+        Context.getInstance().setDemandCount(Context.getInstance().getDemandCount() +1);
         Context.getInstance().getDemandCurves().add(demand);
-        insertIntersections();
-        calculateAndGenerateShiftArrows();
+        setUpCurve(demand);
+    }
+
+    public void insertAggregateDemand() {
+        AggregateDemand aggregateDemand = new AggregateDemand(graphMakerWorkspaceP, Context.getInstance().getAggregateDemandCount());
+        setUpAggregateDemand(aggregateDemand);
+    }
+
+    public void insertAggregateDemand(String name, int centreX, int elasticityGap, String colour, int thickness, boolean dotted) {
+        AggregateDemand aggregateDemand = new AggregateDemand(graphMakerWorkspaceP, Context.getInstance().getAggregateDemandCount(), name, centreX, elasticityGap, colour, thickness, dotted);
+        setUpAggregateDemand(aggregateDemand);
+    }
+
+    private void setUpAggregateDemand(AggregateDemand aggregateDemand) {
+        Context.getInstance().setAggregateDemandCount(Context.getInstance().getAggregateDemandCount() +1);
+        Context.getInstance().getAggregateDemandCurves().add(aggregateDemand);
+        setUpCurve(aggregateDemand);
     }
 
     public void insertSupply() {
-        System.out.println("START SUPPLY SIMPLE");
         Supply supply = new Supply(graphMakerWorkspaceP, Context.getInstance().getSupplyCount()); //200,50,550,400
-        System.out.println(Context.getInstance().getCurvesLL());
         setUpSupply(supply);
-        System.out.println("Supply Count : " + Context.getInstance().getSupplyCount());
-        System.out.println("Curve Count : " + Context.getInstance().getCurveCount());
-        System.out.println("END SUPPLY SIMPLE");
     }
 
     public void insertSupply(String name, int centreX, int elasticityGap, String colour, int thickness, boolean dotted) {
-        System.out.println("START SUPPLY");
         Supply supply = new Supply(graphMakerWorkspaceP, Context.getInstance().getSupplyCount(), name, centreX, elasticityGap, colour, thickness, dotted); //200,50,550,400
-        System.out.println(Context.getInstance().getCurvesLL());
         setUpSupply(supply);
-        System.out.println("Supply Count : " + Context.getInstance().getSupplyCount());
-        System.out.println("Curve Count : " + Context.getInstance().getCurveCount());
-        System.out.println("END SUPPLY");
     }
 
     private void setUpSupply(Supply supply) {
         createRadioButton("Supply " + Context.getInstance().getSupplyCount(), Context.getInstance().getCurveCount(), 1);
         Context.getInstance().setSupplyCount(Context.getInstance().getSupplyCount() + 1);
+        Context.getInstance().getSupplyCurves().add(supply);
+        setUpCurve(supply);
+    }
+
+    public void insertAggregateSupply() {
+        AggregateSupply aggregateSupply = new AggregateSupply(graphMakerWorkspaceP, Context.getInstance().getAggregateSupplyCount());
+        setUpAggregateSupply(aggregateSupply);
+    }
+
+    public void insertAggregateSupply(String name, int centreX, int elasticityGap, String colour, int thickness, boolean dotted) {
+        AggregateSupply aggregateSupply = new AggregateSupply(graphMakerWorkspaceP, Context.getInstance().getAggregateSupplyCount(), name, centreX, elasticityGap, colour, thickness, dotted);
+        setUpAggregateSupply(aggregateSupply);
+    }
+
+    private void setUpAggregateSupply(AggregateSupply aggregateSupply) {
+        Context.getInstance().setAggregateSupplyCount(Context.getInstance().getAggregateSupplyCount() +1);
+        Context.getInstance().getAggregateSupplyCurves().add(aggregateSupply);
+        setUpCurve(aggregateSupply);
+    }
+
+    private void setUpCurve(Curve curve) {
         Context.getInstance().setCurveCount(Context.getInstance().getCurveCount() + 1);
-        Context.getInstance().getSupplyCurve().add(supply);
-        Context.getInstance().getCurvesLL().add(supply);
+        Context.getInstance().getCurvesLL().add(curve);
         insertIntersections();
         calculateAndGenerateShiftArrows();
     }
@@ -289,8 +302,8 @@ public class GraphMakerController {
             insertTopAndBottomShiftArrowsForStraightCurves(Context.getInstance().getDemandCurves().get(i), Context.getInstance().getDemandCurves().get(i-1));
         }
 
-        for (int i = 1; i < Context.getInstance().getSupplyCurve().size(); i++) {
-            insertTopAndBottomShiftArrowsForStraightCurves(Context.getInstance().getSupplyCurve().get(i), Context.getInstance().getSupplyCurve().get(i-1));
+        for (int i = 1; i < Context.getInstance().getSupplyCurves().size(); i++) {
+            insertTopAndBottomShiftArrowsForStraightCurves(Context.getInstance().getSupplyCurves().get(i), Context.getInstance().getSupplyCurves().get(i-1));
         }
     }
 
@@ -424,6 +437,46 @@ public class GraphMakerController {
 
     public void setGraphMakerShadedRegionRadioFP(FlowPane graphMakerShadedRegionRadioFP) {
         this.graphMakerShadedRegionRadioFP = graphMakerShadedRegionRadioFP;
+    }
+
+    public Label getGraphMakerSelectAShadedRegionL() {
+        return graphMakerSelectAShadedRegionL;
+    }
+
+    public void setGraphMakerSelectAShadedRegionL(Label graphMakerSelectAShadedRegionL) {
+        this.graphMakerSelectAShadedRegionL = graphMakerSelectAShadedRegionL;
+    }
+
+    public ColorPicker getGraphMakerColourPicker() {
+        return graphMakerColourPicker;
+    }
+
+    public void setGraphMakerColourPicker(ColorPicker graphMakerColourPicker) {
+        this.graphMakerColourPicker = graphMakerColourPicker;
+    }
+
+    public Slider getGraphMakerThicknessSlider() {
+        return graphMakerThicknessSlider;
+    }
+
+    public void setGraphMakerThicknessSlider(Slider graphMakerThicknessSlider) {
+        this.graphMakerThicknessSlider = graphMakerThicknessSlider;
+    }
+
+    public Label getGraphMakerXAxisL() {
+        return graphMakerXAxisL;
+    }
+
+    public void setGraphMakerXAxisL(Label graphMakerXAxisL) {
+        this.graphMakerXAxisL = graphMakerXAxisL;
+    }
+
+    public Label getGraphMakerYAxisL() {
+        return graphMakerYAxisL;
+    }
+
+    public void setGraphMakerYAxisL(Label graphMakerYAxisL) {
+        this.graphMakerYAxisL = graphMakerYAxisL;
     }
 
     public void init(MainController mainController) {
