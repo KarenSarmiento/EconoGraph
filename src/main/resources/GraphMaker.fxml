@@ -24,9 +24,8 @@
              <FlowPane fx:id="graphMakerInsertFP">
                  <Button fx:id="graphMakerDemandB" mnemonicParsing="false" onAction="#insertDemand" text="Demand" />
                  <Button fx:id="graphMakerSupplyB" mnemonicParsing="false" onAction="#insertSupply" text="Supply" />
-               <Button fx:id="screenshotB" mnemonicParsing="false" onAction="#captureShotWorkspace" text="ScreenshotTempTest" />
+               <Button mnemonicParsing="false" onAction="#initializeShadedRegionTest" text="Shaded Region" />
                <Button fx:id="graphMakerSaveB" mnemonicParsing="false" onAction="#captureAndSetToSave" text="Save" />
-               <Button mnemonicParsing="false" onAction="#initializeShadedRegionTest" text="Test shaded region screen" />
              </FlowPane>
          </content>
       </ScrollPane>
@@ -87,5 +86,6 @@
       <RowConstraints maxHeight="422.0" minHeight="50.0" prefHeight="416.0" />
       <RowConstraints maxHeight="200.0" minHeight="31.0" prefHeight="37.0" />
       <RowConstraints maxHeight="300.0" minHeight="300.0" prefHeight="300.0" />
+      <RowConstraints />
    </rowConstraints>
 </GridPane>

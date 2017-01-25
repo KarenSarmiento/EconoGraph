@@ -35,7 +35,6 @@ public class ShadedRegion {
         label.setTranslateX(labelPosX);
         label.setTranslateY(labelPosY);
         visible = true;
-        System.out.println(Context.getInstance().getShadedRegionFieldsLL().toString());
         pane.getChildren().addAll(polygon, label);
         label.toFront();
         createShadedRegionRadio(labelText, flowPane);

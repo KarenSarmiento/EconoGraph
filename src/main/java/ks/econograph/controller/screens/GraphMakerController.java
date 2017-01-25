@@ -50,6 +50,8 @@ public class GraphMakerController {
     @FXML
     Label graphMakerYAxisL = new Label();
 
+    //TODO: ENSURE THAT INTERSECTION LABELS GENERATED ARE ASSOCIATED WITH LAST INSERTED CURVE!
+
     public void resetAndUpdateShadedRegions() {
         for (int i = 0; i < Context.getInstance().getShadedRegionsLL().size(); i++) {
             Context.getInstance().getShadedRegionsLL().get(i).setVisible(false);
@@ -58,7 +60,6 @@ public class GraphMakerController {
         graphMakerShadedRegionRadioFP.getChildren().clear();
         graphMakerShadedRegionRadioFP.getChildren().add(graphMakerSelectAShadedRegionL);
 
-        System.out.println("SIZE = " + Context.getInstance().getShadedRegionFieldsLL().size());
         for (int i = 0; i < Context.getInstance().getShadedRegionFieldsLL().size(); i++) {
             String[] field = Context.getInstance().getShadedRegionFieldsLL().get(i).split(",");
             ShadedRegion shadedRegion = new ShadedRegion(field[0], field[1], field[2], field[3], field[4], field[5], graphMakerWorkspaceP, graphMakerShadedRegionRadioFP);
@@ -242,10 +243,10 @@ public class GraphMakerController {
         createRadioButton("Demand " + Context.getInstance().getDemandCount(), Context.getInstance().getCurveCount(), 0);
         Context.getInstance().setDemandCount(Context.getInstance().getDemandCount() + 1);
         Context.getInstance().setCurveCount(Context.getInstance().getCurveCount() + 1);
-        insertIntersections();
-        calculateAndGenerateShiftArrows();
         Context.getInstance().getCurvesLL().add(demand);
         Context.getInstance().getDemandCurves().add(demand);
+        insertIntersections();
+        calculateAndGenerateShiftArrows();
     }
 
     public void insertSupply() {

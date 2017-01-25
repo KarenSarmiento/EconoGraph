@@ -5,6 +5,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import ks.econograph.Context;
 import ks.econograph.controller.screens.*;
@@ -13,7 +14,6 @@ import ks.econograph.graph.components.Graph;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.LinkedList;
 
 /**
  * Created by KSarm on 07/01/2017.
@@ -47,7 +47,7 @@ public class MainController {
         optionsController.init(this);
         saveMenuController.init(this);
 
-        resetGraphMaker();
+        resetForNewGraph();
         readInGraphsToGraphsLL();
         libraryController.resetAndDisplayGraphsFromGraphsLLToLibrary();
         optionsController.setUpTemplateButtons();
@@ -94,6 +94,7 @@ public class MainController {
 
             Scene newScene = new Scene(root);
             Stage newStage = new Stage();
+            newStage.initModality(Modality.APPLICATION_MODAL);
             newStage.setScene(newScene);
             newStage.show();
         }
@@ -126,22 +127,38 @@ public class MainController {
         }
     }
 
-    public void resetGraphMaker() {
-        Context.getInstance().setDemandCount(0);
-        Context.getInstance().setSupplyCount(0);
-        Context.getInstance().setNewClassicalCount(0);
-        Context.getInstance().setKeynesianCount(0);
-        Context.getInstance().setCurveCount(0);
-
-        if (graphMakerController.getGraphMakerWorkspaceP() != null && Context.getInstance().getCurvesLL().size() > 0) {
-            graphMakerController.getGraphMakerWorkspaceP().getChildren().remove(1, graphMakerController.getGraphMakerWorkspaceP().getChildren().size());
-            Context.getInstance().setCurvesLL(new LinkedList<>());
-        }
-
-        if (graphMakerController.getGraphMakerCurveRadioFP() != null && graphMakerController.getGraphMakerCurveRadioFP().getChildren().size() > 0) {
-            graphMakerController.getGraphMakerCurveRadioFP().getChildren().remove(1, graphMakerController.getGraphMakerCurveRadioFP().getChildren().size());
-        }
+    public void resetForNewGraph() {
+        resetContextFields();
+        graphMakerController.getGraphMakerWorkspaceP().getChildren().remove(3, graphMakerController.getGraphMakerWorkspaceP().getChildren().size());
+        graphMakerController.getGraphMakerCurveRadioFP().getChildren().remove(1, graphMakerController.getGraphMakerCurveRadioFP().getChildren().size());
+        graphMakerController.getGraphMakerShadedRegionRadioFP().getChildren().remove(1, graphMakerController.getGraphMakerShadedRegionRadioFP().getChildren().size());
         libraryController.resetSearchAndFilterOptions();
+        saveMenuController.getSaveMenuDescriptionTA().setText("");
+    }
+
+    private void resetContextFields() {
+        Context context = Context.getInstance();
+
+        context.getCurvesLL().clear();
+        context.getDemandCurves().clear();
+        context.getSupplyCurve().clear();
+        context.getIntersectionLL().clear();
+        context.getShiftArrowsLL().clear();
+        context.getShadedRegionsLL().clear();
+        context.getShadedRegionFieldsLL().clear();
+        context.getGraphMakerInsertedCurvesTG().getToggles().clear();
+        context.getGraphMakerInsertedShadedRegionsTG().getToggles().clear();
+
+        context.setDemandCount(0);
+        context.setSupplyCount(0);
+        context.setNewClassicalCount(0);
+        context.setKeynesianCount(0);
+        context.setCurveCount(0);
+
+        context.setSelectedCurveIndex(-1);
+        context.setSelectedShadedRegionIndex(-1);
+        context.setSelectedCurveType(-1);
+
     }
 
     public LibraryController getLibraryController() {

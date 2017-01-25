@@ -34,7 +34,7 @@ public class Supply extends StraightCurve {
     }
 
     public Supply(Pane pane, int curveIndex, String name, int centreX, int elasticityGap, String colour, int thickness, boolean dotted) {
-        setLine(new Line(centreX + elasticityGap,50,centreX - elasticityGap,400));
+        setLine(new Line(centreX - elasticityGap,400, centreX + elasticityGap,50));
         getLine().setId("line" + curveIndex);
         setName(name);
         setCurveType("Supply"); //never changes

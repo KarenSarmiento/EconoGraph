@@ -43,6 +43,7 @@ public class Demand extends StraightCurve {
         Label label = new Label(getName());
         label.setTranslateX(getCentreX() + getElasticityGap() + 15);
         label.setTranslateY(400);
+        setLabel(label);
         setColour(colour);      getLine().setStroke(Paint.valueOf(colour));
         setThickness(thickness);    getLine().setStrokeWidth(thickness);
         setDotted(dotted);

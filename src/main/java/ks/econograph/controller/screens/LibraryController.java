@@ -14,6 +14,7 @@ import javafx.stage.FileChooser.ExtensionFilter;
 import ks.econograph.Context;
 import ks.econograph.controller.MainController;
 import ks.econograph.graph.components.Graph;
+import ks.econograph.graph.components.ShadedRegion;
 
 import java.io.*;
 import java.util.Date;
@@ -201,11 +202,12 @@ public class LibraryController {
     }
 
     public void oldGraphToGraphMaker(String graphName) {
+        main.resetForNewGraph();
         main.setScreenToGraphMaker();
         loadGraph(graphName);
     }
 
-    public void loadGraph(String graphName){ //loading graph named "TestGraph"
+    public void loadGraph(String graphName){
         try {
             BufferedReader br = new BufferedReader(new FileReader("C:\\Users\\KSarm\\OneDrive\\IB\\Computer Science\\IA\\FileWriting\\test.txt"));
             String line = "";
@@ -241,7 +243,6 @@ public class LibraryController {
                                         Integer.parseInt(splittedLine[4]), splittedLine[5], Integer.parseInt(splittedLine[6]), true);
                             }
                             else {
-                                System.out.println("reached Demand in the making");
                                 main.getGraphMakerController().insertDemand(splittedLine[2], Integer.parseInt(splittedLine[3]),
                                         Integer.parseInt(splittedLine[4]), splittedLine[5], Integer.parseInt(splittedLine[6]), false);
                                 System.out.println("demand: curvesLL" + Context.getInstance().getCurvesLL());
@@ -258,6 +259,10 @@ public class LibraryController {
                                         Integer.parseInt(splittedLine[4]), splittedLine[5], Integer.parseInt(splittedLine[6]), false);
                             }
                             break;
+                        }
+                        case "ShadedRegion": {
+                            ShadedRegion shadedRegion = new ShadedRegion(splittedLine[2], splittedLine[3], splittedLine[4], splittedLine[5], splittedLine[6], splittedLine[7],
+                                    main.getGraphMakerController().getGraphMakerWorkspaceP(), main.getGraphMakerController().getGraphMakerShadedRegionRadioFP());
                         }
                     }
                 }

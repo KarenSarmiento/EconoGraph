@@ -1,7 +1,10 @@
 package ks.econograph.controller.screens;
 
 import javafx.fxml.FXML;
-import javafx.scene.control.*;
+import javafx.scene.control.CheckBox;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
@@ -11,6 +14,7 @@ import ks.econograph.controller.MainController;
 import java.io.*;
 import java.util.Date;
 import java.util.LinkedList;
+import java.util.List;
 
 /**
  * Created by KSarm on 07/01/2017.
@@ -75,8 +79,8 @@ public class SaveMenuController {
     public void saveGraphToTextFile() {
         try {
             BufferedReader br = new BufferedReader(new FileReader(Context.getInstance().getFilePathForSavedGraphs()));
-            LinkedList<String> fileLines = new LinkedList<String>();
             String line;
+            List<String> fileLines = new LinkedList<>();
             while ((line = br.readLine()) != null) {
                 fileLines.add(line);
             }
@@ -90,12 +94,18 @@ public class SaveMenuController {
                     Context.getInstance().getCurrentEditingGraph().isFavourite() + "," + Context.getInstance().getCurrentEditingGraph().getFileName();
 
             pw.println(newGraphDetail);
-            String newCurveLine = "";
+            String newCurveLine;
             for (int i = 0; i < Context.getInstance().getCurvesLL().size(); i++) {
                 newCurveLine = "newComp," + Context.getInstance().getCurvesLL().get(i).getCurveType() + "," + Context.getInstance().getCurvesLL().get(i).getName() + "," + Context.getInstance().getCurvesLL().get(i).getCentreX()
                         + "," + Context.getInstance().getCurvesLL().get(i).getElasticityGap() + "," + Context.getInstance().getCurvesLL().get(i).getColour() + "," + Context.getInstance().getCurvesLL().get(i).getThickness()
                         + "," + Context.getInstance().getCurvesLL().get(i).isDotted();
                 pw.println(newCurveLine);
+            }
+
+            String newShadedRegionLine;
+            for (int i = 0; i < Context.getInstance().getShadedRegionFieldsLL().size(); i++) {
+                newShadedRegionLine = "newComp,ShadedRegion," + Context.getInstance().getShadedRegionFieldsLL().get(i);
+                pw.println(newShadedRegionLine);
             }
             pw.close();
             br.close();
@@ -109,7 +119,7 @@ public class SaveMenuController {
     }
 
     public void resetGraphMaker() {
-        main.resetGraphMaker();
+        main.resetForNewGraph();
     }
 
     public void setScreenToGraphMaker() {
@@ -126,6 +136,30 @@ public class SaveMenuController {
 
     public void setSaveMenuTitleTF(TextField saveMenuTitleTF) {
         this.saveMenuTitleTF = saveMenuTitleTF;
+    }
+
+    public CheckBox getSaveMenuFavouriteCB() {
+        return saveMenuFavouriteCB;
+    }
+
+    public void setSaveMenuFavouriteCB(CheckBox saveMenuFavouriteCB) {
+        this.saveMenuFavouriteCB = saveMenuFavouriteCB;
+    }
+
+    public ImageView getSaveMenuImageIV() {
+        return saveMenuImageIV;
+    }
+
+    public void setSaveMenuImageIV(ImageView saveMenuImageIV) {
+        this.saveMenuImageIV = saveMenuImageIV;
+    }
+
+    public TextArea getSaveMenuDescriptionTA() {
+        return saveMenuDescriptionTA;
+    }
+
+    public void setSaveMenuDescriptionTA(TextArea saveMenuDescriptionTA) {
+        this.saveMenuDescriptionTA = saveMenuDescriptionTA;
     }
 
     public ComboBox getSaveMenuTopicCB() {
