@@ -36,6 +36,8 @@ public class GraphMakerController {
     @FXML
     FlowPane graphMakerShadedRegionRadioFP = new FlowPane();
     @FXML
+    Label graphMakerSelectAShadedRegionL = new Label("Select a Shaded Region: ");
+    @FXML
     Slider graphMakerShiftSlider = new Slider();
     @FXML
     Slider graphMakerElasticitySlider = new Slider();
@@ -47,6 +49,22 @@ public class GraphMakerController {
     Label graphMakerXAxisL = new Label();
     @FXML
     Label graphMakerYAxisL = new Label();
+
+    public void resetAndUpdateShadedRegions() {
+        for (int i = 0; i < Context.getInstance().getShadedRegionsLL().size(); i++) {
+            Context.getInstance().getShadedRegionsLL().get(i).setVisible(false);
+        }
+        Context.getInstance().getShadedRegionsLL().clear();
+        graphMakerShadedRegionRadioFP.getChildren().clear();
+        graphMakerShadedRegionRadioFP.getChildren().add(graphMakerSelectAShadedRegionL);
+
+        System.out.println("SIZE = " + Context.getInstance().getShadedRegionFieldsLL().size());
+        for (int i = 0; i < Context.getInstance().getShadedRegionFieldsLL().size(); i++) {
+            String[] field = Context.getInstance().getShadedRegionFieldsLL().get(i).split(",");
+            ShadedRegion shadedRegion = new ShadedRegion(field[0], field[1], field[2], field[3], field[4], field[5], graphMakerWorkspaceP, graphMakerShadedRegionRadioFP);
+            Context.getInstance().getShadedRegionsLL().add(shadedRegion);
+        }
+    }
 
     public void initializeShadedRegionTest() {
         main.initializeShadedRegionScreen();
@@ -115,6 +133,7 @@ public class GraphMakerController {
         }
         calculateAndGenerateShiftArrows();
         insertIntersections();
+        resetAndUpdateShadedRegions();
     }
 
     public void updateElasticityForCurrentCurve() {
@@ -148,6 +167,7 @@ public class GraphMakerController {
         }
         calculateAndGenerateShiftArrows();
         insertIntersections();
+        resetAndUpdateShadedRegions();
     }
 
     public void updateCurveColour() {

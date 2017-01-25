@@ -27,8 +27,9 @@ public class Context {
     private List<Demand> demandCurves = new LinkedList<>();
     private List<Supply> supplyCurve = new LinkedList<>();
     private List<Intersection> intersectionLL = new LinkedList<>();
-    private List<ShadedRegion> shadedRegionsLL = new LinkedList<>();
     private List<Node> shiftArrowsLL = new LinkedList<>();
+    private List<ShadedRegion> shadedRegionsLL = new LinkedList<>();
+    private List<String> shadedRegionFieldsLL = new LinkedList<>();
 
     private ToggleGroup graphMakerInsertedCurvesTG = new ToggleGroup();
     private ToggleGroup graphMakerInsertedShadedRegionsTG = new ToggleGroup();
@@ -290,5 +291,13 @@ public class Context {
 
     public void setOptionsTemplateTG(ToggleGroup optionsTemplateTG) {
         this.optionsTemplateTG = optionsTemplateTG;
+    }
+
+    public List<String> getShadedRegionFieldsLL() {
+        return shadedRegionFieldsLL;
+    }
+
+    public void setShadedRegionFieldsLL(List<String> shadedRegionFieldsLL) {
+        this.shadedRegionFieldsLL = shadedRegionFieldsLL;
     }
 }

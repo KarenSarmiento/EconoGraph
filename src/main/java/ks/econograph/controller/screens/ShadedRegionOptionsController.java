@@ -25,7 +25,7 @@ public class ShadedRegionOptionsController {
     @FXML
     GridPane shadedRegionGP = new GridPane();
     @FXML
-    ComboBox shadedRegionFromCB = new ComboBox(); //shadedRegionFromCB
+    ComboBox shadedRegionFromCB = new ComboBox();
     @FXML
     ComboBox shadedRegionToCB = new ComboBox();
     @FXML
@@ -44,9 +44,13 @@ public class ShadedRegionOptionsController {
 
     public void insertShadedRegionAndClose() {
         ShadedRegion shadedRegion = new ShadedRegion(shadedRegionLabelTextTF.getText(), shadedRegionColourPicker.getValue().toString(),
-                main.getGraphMakerController().getGraphMakerWorkspaceP(), main.getGraphMakerController().getGraphMakerShadedRegionRadioFP(),
                 shadedRegionFromCB.getValue().toString(), shadedRegionToCB.getValue().toString(),
-                shadedRegionBetween1CB.getValue().toString(), shadedRegionBetween2CB.getValue().toString());
+                shadedRegionBetween1CB.getValue().toString(), shadedRegionBetween2CB.getValue().toString(),
+                main.getGraphMakerController().getGraphMakerWorkspaceP(), main.getGraphMakerController().getGraphMakerShadedRegionRadioFP());
+        Context.getInstance().getShadedRegionsLL().add(shadedRegion);
+        Context.getInstance().getShadedRegionFieldsLL().add(shadedRegionLabelTextTF.getText() + "," + shadedRegionColourPicker.getValue().toString() + "," +
+                shadedRegionFromCB.getValue().toString() + "," + shadedRegionToCB.getValue().toString() + "," +
+                shadedRegionBetween1CB.getValue().toString() + "," + shadedRegionBetween2CB.getValue().toString());
         closeShadedRegionsWindow();
     }
 

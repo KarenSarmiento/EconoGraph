@@ -18,12 +18,13 @@ import static jdk.nashorn.internal.objects.Global.Infinity;
  * Created by KSarm on 21/01/2017.
  */
 public class ShadedRegion {
-    Polygon polygon;
-    Label label;
-    double labelPosX;
-    double labelPosY;
+    private Polygon polygon;
+    private Label label;
+    private double labelPosX;
+    private double labelPosY;
+    private boolean visible;
 
-    public ShadedRegion(String labelText, String colour, Pane pane, FlowPane flowPane, String lineName1, String lineName2, String lineName3, String lineName4) {
+    public ShadedRegion(String labelText, String colour, String lineName1, String lineName2, String lineName3, String lineName4, Pane pane, FlowPane flowPane) {
         Double[] coordinates = calculateShadedRegionVertices(lineName1, lineName2, lineName3, lineName4);
         polygon = new Polygon();
         polygon.getPoints().addAll(coordinates);
@@ -33,8 +34,10 @@ public class ShadedRegion {
         System.out.println("x=" + labelPosX + "  y=" + labelPosY);
         label.setTranslateX(labelPosX);
         label.setTranslateY(labelPosY);
-        label.toFront();
+        visible = true;
+        System.out.println(Context.getInstance().getShadedRegionFieldsLL().toString());
         pane.getChildren().addAll(polygon, label);
+        label.toFront();
         createShadedRegionRadio(labelText, flowPane);
     }
 
@@ -250,11 +253,30 @@ public class ShadedRegion {
         this.label = label;
     }
 
+    public boolean isVisible() {
+        return visible;
+    }
+
+    public void setVisible(boolean visible) {
+        this.visible = visible;
+        if (visible) {
+            polygon.setVisible(true);
+            label.setVisible(true);
+        }
+        else {
+            polygon.setVisible(false);
+            label.setVisible(false);
+        }
+    }
+
     @Override
     public String toString() {
         return "ShadedRegion{" +
                 "polygon=" + polygon +
                 ", label=" + label +
+                ", labelPosX=" + labelPosX +
+                ", labelPosY=" + labelPosY +
+                ", visible=" + visible +
                 '}';
     }
 }
