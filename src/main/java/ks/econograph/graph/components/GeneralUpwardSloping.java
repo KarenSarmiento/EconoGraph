@@ -7,17 +7,13 @@ import javafx.scene.shape.Line;
 import javafx.scene.shape.StrokeLineCap;
 
 /**
- * Created by KSarm on 03/11/2016.
+ * Created by KSarm on 26/01/2017.
  */
-public class Supply extends StraightCurve {
-    public Supply(Pane pane, int curveIndex){
+public class GeneralUpwardSloping extends StraightCurve{
+    public GeneralUpwardSloping(Pane pane, String title){
         setLine(new Line(200,400,550,50));
-        getLine().setId("line" + curveIndex);
-        if (curveIndex == 0)
-            setName("S");
-        else
-            setName("S" + curveIndex);
-        setCurveType("Supply"); //never changes
+            setName(title);
+        setCurveType("GeneralUpwardSloping"); //never changes
         setCentreX(375);
         setElasticityGap(175);
         Label label = new Label(getName());
@@ -32,11 +28,10 @@ public class Supply extends StraightCurve {
         pane.getChildren().addAll(getLine(), label);
     }
 
-    public Supply(Pane pane, int curveIndex, String name, int centreX, int elasticityGap, String colour, int thickness, String dotted) {
+    public GeneralUpwardSloping(Pane pane, String name, int centreX, int elasticityGap, String colour, int thickness, String dotted) {
         setLine(new Line(centreX - elasticityGap,400, centreX + elasticityGap,50));
-        getLine().setId("line" + curveIndex);
         setName(name);
-        setCurveType("Supply"); //never changes
+        setCurveType("GeneralUpwardSloping"); //never changes
         setCentreX(centreX);
         setElasticityGap(elasticityGap);
         Label label = new Label(getName());

@@ -48,6 +48,10 @@ public class GraphMakerController {
     Label graphMakerYAxisL = new Label();
     @FXML
     ComboBox graphMakerLineStyleCB = new ComboBox();
+    @FXML
+    TextField graphMakerDownwardSlopingTF = new TextField();
+    @FXML
+    TextField graphMakerUpwardSlopingTF = new TextField();
 
     public void resetAndUpdateShadedRegions() {
         for (int i = 0; i < Context.getInstance().getShadedRegionsLL().size(); i++) {
@@ -318,6 +322,35 @@ public class GraphMakerController {
         setUpCurve(newClassical);
     }
 
+    public void insertGeneralDownwardSloping() {
+        GeneralDownwardSloping generalDownwardSloping = new GeneralDownwardSloping(graphMakerWorkspaceP, graphMakerDownwardSlopingTF.getText());
+        setUpGeneralDownwardSloping(generalDownwardSloping);
+    }
+
+    public void insertGeneralDownwardSloping(String name, int centreX, int elasticityGap, String colour, int thickness, String dotted) {
+        GeneralDownwardSloping generalDownwardSloping = new GeneralDownwardSloping(graphMakerWorkspaceP, name, centreX, elasticityGap, colour, thickness, dotted);
+        setUpGeneralDownwardSloping(generalDownwardSloping);
+    }
+
+    private void setUpGeneralDownwardSloping(GeneralDownwardSloping generalDownwardSloping) {
+        createRadioButton(graphMakerDownwardSlopingTF.getText(), Context.getInstance().getCurveCount(), 5);
+        setUpCurve(generalDownwardSloping);
+    }
+
+    public void insertGeneralUpwardSloping() {
+        GeneralUpwardSloping generalUpwardSloping = new GeneralUpwardSloping(graphMakerWorkspaceP, graphMakerUpwardSlopingTF.getText());
+        setUpGeneralUpwardSloping(generalUpwardSloping);
+    }
+
+    public void insertGeneralUpwardSloping(String name, int centreX, int elasticityGap, String colour, int thickness, String dotted) {
+        GeneralUpwardSloping generalUpwardSloping = new GeneralUpwardSloping(graphMakerWorkspaceP, name, centreX, elasticityGap, colour, thickness, dotted);
+        setUpGeneralUpwardSloping(generalUpwardSloping);
+    }
+
+    private void setUpGeneralUpwardSloping(GeneralUpwardSloping generalUpwardSloping) {
+        createRadioButton(graphMakerUpwardSlopingTF.getText(), Context.getInstance().getCurveCount(), 5);
+        setUpCurve(generalUpwardSloping);
+    }
 
     private void setUpCurve(Curve curve) {
         Context.getInstance().setCurveCount(Context.getInstance().getCurveCount() + 1);
@@ -355,8 +388,8 @@ public class GraphMakerController {
 
         Line topArrow = new Line(arrowStartX, yCoordinate, arrowEndX, yCoordinate);
 
-        double headX = 0;
-        int direction = 0;
+        double headX;
+        int direction;
 
         if (line1.getName().compareTo(line2.getName()) < 0) {
             if (x1 > x2) {
@@ -497,6 +530,30 @@ public class GraphMakerController {
 
     public void setGraphMakerYAxisL(Label graphMakerYAxisL) {
         this.graphMakerYAxisL = graphMakerYAxisL;
+    }
+
+    public ComboBox getGraphMakerLineStyleCB() {
+        return graphMakerLineStyleCB;
+    }
+
+    public void setGraphMakerLineStyleCB(ComboBox graphMakerLineStyleCB) {
+        this.graphMakerLineStyleCB = graphMakerLineStyleCB;
+    }
+
+    public TextField getGraphMakerDownwardSlopingTF() {
+        return graphMakerDownwardSlopingTF;
+    }
+
+    public void setGraphMakerDownwardSlopingTF(TextField graphMakerDownwardSlopingTF) {
+        this.graphMakerDownwardSlopingTF = graphMakerDownwardSlopingTF;
+    }
+
+    public TextField getGraphMakerUpwardSlopingTF() {
+        return graphMakerUpwardSlopingTF;
+    }
+
+    public void setGraphMakerUpwardSlopingTF(TextField graphMakerUpwardSlopingTF) {
+        this.graphMakerUpwardSlopingTF = graphMakerUpwardSlopingTF;
     }
 
     public void init(MainController mainController) {

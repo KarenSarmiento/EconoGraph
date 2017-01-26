@@ -292,6 +292,16 @@ public class LibraryController {
                             Integer.parseInt(splittedLine[4]), splittedLine[5], Integer.parseInt(splittedLine[6]), splittedLine[7]);
                 break;
             }
+            case "GeneralDownwardSloping": {
+                main.getGraphMakerController().insertGeneralDownwardSloping(splittedLine[2], Integer.parseInt(splittedLine[3]),
+                        Integer.parseInt(splittedLine[4]), splittedLine[5], Integer.parseInt(splittedLine[6]), splittedLine[7]);
+                break;
+            }
+            case "GeneralUpwardSloping": {
+                main.getGraphMakerController().insertGeneralUpwardSloping(splittedLine[2], Integer.parseInt(splittedLine[3]),
+                        Integer.parseInt(splittedLine[4]), splittedLine[5], Integer.parseInt(splittedLine[6]), splittedLine[7]);
+                break;
+            }
             case "ShadedRegion": {
                 ShadedRegion shadedRegion = new ShadedRegion(splittedLine[2], splittedLine[3], splittedLine[4], splittedLine[5], splittedLine[6], splittedLine[7],
                         main.getGraphMakerController().getGraphMakerWorkspaceP(), main.getGraphMakerController().getGraphMakerShadedRegionRadioFP());

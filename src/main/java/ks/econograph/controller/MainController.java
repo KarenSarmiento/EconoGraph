@@ -132,6 +132,8 @@ public class MainController {
         graphMakerController.getGraphMakerWorkspaceP().getChildren().remove(3, graphMakerController.getGraphMakerWorkspaceP().getChildren().size());
         graphMakerController.getGraphMakerCurveRadioFP().getChildren().remove(1, graphMakerController.getGraphMakerCurveRadioFP().getChildren().size());
         graphMakerController.getGraphMakerShadedRegionRadioFP().getChildren().remove(1, graphMakerController.getGraphMakerShadedRegionRadioFP().getChildren().size());
+        graphMakerController.getGraphMakerDownwardSlopingTF().setText("");
+        graphMakerController.getGraphMakerUpwardSlopingTF().setText("");
         libraryController.resetSearchAndFilterOptions();
         saveMenuController.getSaveMenuDescriptionTA().setText("");
     }

@@ -59,7 +59,7 @@ public class Context {
     private Graph currentEditingGraph = new Graph();
     private int selectedCurveIndex = -1;
     private int selectedShadedRegionIndex = -1;
-    private int selectedCurveType = -1; //0 = demand, 1 = supply, 2 = newClassical, 3 = AD, 4 = AS, 5 = MSB, 6 = MPB, 7 = MSC, 8 = MPC
+    private int selectedCurveType = -1; //0 = demand, 1 = supply, 2 = newClassical, 3 = AD, 4 = AS, 5 = MSB, 6 = MPB, 7 = MSC, 8 = MPC, 9 = other
 
     private String filterSearch = null;
     private boolean filterFavourite = false;
