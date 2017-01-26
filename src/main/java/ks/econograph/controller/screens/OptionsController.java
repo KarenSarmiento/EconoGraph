@@ -7,6 +7,7 @@ import javafx.scene.layout.GridPane;
 import ks.econograph.Context;
 import ks.econograph.controller.MainController;
 import ks.econograph.graph.components.Graph;
+import ks.econograph.graph.components.ShadedRegion;
 
 /**
  * Created by KSarm on 07/01/2017.
@@ -60,12 +61,15 @@ public class OptionsController {
                 break;
             }
             case "Macroeconomic Equilibrium": {
+                generateMacroEconomicEquilibrium();
                 break;
             }
             case "Externality": {
+                generateExternality();
                 break;
             }
             case "Labour Force": {
+                generateLabourForce();
                 break;
             }
             case "Subsidy": {
@@ -74,6 +78,40 @@ public class OptionsController {
             }
 
         }
+    }
+
+    private  void generateExternality() {
+        main.getGraphMakerController().insertMSB();
+        main.getGraphMakerController().insertMSC();
+        main.getGraphMakerController().insertMPC();
+        main.getGraphMakerController().getGraphMakerShiftSlider().setValue(100);
+        main.getGraphMakerController().shiftSelectedCurve();
+        ShadedRegion shadedRegion = new ShadedRegion("Welfare Loss", "0x8ff6cbff", "MSC", "MSB", "Q", "Q1",
+                main.getGraphMakerController().getGraphMakerWorkspaceP(), main.getGraphMakerController().getGraphMakerShadedRegionRadioFP());
+        Context.getInstance().getShadedRegionsLL().add(shadedRegion);
+        Context.getInstance().getShadedRegionFieldsLL().add("Welfare Loss,0x8ff6cbff,MSC,MSB,Q,Q1");
+
+    }
+
+    private void generateLabourForce() {
+        main.getGraphMakerController().insertGeneralDownwardSloping("ADL");
+        main.getGraphMakerController().insertGeneralUpwardSloping("ASL");
+        main.getGraphMakerController().getGraphMakerElasticitySlider().setValue(80);
+        main.getGraphMakerController().updateElasticityForCurrentCurve();
+        main.getGraphMakerController().getGraphMakerShiftSlider().setValue(-25);
+        main.getGraphMakerController().shiftSelectedCurve();
+        main.getGraphMakerController().insertGeneralUpwardSloping("LF");
+        main.getGraphMakerController().getGraphMakerElasticitySlider().setValue(25);
+        main.getGraphMakerController().updateElasticityForCurrentCurve();
+        main.getGraphMakerController().getGraphMakerShiftSlider().setValue(100);
+        main.getGraphMakerController().shiftSelectedCurve();
+    }
+
+    private void generateMacroEconomicEquilibrium() {
+        main.getGraphMakerController().insertAggregateDemand();
+        main.getGraphMakerController().insertAggregateSupply();
+        main.getGraphMakerController().insertNewClassical();
+        main.getSaveMenuController().getSaveMenuTopicCB().setValue("Macro");
     }
 
     private void generateSubsidyTemplate() {

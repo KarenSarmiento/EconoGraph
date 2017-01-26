@@ -324,31 +324,41 @@ public class GraphMakerController {
 
     public void insertGeneralDownwardSloping() {
         GeneralDownwardSloping generalDownwardSloping = new GeneralDownwardSloping(graphMakerWorkspaceP, graphMakerDownwardSlopingTF.getText());
-        setUpGeneralDownwardSloping(generalDownwardSloping);
+        setUpGeneralDownwardSloping(generalDownwardSloping, graphMakerDownwardSlopingTF.getText());
+    }
+
+    public void insertGeneralDownwardSloping(String lineName) {
+        GeneralDownwardSloping generalDownwardSloping = new GeneralDownwardSloping(graphMakerWorkspaceP, lineName);
+        setUpGeneralDownwardSloping(generalDownwardSloping, lineName);
     }
 
     public void insertGeneralDownwardSloping(String name, int centreX, int elasticityGap, String colour, int thickness, String dotted) {
         GeneralDownwardSloping generalDownwardSloping = new GeneralDownwardSloping(graphMakerWorkspaceP, name, centreX, elasticityGap, colour, thickness, dotted);
-        setUpGeneralDownwardSloping(generalDownwardSloping);
+        setUpGeneralDownwardSloping(generalDownwardSloping, name);
     }
 
-    private void setUpGeneralDownwardSloping(GeneralDownwardSloping generalDownwardSloping) {
-        createRadioButton(graphMakerDownwardSlopingTF.getText(), Context.getInstance().getCurveCount(), 5);
+    private void setUpGeneralDownwardSloping(GeneralDownwardSloping generalDownwardSloping, String lineName) {
+        createRadioButton(lineName, Context.getInstance().getCurveCount(), 5);
         setUpCurve(generalDownwardSloping);
     }
 
     public void insertGeneralUpwardSloping() {
         GeneralUpwardSloping generalUpwardSloping = new GeneralUpwardSloping(graphMakerWorkspaceP, graphMakerUpwardSlopingTF.getText());
-        setUpGeneralUpwardSloping(generalUpwardSloping);
+        setUpGeneralUpwardSloping(generalUpwardSloping, graphMakerUpwardSlopingTF.getText());
+    }
+
+    public void insertGeneralUpwardSloping(String lineName) {
+        GeneralUpwardSloping generalUpwardSloping = new GeneralUpwardSloping(graphMakerWorkspaceP, lineName);
+        setUpGeneralUpwardSloping(generalUpwardSloping, lineName);
     }
 
     public void insertGeneralUpwardSloping(String name, int centreX, int elasticityGap, String colour, int thickness, String dotted) {
         GeneralUpwardSloping generalUpwardSloping = new GeneralUpwardSloping(graphMakerWorkspaceP, name, centreX, elasticityGap, colour, thickness, dotted);
-        setUpGeneralUpwardSloping(generalUpwardSloping);
+        setUpGeneralUpwardSloping(generalUpwardSloping, name);
     }
 
-    private void setUpGeneralUpwardSloping(GeneralUpwardSloping generalUpwardSloping) {
-        createRadioButton(graphMakerUpwardSlopingTF.getText(), Context.getInstance().getCurveCount(), 5);
+    private void setUpGeneralUpwardSloping(GeneralUpwardSloping generalUpwardSloping, String lineName) {
+        createRadioButton(lineName, Context.getInstance().getCurveCount(), 5);
         setUpCurve(generalUpwardSloping);
     }
 
