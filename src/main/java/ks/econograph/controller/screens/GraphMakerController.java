@@ -112,111 +112,36 @@ public class GraphMakerController {
     }
 
     public void shiftSelectedCurve() {
-        switch (Context.getInstance().getSelectedCurveType()) {
-            case 0: {
-                Demand demand = (Demand) Context.getInstance().getCurvesLL().get(Context.getInstance().getSelectedCurveIndex());
-                demand.setCentreX(375 + (int) graphMakerShiftSlider.getValue());
-                demand.getLine().setStartX(demand.getCentreX() - demand.getElasticityGap());
-                demand.getLine().setEndX(demand.getCentreX() + demand.getElasticityGap());
-                demand.getLabel().setTranslateX(demand.getCentreX() + demand.getElasticityGap() + 15);
-                demand.calculateAndSetGradientAndYIntercept();
-                break;
-            }
-            case 1: {
-                Supply supply = (Supply) Context.getInstance().getCurvesLL().get(Context.getInstance().getSelectedCurveIndex());
-                supply.setCentreX(375 + (int) graphMakerShiftSlider.getValue());
-                supply.getLine().setStartX(supply.getCentreX() - supply.getElasticityGap());
-                supply.getLine().setEndX(supply.getCentreX() + supply.getElasticityGap());
-                supply.getLabel().setTranslateX(supply.getCentreX() + supply.getElasticityGap() + 15);
-                supply.calculateAndSetGradientAndYIntercept();
-                break;
-            }
-        }
-        calculateAndGenerateShiftArrows();
-        insertIntersections();
-        resetAndUpdateShadedRegions();
+        StraightCurve straightCurve = (StraightCurve) Context.getInstance().getCurvesLL().get(Context.getInstance().getSelectedCurveIndex());
+        straightCurve.setCentreX(375 + (int) graphMakerShiftSlider.getValue());
+        straightCurve.getLine().setStartX(straightCurve.getCentreX() - straightCurve.getElasticityGap());
+        straightCurve.getLine().setEndX(straightCurve.getCentreX() + straightCurve.getElasticityGap());
+        straightCurve.getLabel().setTranslateX(straightCurve.getCentreX() + straightCurve.getElasticityGap() + 15);
+        straightCurve.calculateAndSetGradientAndYIntercept();
+        updateIntersectionsShiftArrowsAndShadedRegions();
     }
 
     public void updateElasticityForCurrentCurve() {
-        switch (Context.getInstance().getSelectedCurveType()) {
-            case 0: {
-                Demand demand = (Demand) Context.getInstance().getCurvesLL().get(Context.getInstance().getSelectedCurveIndex());
-                demand.setElasticityGap((int) graphMakerElasticitySlider.getValue());
-                demand.getLine().setStartX(demand.getCentreX() - demand.getElasticityGap());
-                demand.getLine().setEndX(demand.getCentreX() + demand.getElasticityGap());
-                demand.getLabel().setTranslateX(demand.getCentreX() + demand.getElasticityGap() + 15);
-                demand.calculateAndSetGradientAndYIntercept();
-                break;
-            }
-            case 1: {
-                Supply supply = (Supply) Context.getInstance().getCurvesLL().get(Context.getInstance().getSelectedCurveIndex());
-                supply.setElasticityGap((int) graphMakerElasticitySlider.getValue());
-                supply.getLine().setStartX(supply.getCentreX() - supply.getElasticityGap());
-                supply.getLine().setEndX(supply.getCentreX() + supply.getElasticityGap());
-                supply.getLabel().setTranslateX(supply.getCentreX() + supply.getElasticityGap() + 15);
-                supply.calculateAndSetGradientAndYIntercept();
-                break;
-            }
-            case 2: {
-
-                break;
-            }
-            case 3: {
-
-                break;
-            }
-        }
-        calculateAndGenerateShiftArrows();
-        insertIntersections();
-        resetAndUpdateShadedRegions();
+        StraightCurve straightCurve = (StraightCurve) Context.getInstance().getCurvesLL().get(Context.getInstance().getSelectedCurveIndex());
+        updateIntersectionsShiftArrowsAndShadedRegions();
+        straightCurve.setElasticityGap((int) graphMakerElasticitySlider.getValue());
+        straightCurve.getLine().setStartX(straightCurve.getCentreX() - straightCurve.getElasticityGap());
+        straightCurve.getLine().setEndX(straightCurve.getCentreX() + straightCurve.getElasticityGap());
+        straightCurve.getLabel().setTranslateX(straightCurve.getCentreX() + straightCurve.getElasticityGap() + 15);
+        straightCurve.calculateAndSetGradientAndYIntercept();
     }
 
     public void updateCurveColour() {
-        switch (Context.getInstance().getSelectedCurveType()) {
-            case 0: {
-                Demand demand = (Demand) Context.getInstance().getCurvesLL().get(Context.getInstance().getSelectedCurveIndex());
-                demand.getLine().setStroke(graphMakerColourPicker.getValue());
-                demand.setColour(graphMakerColourPicker.getValue().toString());
-                break;
-            }
-            case 1: {
-                Supply supply = (Supply) Context.getInstance().getCurvesLL().get(Context.getInstance().getSelectedCurveIndex());
-                supply.getLine().setStroke(graphMakerColourPicker.getValue());
-                supply.setColour(graphMakerColourPicker.getValue().toString());
-                break;
-            }
-            case 2: {
-                break;
-            }
-            case 3: {
-                break;
-            }
-        }
+        StraightCurve straightCurve = (StraightCurve) Context.getInstance().getCurvesLL().get(Context.getInstance().getSelectedCurveIndex());
+        straightCurve.getLine().setStroke(graphMakerColourPicker.getValue());
+        straightCurve.setColour(graphMakerColourPicker.getValue().toString());
     }
 
     public void updateThickness() {
-        switch (Context.getInstance().getSelectedCurveType()) {
-            case 0: {
-                Demand demand = (Demand) Context.getInstance().getCurvesLL().get(Context.getInstance().getSelectedCurveIndex());
-                demand.getLine().setStrokeWidth((int) graphMakerThicknessSlider.getValue());
-                demand.setThickness((int) graphMakerThicknessSlider.getValue());
-                System.out.println(graphMakerThicknessSlider.getValue());
-                break;
-            }
-            case 1: {
-                Supply supply = (Supply) Context.getInstance().getCurvesLL().get(Context.getInstance().getSelectedCurveIndex());
-                supply.getLine().setStrokeWidth((int) graphMakerThicknessSlider.getValue());
-                supply.setThickness((int) graphMakerThicknessSlider.getValue());
-                System.out.println(graphMakerThicknessSlider.getValue());
-                break;
-            }
-            case 2: {
-                break;
-            }
-            case 3: {
-                break;
-            }
-        }
+        StraightCurve straightCurve = (StraightCurve) Context.getInstance().getCurvesLL().get(Context.getInstance().getSelectedCurveIndex());
+        straightCurve.getLine().setStrokeWidth((int) graphMakerThicknessSlider.getValue());
+        straightCurve.setThickness((int) graphMakerThicknessSlider.getValue());
+        System.out.println(graphMakerThicknessSlider.getValue());
     }
 
     public void insertDemand() {
@@ -247,6 +172,7 @@ public class GraphMakerController {
     }
 
     private void setUpAggregateDemand(AggregateDemand aggregateDemand) {
+        createRadioButton("Aggregate Demand " + Context.getInstance().getAggregateDemandCount(), Context.getInstance().getCurveCount(), 3);
         Context.getInstance().setAggregateDemandCount(Context.getInstance().getAggregateDemandCount() +1);
         Context.getInstance().getAggregateDemandCurves().add(aggregateDemand);
         setUpCurve(aggregateDemand);
@@ -280,6 +206,7 @@ public class GraphMakerController {
     }
 
     private void setUpAggregateSupply(AggregateSupply aggregateSupply) {
+        createRadioButton("Aggregate Supply " + Context.getInstance().getAggregateSupplyCount(), Context.getInstance().getCurveCount(), 4);
         Context.getInstance().setAggregateSupplyCount(Context.getInstance().getAggregateSupplyCount() +1);
         Context.getInstance().getAggregateSupplyCurves().add(aggregateSupply);
         setUpCurve(aggregateSupply);
@@ -393,6 +320,12 @@ public class GraphMakerController {
         graphMakerElasticitySlider.setValue(175);
         graphMakerShiftSlider.setValue(0);
         graphMakerThicknessSlider.setValue(5);
+    }
+
+    private void updateIntersectionsShiftArrowsAndShadedRegions() {
+        calculateAndGenerateShiftArrows();
+        insertIntersections();
+        resetAndUpdateShadedRegions();
     }
 
     public void setScreenToSaveMenu() {

@@ -260,6 +260,28 @@ public class LibraryController {
                             }
                             break;
                         }
+                        case "AggregateDemand": {
+                            if (splittedLine[7].equals("true")) {
+                                main.getGraphMakerController().insertAggregateDemand(splittedLine[2], Integer.parseInt(splittedLine[3]),
+                                        Integer.parseInt(splittedLine[4]), splittedLine[5], Integer.parseInt(splittedLine[6]), true);
+                            }
+                            else {
+                                main.getGraphMakerController().insertAggregateDemand(splittedLine[2], Integer.parseInt(splittedLine[3]),
+                                        Integer.parseInt(splittedLine[4]), splittedLine[5], Integer.parseInt(splittedLine[6]), false);
+                            }
+                            break;
+                        }
+                        case "AggregateSupply": {
+                            if (splittedLine[7].equals("true")) {
+                                main.getGraphMakerController().insertAggregateSupply(splittedLine[2], Integer.parseInt(splittedLine[3]),
+                                        Integer.parseInt(splittedLine[4]), splittedLine[5], Integer.parseInt(splittedLine[6]), true);
+                            }
+                            else {
+                                main.getGraphMakerController().insertAggregateSupply(splittedLine[2], Integer.parseInt(splittedLine[3]),
+                                        Integer.parseInt(splittedLine[4]), splittedLine[5], Integer.parseInt(splittedLine[6]), false);
+                            }
+                            break;
+                        }
                         case "ShadedRegion": {
                             ShadedRegion shadedRegion = new ShadedRegion(splittedLine[2], splittedLine[3], splittedLine[4], splittedLine[5], splittedLine[6], splittedLine[7],
                                     main.getGraphMakerController().getGraphMakerWorkspaceP(), main.getGraphMakerController().getGraphMakerShadedRegionRadioFP());
