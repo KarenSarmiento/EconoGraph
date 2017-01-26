@@ -96,6 +96,9 @@
                          </FlowPane>
                      </content>
                  </ScrollPane>
+                  <Slider fx:id="graphMakerOpacitySlider" blockIncrement="0.01" majorTickUnit="0.25" max="1.0" minorTickCount="5" onDragDetected="#updateShadedRegionOpacity" onMouseClicked="#updateShadedRegionOpacity" onMouseDragged="#updateShadedRegionOpacity" prefHeight="48.0" prefWidth="171.0" showTickLabels="true" showTickMarks="true" value="1.0" />
+                  <ColorPicker fx:id="graphMakerShadedRegionCP" onAction="#updateShadedRegionColour" />
+                  <TextField fx:id="graphMakerShadedRegionLabelTF" onAction="#updateShadedRegionLabel" />
                  </FlowPane>
              </Tab>
          </tabs>

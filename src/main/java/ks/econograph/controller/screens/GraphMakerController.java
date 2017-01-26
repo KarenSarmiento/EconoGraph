@@ -4,9 +4,11 @@ import javafx.embed.swing.SwingFXUtils;
 import javafx.fxml.FXML;
 import javafx.scene.SnapshotParameters;
 import javafx.scene.control.*;
+import javafx.scene.control.RadioButton;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Paint;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Polygon;
 import ks.econograph.Context;
@@ -52,6 +54,29 @@ public class GraphMakerController {
     TextField graphMakerDownwardSlopingTF = new TextField();
     @FXML
     TextField graphMakerUpwardSlopingTF = new TextField();
+    @FXML
+    Slider graphMakerOpacitySlider = new Slider();
+    @FXML
+    ColorPicker graphMakerShadedRegionCP = new ColorPicker();
+    @FXML
+    TextField graphMakerShadedRegionLabelTF = new TextField();
+
+    public void updateShadedRegionColour() {
+        Context.getInstance().getShadedRegionsLL().get(Context.getInstance().getSelectedShadedRegionIndex()).getPolygon()
+                .setFill(Paint.valueOf(graphMakerShadedRegionCP.getValue().toString()));
+    }
+
+    public void updateShadedRegionLabel() {
+        Context.getInstance().getShadedRegionsLL().get(Context.getInstance().getSelectedShadedRegionIndex()).getLabel()
+                .setText(graphMakerShadedRegionLabelTF.getText());
+        ((RadioButton)Context.getInstance().getGraphMakerInsertedShadedRegionsTG().getSelectedToggle())
+                .setText(graphMakerShadedRegionLabelTF.getText() + " Region");
+    }
+
+    public void updateShadedRegionOpacity() {
+        Context.getInstance().getShadedRegionsLL().get(Context.getInstance().getSelectedShadedRegionIndex()).getPolygon()
+                .setOpacity(graphMakerOpacitySlider.getValue());
+    }
 
     public void resetAndUpdateShadedRegions() {
         for (int i = 0; i < Context.getInstance().getShadedRegionsLL().size(); i++) {
