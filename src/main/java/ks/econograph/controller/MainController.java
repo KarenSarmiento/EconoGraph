@@ -48,7 +48,7 @@ public class MainController {
         saveMenuController.init(this);
 
         resetForNewGraph();
-        readInGraphsToGraphsLL();
+        resetAndReadInGraphsToGraphsLL();
         libraryController.resetAndDisplayGraphsFromGraphsLLToLibrary();
         optionsController.setUpTemplateButtons();
 
@@ -103,7 +103,8 @@ public class MainController {
         }
     }
 
-    public void readInGraphsToGraphsLL() {
+    public void resetAndReadInGraphsToGraphsLL() {
+        Context.getInstance().getGraphsLL().clear();
         try {
             BufferedReader br = new BufferedReader(new FileReader(Context.getInstance().getFilePathForSavedGraphs()));
             String readLine;

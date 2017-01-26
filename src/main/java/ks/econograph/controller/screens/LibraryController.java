@@ -18,6 +18,8 @@ import ks.econograph.graph.components.ShadedRegion;
 
 import java.io.*;
 import java.util.Date;
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  * Created by KSarm on 01/01/2017.
@@ -36,6 +38,48 @@ public class LibraryController {
     TextField librarySearchTF = new TextField();
     @FXML
     ComboBox librarySortCB = new ComboBox();
+
+    public void deleteGraph(String title) {
+        try {
+            BufferedReader br = new BufferedReader(new FileReader(Context.getInstance().getFilePathForSavedGraphs()));
+            String line;
+            List<String> fileLines = new LinkedList<>();
+            while ((line = br.readLine()) != null) {
+                System.out.println(line);
+                String[] splittedLine = line.split(",");
+                if (splittedLine[0].equals(title))
+                    break;
+                else
+                    fileLines.add(line);
+            }
+            while ((line = br.readLine()) != null) {
+                System.out.println(line);
+                String[] splittedLine = line.split(",");
+                if (!splittedLine[0].equals("newComp")) {
+                    fileLines.add(line);
+                    break;
+                }
+            }
+            while ((line = br.readLine()) != null) {
+                System.out.println(line);
+                fileLines.add(line);
+            }
+
+            PrintWriter pw = new PrintWriter(new FileWriter(Context.getInstance().getFilePathForSavedGraphs()));
+            for (int i = 0; i < fileLines.size(); i++) {
+                pw.println(fileLines.get(i));
+            }
+
+            pw.close();
+            br.close();
+            main.resetAndReadInGraphsToGraphsLL();
+            resetAndDisplayGraphsFromGraphsLLToLibrary();
+
+        } catch (IOException ioe2) {
+            System.out.println("IOError");
+        }
+
+    }
 
     public void resetAndDisplayGraphsFromGraphsLLToLibrary() {
         libraryGraphGP.getChildren().remove(5,libraryGraphGP.getChildren().size());
@@ -66,6 +110,7 @@ public class LibraryController {
                 Button editButton = new Button("Edit " + title);
                 editButton.setOnAction(e -> oldGraphToGraphMaker(title));
                 Button deleteButton = new Button("Delete");
+                deleteButton.setOnAction(e -> deleteGraph(title));
                 Button saveToDocuments = new Button("Save to Documents");
                 int curveIndex = i;
                 saveToDocuments.setOnAction(e -> savePdfToSelectedFileLocation(curveIndex));
