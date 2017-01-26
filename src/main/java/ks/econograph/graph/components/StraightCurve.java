@@ -15,6 +15,24 @@ public class StraightCurve extends Curve {
         yIntercept = line.getStartY() - gradient * line.getStartX();
     }
 
+    public void setLineDottedSettings() {
+        switch (getDotted()) {
+            case "Bold": {
+                line.getStrokeDashArray().clear();
+                break;
+            }
+            case "Dotted": {
+                line.getStrokeDashArray().clear();
+                line.getStrokeDashArray().addAll(5d);
+                break;
+            }
+            case "Dashed": {
+                line.getStrokeDashArray().clear();
+                line.getStrokeDashArray().addAll(20d, 10d);
+                break;
+            }
+        }
+    }
 
     public Line getLine() {
         return line;

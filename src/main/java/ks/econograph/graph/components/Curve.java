@@ -14,7 +14,7 @@ public class Curve extends Line{
     private String colour;
     private int thickness;
     private Label label;
-    private boolean dotted;
+    private String dotted;
 
     public String getName() {
         return name;
@@ -72,11 +72,11 @@ public class Curve extends Line{
         this.label = label;
     }
 
-    public boolean isDotted() {
+    public String getDotted() {
         return dotted;
     }
 
-    public void setDotted(boolean dotted) {
+    public void setDotted(String dotted) {
         this.dotted = dotted;
     }
 }

@@ -27,13 +27,13 @@ public class MPB extends StraightCurve{
         setLabel(label);
         setColour("Black");
         setThickness(3);    getLine().setStrokeWidth(3);
-        setDotted(false);
+        setDotted("Bold");
         setStrokeLineCap(StrokeLineCap.ROUND);
         calculateAndSetGradientAndYIntercept();
         pane.getChildren().addAll(getLine(), label);
     }
 
-    public MPB(Pane pane, int index, String name, int centreX, int elasticityGap, String colour, int thickness, boolean dotted) {
+    public MPB(Pane pane, int index, String name, int centreX, int elasticityGap, String colour, int thickness, String dotted) {
         setLine(new Line(centreX - elasticityGap,50,centreX + elasticityGap,400));
         getLine().setId("line" + index);
         setName(name);
@@ -47,6 +47,7 @@ public class MPB extends StraightCurve{
         setColour(colour);      getLine().setStroke(Paint.valueOf(colour));
         setThickness(thickness);    getLine().setStrokeWidth(thickness);
         setDotted(dotted);
+        setLineDottedSettings();
         setStrokeLineCap(StrokeLineCap.ROUND);
         calculateAndSetGradientAndYIntercept();
         pane.getChildren().addAll(getLine(), label);

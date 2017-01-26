@@ -98,7 +98,7 @@ public class SaveMenuController {
             for (int i = 0; i < Context.getInstance().getCurvesLL().size(); i++) {
                 newCurveLine = "newComp," + Context.getInstance().getCurvesLL().get(i).getCurveType() + "," + Context.getInstance().getCurvesLL().get(i).getName() + "," + Context.getInstance().getCurvesLL().get(i).getCentreX()
                         + "," + Context.getInstance().getCurvesLL().get(i).getElasticityGap() + "," + Context.getInstance().getCurvesLL().get(i).getColour() + "," + Context.getInstance().getCurvesLL().get(i).getThickness()
-                        + "," + Context.getInstance().getCurvesLL().get(i).isDotted();
+                        + "," + Context.getInstance().getCurvesLL().get(i).getDotted();
                 pw.println(newCurveLine);
             }
 

@@ -3,10 +3,7 @@ package ks.econograph.controller.screens;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.fxml.FXML;
 import javafx.scene.SnapshotParameters;
-import javafx.scene.control.ColorPicker;
-import javafx.scene.control.Label;
-import javafx.scene.control.RadioButton;
-import javafx.scene.control.Slider;
+import javafx.scene.control.*;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
@@ -49,8 +46,8 @@ public class GraphMakerController {
     Label graphMakerXAxisL = new Label();
     @FXML
     Label graphMakerYAxisL = new Label();
-
-    //TODO: ENSURE THAT INTERSECTION LABELS GENERATED ARE ASSOCIATED WITH LAST INSERTED CURVE!
+    @FXML
+    ComboBox graphMakerLineStyleCB = new ComboBox();
 
     public void resetAndUpdateShadedRegions() {
         for (int i = 0; i < Context.getInstance().getShadedRegionsLL().size(); i++) {
@@ -100,9 +97,7 @@ public class GraphMakerController {
     }
 
     public void captureShotWorkspace() {
-        System.out.println("Capturing workspace");
         Context.getInstance().setTempScreenShot(graphMakerWorkspaceP.snapshot(new SnapshotParameters(), null));
-        System.out.println(Context.getInstance().getCurrentEditingGraph().toString());
         File imageFile = new File(Context.getInstance().getFileLocationForSavedImages() + Context.getInstance().getCurrentEditingGraph().getFileName());
         try {
             ImageIO.write(SwingFXUtils.fromFXImage(Context.getInstance().getTempScreenShot(), null), "png", imageFile);
@@ -123,12 +118,17 @@ public class GraphMakerController {
 
     public void updateElasticityForCurrentCurve() {
         StraightCurve straightCurve = (StraightCurve) Context.getInstance().getCurvesLL().get(Context.getInstance().getSelectedCurveIndex());
-        updateIntersectionsShiftArrowsAndShadedRegions();
-        straightCurve.setElasticityGap((int) graphMakerElasticitySlider.getValue());
-        straightCurve.getLine().setStartX(straightCurve.getCentreX() - straightCurve.getElasticityGap());
-        straightCurve.getLine().setEndX(straightCurve.getCentreX() + straightCurve.getElasticityGap());
-        straightCurve.getLabel().setTranslateX(straightCurve.getCentreX() + straightCurve.getElasticityGap() + 15);
-        straightCurve.calculateAndSetGradientAndYIntercept();
+        if (straightCurve.getCurveType().equals("NewClassical")) {
+            graphMakerElasticitySlider.setValue(175);
+        }
+        else {
+            updateIntersectionsShiftArrowsAndShadedRegions();
+            straightCurve.setElasticityGap((int) graphMakerElasticitySlider.getValue());
+            straightCurve.getLine().setStartX(straightCurve.getCentreX() - straightCurve.getElasticityGap());
+            straightCurve.getLine().setEndX(straightCurve.getCentreX() + straightCurve.getElasticityGap());
+            straightCurve.getLabel().setTranslateX(straightCurve.getCentreX() + straightCurve.getElasticityGap() + 15);
+            straightCurve.calculateAndSetGradientAndYIntercept();
+        }
     }
 
     public void updateCurveColour() {
@@ -141,7 +141,28 @@ public class GraphMakerController {
         StraightCurve straightCurve = (StraightCurve) Context.getInstance().getCurvesLL().get(Context.getInstance().getSelectedCurveIndex());
         straightCurve.getLine().setStrokeWidth((int) graphMakerThicknessSlider.getValue());
         straightCurve.setThickness((int) graphMakerThicknessSlider.getValue());
-        System.out.println(graphMakerThicknessSlider.getValue());
+    }
+    public void updateSelectedLineStyle() {
+        StraightCurve straightCurve = (StraightCurve) Context.getInstance().getCurvesLL().get(Context.getInstance().getSelectedCurveIndex());
+        switch (graphMakerLineStyleCB.getValue().toString()) {
+            case "Bold": {
+                straightCurve.getLine().getStrokeDashArray().clear();
+                straightCurve.setDotted("Bold");
+                break;
+            }
+            case "Dotted": {
+                straightCurve.getLine().getStrokeDashArray().clear();
+                straightCurve.getLine().getStrokeDashArray().addAll(5d);
+                straightCurve.setDotted("Dotted");
+                break;
+            }
+            case "Dashed": {
+                straightCurve.getLine().getStrokeDashArray().clear();
+                straightCurve.getLine().getStrokeDashArray().addAll(25d, 10d);
+                straightCurve.setDotted("Dashed");
+                break;
+            }
+        }
     }
 
     public void insertDemand() {
@@ -149,7 +170,7 @@ public class GraphMakerController {
         setUpDemand(demand);
     }
 
-    public void insertDemand(String name, int centreX, int elasticityGap, String colour, int thickness, boolean dotted) {
+    public void insertDemand(String name, int centreX, int elasticityGap, String colour, int thickness, String dotted) {
         Demand demand = new Demand(graphMakerWorkspaceP, Context.getInstance().getDemandCount(), name, centreX, elasticityGap, colour, thickness, dotted); //200,50,550,400
         setUpDemand(demand);
     }
@@ -166,7 +187,7 @@ public class GraphMakerController {
         setUpAggregateDemand(aggregateDemand);
     }
 
-    public void insertAggregateDemand(String name, int centreX, int elasticityGap, String colour, int thickness, boolean dotted) {
+    public void insertAggregateDemand(String name, int centreX, int elasticityGap, String colour, int thickness, String dotted) {
         AggregateDemand aggregateDemand = new AggregateDemand(graphMakerWorkspaceP, Context.getInstance().getAggregateDemandCount(), name, centreX, elasticityGap, colour, thickness, dotted);
         setUpAggregateDemand(aggregateDemand);
     }
@@ -183,7 +204,7 @@ public class GraphMakerController {
         setUpSupply(supply);
     }
 
-    public void insertSupply(String name, int centreX, int elasticityGap, String colour, int thickness, boolean dotted) {
+    public void insertSupply(String name, int centreX, int elasticityGap, String colour, int thickness, String dotted) {
         Supply supply = new Supply(graphMakerWorkspaceP, Context.getInstance().getSupplyCount(), name, centreX, elasticityGap, colour, thickness, dotted); //200,50,550,400
         setUpSupply(supply);
     }
@@ -200,7 +221,7 @@ public class GraphMakerController {
         setUpAggregateSupply(aggregateSupply);
     }
 
-    public void insertAggregateSupply(String name, int centreX, int elasticityGap, String colour, int thickness, boolean dotted) {
+    public void insertAggregateSupply(String name, int centreX, int elasticityGap, String colour, int thickness, String dotted) {
         AggregateSupply aggregateSupply = new AggregateSupply(graphMakerWorkspaceP, Context.getInstance().getAggregateSupplyCount(), name, centreX, elasticityGap, colour, thickness, dotted);
         setUpAggregateSupply(aggregateSupply);
     }
@@ -217,7 +238,7 @@ public class GraphMakerController {
         setUpMSB(msb);
     }
 
-    public void insertMSB(String name, int centreX, int elasticityGap, String colour, int thickness, boolean dotted) {
+    public void insertMSB(String name, int centreX, int elasticityGap, String colour, int thickness, String dotted) {
         MSB msb = new MSB(graphMakerWorkspaceP, Context.getInstance().getMSBcount(), name, centreX, elasticityGap, colour, thickness, dotted);
         setUpMSB(msb);
     }
@@ -234,7 +255,7 @@ public class GraphMakerController {
         setUpMPB(mpb);
     }
 
-    public void insertMPB(String name, int centreX, int elasticityGap, String colour, int thickness, boolean dotted) {
+    public void insertMPB(String name, int centreX, int elasticityGap, String colour, int thickness, String dotted) {
         MPB mpb = new MPB(graphMakerWorkspaceP, Context.getInstance().getMPBcount(), name, centreX, elasticityGap, colour, thickness, dotted);
         setUpMPB(mpb);
     }
@@ -251,7 +272,7 @@ public class GraphMakerController {
         setUpMSC(msc);
     }
 
-    public void insertMSC(String name, int centreX, int elasticityGap, String colour, int thickness, boolean dotted) {
+    public void insertMSC(String name, int centreX, int elasticityGap, String colour, int thickness, String dotted) {
         MSC msc = new MSC(graphMakerWorkspaceP, Context.getInstance().getMSBcount(), name, centreX, elasticityGap, colour, thickness, dotted);
         setUpMSC(msc);
     }
@@ -268,7 +289,7 @@ public class GraphMakerController {
         setUpMPC(mpc);
     }
 
-    public void insertMPC(String name, int centreX, int elasticityGap, String colour, int thickness, boolean dotted) {
+    public void insertMPC(String name, int centreX, int elasticityGap, String colour, int thickness, String dotted) {
         MPC mpc = new MPC(graphMakerWorkspaceP, Context.getInstance().getMPCcount(), name, centreX, elasticityGap, colour, thickness, dotted);
         setUpMPC(mpc);
     }
@@ -279,6 +300,24 @@ public class GraphMakerController {
         Context.getInstance().getMPCCurves().add(mpc);
         setUpCurve(mpc);
     }
+
+    public void insertNewClassical() {
+        NewClassical newClassical = new NewClassical(graphMakerWorkspaceP, Context.getInstance().getNewClassicalCount());
+        setUpNewClassical(newClassical);
+    }
+
+    public void insertNewClassical(String name, int centreX, int elasticityGap, String colour, int thickness, String dotted) {
+        NewClassical newClassical = new NewClassical(graphMakerWorkspaceP, Context.getInstance().getNewClassicalCount(), name, centreX, elasticityGap, colour, thickness, dotted);
+        setUpNewClassical(newClassical);
+    }
+
+    private void setUpNewClassical(NewClassical newClassical) {
+        createRadioButton("New Classical LRAS " + Context.getInstance().getNewClassicalCount(), Context.getInstance().getCurveCount(), 5);
+        Context.getInstance().setNewClassicalCount(Context.getInstance().getNewClassicalCount() +1);
+        Context.getInstance().getNewClassicalCurves().add(newClassical);
+        setUpCurve(newClassical);
+    }
+
 
     private void setUpCurve(Curve curve) {
         Context.getInstance().setCurveCount(Context.getInstance().getCurveCount() + 1);
@@ -359,8 +398,6 @@ public class GraphMakerController {
         graphMakerCurveRadioFP.getChildren().add(radioButton);
         radioButton.setSelected(true);
         setAppropriateCurveSettings(index, type);
-
-        System.out.println("Created radio button: " + radioButton);
     }
 
     public void setAppropriateCurveSettings(int index, int type) {

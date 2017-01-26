@@ -27,13 +27,13 @@ public class Supply extends StraightCurve {
         label.setTranslateY(50);
         setColour("Black");
         setThickness(3);    getLine().setStrokeWidth(3);
-        setDotted(false);
+        setDotted("Bold");
         setStrokeLineCap(StrokeLineCap.ROUND);
         calculateAndSetGradientAndYIntercept();
         pane.getChildren().addAll(getLine(), label);
     }
 
-    public Supply(Pane pane, int curveIndex, String name, int centreX, int elasticityGap, String colour, int thickness, boolean dotted) {
+    public Supply(Pane pane, int curveIndex, String name, int centreX, int elasticityGap, String colour, int thickness, String dotted) {
         setLine(new Line(centreX - elasticityGap,400, centreX + elasticityGap,50));
         getLine().setId("line" + curveIndex);
         setName(name);
@@ -47,6 +47,7 @@ public class Supply extends StraightCurve {
         setColour(colour);      getLine().setStroke(Paint.valueOf(colour));
         setThickness(thickness);    getLine().setStrokeWidth(thickness);
         setDotted(dotted);
+        setLineDottedSettings();
         setStrokeLineCap(StrokeLineCap.ROUND);
         calculateAndSetGradientAndYIntercept();
         pane.getChildren().addAll(getLine(), label);

@@ -37,7 +37,6 @@ public class LibraryController {
     @FXML
     ComboBox librarySortCB = new ComboBox();
 
-    //TODO: EDITING GRAPH OPTION LOADS GRAPH (CHECK COLOUR) BUT DOES NOT EDIT PROPERLY!
     public void resetAndDisplayGraphsFromGraphsLLToLibrary() {
         libraryGraphGP.getChildren().remove(5,libraryGraphGP.getChildren().size());
         libraryGraphGP.setGridLinesVisible(true);
@@ -188,9 +187,6 @@ public class LibraryController {
             if ((Context.getInstance().getFilterSearch() != null && Context.getInstance().getGraphsLL().get(i).getTitle().contains(Context.getInstance().getFilterSearch()) == false) ||
                     (Context.getInstance().getFilterTopic() != null && Context.getInstance().getGraphsLL().get(i).getTopic().equals(Context.getInstance().getFilterTopic()) == false) ||
                     (Context.getInstance().isFilterFavourite() == true && Context.getInstance().getGraphsLL().get(i).isFavourite() == false)) {
-                System.out.println("Condition met : FilterSearch " + Context.getInstance().getFilterSearch() + ", Filter Topic " + Context.getInstance().getFilterTopic() +
-                        ", FilterFavourite " + Context.getInstance().isFilterFavourite());
-                System.out.println(Context.getInstance().getGraphsLL().get(i).isFavourite());
                 Context.getInstance().getGraphsLL().get(i).setVisible(false);
             }
             else {
@@ -236,105 +232,7 @@ public class LibraryController {
             while ((line = br.readLine()) != null) {
                 splittedLine = line.split(",");
                 if (splittedLine[0].equals("newComp")) {
-                    switch (splittedLine[1]) {
-                        case "Demand" : {
-                            if (splittedLine[7].equals("true")) {
-                                main.getGraphMakerController().insertDemand(splittedLine[2], Integer.parseInt(splittedLine[3]),
-                                        Integer.parseInt(splittedLine[4]), splittedLine[5], Integer.parseInt(splittedLine[6]), true);
-                            }
-                            else {
-                                main.getGraphMakerController().insertDemand(splittedLine[2], Integer.parseInt(splittedLine[3]),
-                                        Integer.parseInt(splittedLine[4]), splittedLine[5], Integer.parseInt(splittedLine[6]), false);
-                                System.out.println("demand: curvesLL" + Context.getInstance().getCurvesLL());
-                            }
-                            break;
-                        }
-                        case "Supply" : {
-                            if (splittedLine[7].equals("true")) {
-                                main.getGraphMakerController().insertSupply(splittedLine[2], Integer.parseInt(splittedLine[3]),
-                                        Integer.parseInt(splittedLine[4]), splittedLine[5], Integer.parseInt(splittedLine[6]), true);
-                            }
-                            else {
-                                main.getGraphMakerController().insertSupply(splittedLine[2], Integer.parseInt(splittedLine[3]),
-                                        Integer.parseInt(splittedLine[4]), splittedLine[5], Integer.parseInt(splittedLine[6]), false);
-                            }
-                            break;
-                        }
-                        case "AggregateDemand": {
-                            if (splittedLine[7].equals("true")) {
-                                main.getGraphMakerController().insertAggregateDemand(splittedLine[2], Integer.parseInt(splittedLine[3]),
-                                        Integer.parseInt(splittedLine[4]), splittedLine[5], Integer.parseInt(splittedLine[6]), true);
-                            }
-                            else {
-                                main.getGraphMakerController().insertAggregateDemand(splittedLine[2], Integer.parseInt(splittedLine[3]),
-                                        Integer.parseInt(splittedLine[4]), splittedLine[5], Integer.parseInt(splittedLine[6]), false);
-                            }
-                            break;
-                        }
-                        case "AggregateSupply": {
-                            if (splittedLine[7].equals("true")) {
-                                main.getGraphMakerController().insertAggregateSupply(splittedLine[2], Integer.parseInt(splittedLine[3]),
-                                        Integer.parseInt(splittedLine[4]), splittedLine[5], Integer.parseInt(splittedLine[6]), true);
-                            }
-                            else {
-                                main.getGraphMakerController().insertAggregateSupply(splittedLine[2], Integer.parseInt(splittedLine[3]),
-                                        Integer.parseInt(splittedLine[4]), splittedLine[5], Integer.parseInt(splittedLine[6]), false);
-                            }
-                            break;
-                        }
-                        case "MSB": {
-                            if (splittedLine[7].equals("true")) {
-                                main.getGraphMakerController().insertMSB(splittedLine[2], Integer.parseInt(splittedLine[3]),
-                                        Integer.parseInt(splittedLine[4]), splittedLine[5], Integer.parseInt(splittedLine[6]), true);
-                            }
-                            else {
-                                main.getGraphMakerController().insertMSB(splittedLine[2], Integer.parseInt(splittedLine[3]),
-                                        Integer.parseInt(splittedLine[4]), splittedLine[5], Integer.parseInt(splittedLine[6]), false);
-                            }
-                            break;
-                        }
-                        case "MSC": {
-                            if (splittedLine[7].equals("true")) {
-                                main.getGraphMakerController().insertMSC(splittedLine[2], Integer.parseInt(splittedLine[3]),
-                                        Integer.parseInt(splittedLine[4]), splittedLine[5], Integer.parseInt(splittedLine[6]), true);
-                            }
-                            else {
-                                main.getGraphMakerController().insertMSC(splittedLine[2], Integer.parseInt(splittedLine[3]),
-                                        Integer.parseInt(splittedLine[4]), splittedLine[5], Integer.parseInt(splittedLine[6]), false);
-                            }
-                            break;
-                        }
-                        case "MPB": {
-                            if (splittedLine[7].equals("true")) {
-                                main.getGraphMakerController().insertMPB(splittedLine[2], Integer.parseInt(splittedLine[3]),
-                                        Integer.parseInt(splittedLine[4]), splittedLine[5], Integer.parseInt(splittedLine[6]), true);
-                            }
-                            else {
-                                main.getGraphMakerController().insertMPB(splittedLine[2], Integer.parseInt(splittedLine[3]),
-                                        Integer.parseInt(splittedLine[4]), splittedLine[5], Integer.parseInt(splittedLine[6]), false);
-                            }
-                            break;
-                        }
-                        case "MPC": {
-                            if (splittedLine[7].equals("true")) {
-                                main.getGraphMakerController().insertMPC(splittedLine[2], Integer.parseInt(splittedLine[3]),
-                                        Integer.parseInt(splittedLine[4]), splittedLine[5], Integer.parseInt(splittedLine[6]), true);
-                            }
-                            else {
-                                main.getGraphMakerController().insertMPC(splittedLine[2], Integer.parseInt(splittedLine[3]),
-                                        Integer.parseInt(splittedLine[4]), splittedLine[5], Integer.parseInt(splittedLine[6]), false);
-                            }
-                            break;
-                        }
-                        case "ShadedRegion": {
-                            ShadedRegion shadedRegion = new ShadedRegion(splittedLine[2], splittedLine[3], splittedLine[4], splittedLine[5], splittedLine[6], splittedLine[7],
-                                    main.getGraphMakerController().getGraphMakerWorkspaceP(), main.getGraphMakerController().getGraphMakerShadedRegionRadioFP());
-                            Context.getInstance().getShadedRegionsLL().add(shadedRegion);
-                            String shadedRegionFields = splittedLine[2] + "," + splittedLine[3] + "," + splittedLine[4] + "," +
-                                    splittedLine[5] + "," + splittedLine[6] + "," + splittedLine[7];
-                            Context.getInstance().getShadedRegionFieldsLL().add(shadedRegionFields);
-                        }
-                    }
+                    insertComponent(splittedLine);
                 }
                 else {
                     break;
@@ -344,6 +242,65 @@ public class LibraryController {
         }
         catch(IOException ioe) {
             System.out.println("IOE");
+        }
+    }
+
+    private void insertComponent(String[] splittedLine) {
+        switch (splittedLine[1]) {
+            case "Demand" : {
+                    main.getGraphMakerController().insertDemand(splittedLine[2], Integer.parseInt(splittedLine[3]),
+                            Integer.parseInt(splittedLine[4]), splittedLine[5], Integer.parseInt(splittedLine[6]), splittedLine[7]);
+                break;
+            }
+            case "Supply" : {
+                    main.getGraphMakerController().insertSupply(splittedLine[2], Integer.parseInt(splittedLine[3]),
+                            Integer.parseInt(splittedLine[4]), splittedLine[5], Integer.parseInt(splittedLine[6]), splittedLine[7]);
+                break;
+            }
+            case "AggregateDemand": {
+                    main.getGraphMakerController().insertAggregateDemand(splittedLine[2], Integer.parseInt(splittedLine[3]),
+                            Integer.parseInt(splittedLine[4]), splittedLine[5], Integer.parseInt(splittedLine[6]), splittedLine[7]);
+                break;
+            }
+            case "AggregateSupply": {
+                    main.getGraphMakerController().insertAggregateSupply(splittedLine[2], Integer.parseInt(splittedLine[3]),
+                            Integer.parseInt(splittedLine[4]), splittedLine[5], Integer.parseInt(splittedLine[6]), splittedLine[7]);
+                break;
+            }
+            case "MSB": {
+                    main.getGraphMakerController().insertMSB(splittedLine[2], Integer.parseInt(splittedLine[3]),
+                            Integer.parseInt(splittedLine[4]), splittedLine[5], Integer.parseInt(splittedLine[6]), splittedLine[7]);
+                break;
+            }
+            case "MSC": {
+                    main.getGraphMakerController().insertMSC(splittedLine[2], Integer.parseInt(splittedLine[3]),
+                            Integer.parseInt(splittedLine[4]), splittedLine[5], Integer.parseInt(splittedLine[6]), splittedLine[7]);
+                break;
+            }
+            case "MPB": {
+                    main.getGraphMakerController().insertMPB(splittedLine[2], Integer.parseInt(splittedLine[3]),
+                            Integer.parseInt(splittedLine[4]), splittedLine[5], Integer.parseInt(splittedLine[6]), splittedLine[7]);
+                break;
+            }
+            case "MPC": {
+                    main.getGraphMakerController().insertMPC(splittedLine[2], Integer.parseInt(splittedLine[3]),
+                            Integer.parseInt(splittedLine[4]), splittedLine[5], Integer.parseInt(splittedLine[6]), splittedLine[7]);
+                break;
+            }
+            case "NewClassical": {
+                    main.getGraphMakerController().insertNewClassical(splittedLine[2], Integer.parseInt(splittedLine[3]),
+                            Integer.parseInt(splittedLine[4]), splittedLine[5], Integer.parseInt(splittedLine[6]), splittedLine[7]);
+                break;
+            }
+            case "ShadedRegion": {
+                ShadedRegion shadedRegion = new ShadedRegion(splittedLine[2], splittedLine[3], splittedLine[4], splittedLine[5], splittedLine[6], splittedLine[7],
+                        main.getGraphMakerController().getGraphMakerWorkspaceP(), main.getGraphMakerController().getGraphMakerShadedRegionRadioFP());
+                Context.getInstance().getShadedRegionsLL().add(shadedRegion);
+                String shadedRegionFields = splittedLine[2] + "," + splittedLine[3] + "," + splittedLine[4] + "," +
+                        splittedLine[5] + "," + splittedLine[6] + "," + splittedLine[7];
+                Context.getInstance().getShadedRegionFieldsLL().add(shadedRegionFields);
+                break;
+            }
         }
     }
 

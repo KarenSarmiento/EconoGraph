@@ -77,16 +77,17 @@ public class Intersection {
 
         x = 0;
         y = 0;
-        if (newGradient != comparedGradient && newGradient != Infinity && comparedGradient != Infinity) {
-            x = (comparedYIntercept - newYIntercept) / (newGradient - comparedGradient);
-            y = newGradient * x + newYIntercept;
-        }
-        else if (Math.abs(newGradient) == Infinity) {
+
+        if (Math.abs(newGradient) == Infinity) {
             x = curve1.getCentreX();
             y = comparedGradient * x + comparedYIntercept;
         }
         else if (Math.abs(comparedGradient) == Infinity){
             x = curve2.getCentreX();
+            y = newGradient * x + newYIntercept;
+        }
+        else if (newGradient != comparedGradient && newGradient != Infinity && comparedGradient != Infinity) {
+            x = (comparedYIntercept - newYIntercept) / (newGradient - comparedGradient);
             y = newGradient * x + newYIntercept;
         }
     }
