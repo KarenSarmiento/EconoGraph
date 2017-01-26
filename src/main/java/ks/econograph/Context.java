@@ -39,18 +39,27 @@ public class Context {
     private int aggregateDemandCount = 0;
     private int aggregateSupplyCount = 0;
     private int newClassicalCount = 0;
-    private int curveCount = demandCount + supplyCount + newClassicalCount + aggregateDemandCount + aggregateSupplyCount;
+    private int MSBcount = 0;
+    private int MPBcount = 0;
+    private int MSCcount = 0;
+    private int MPCcount = 0;
+    private int curveCount = demandCount + supplyCount + newClassicalCount + aggregateDemandCount + aggregateSupplyCount +
+            MSBcount + MPBcount + MSCcount + MPCcount;
 
     private List<Demand> demandCurves = new LinkedList<>();
     private List<Supply> supplyCurves = new LinkedList<>();
     private List<AggregateSupply> aggregateSupplyCurves = new LinkedList<>();
     private List<AggregateDemand> aggregateDemandCurves = new LinkedList<>();
     private List<NewClassical> newClassicalCurves = new LinkedList<>();
+    private List<MSB> MSBCurves = new LinkedList<>();
+    private List<MPB> MPBCurves = new LinkedList<>();
+    private List<MSC> MSCCurves = new LinkedList<>();
+    private List<MPC> MPCCurves = new LinkedList<>();
 
     private Graph currentEditingGraph = new Graph();
     private int selectedCurveIndex = -1;
     private int selectedShadedRegionIndex = -1;
-    private int selectedCurveType = -1; //0 = demand, 1 = supply, 2 = newClassical, 3 = AD, 4 = AS
+    private int selectedCurveType = -1; //0 = demand, 1 = supply, 2 = newClassical, 3 = AD, 4 = AS, 5 = MSB, 6 = MPB, 7 = MSC, 8 = MPC
 
     private String filterSearch = null;
     private boolean filterFavourite = false;
@@ -318,5 +327,69 @@ public class Context {
 
     public void setAggregateSupplyCount(int aggregateSupplyCount) {
         this.aggregateSupplyCount = aggregateSupplyCount;
+    }
+
+    public int getMSBcount() {
+        return MSBcount;
+    }
+
+    public void setMSBcount(int MSBcount) {
+        this.MSBcount = MSBcount;
+    }
+
+    public int getMPBcount() {
+        return MPBcount;
+    }
+
+    public void setMPBcount(int MPBcount) {
+        this.MPBcount = MPBcount;
+    }
+
+    public int getMSCcount() {
+        return MSCcount;
+    }
+
+    public void setMSCcount(int MSCcount) {
+        this.MSCcount = MSCcount;
+    }
+
+    public int getMPCcount() {
+        return MPCcount;
+    }
+
+    public void setMPCcount(int MPCcount) {
+        this.MPCcount = MPCcount;
+    }
+
+    public List<MSB> getMSBCurves() {
+        return MSBCurves;
+    }
+
+    public void setMSBCurves(List<MSB> MSBCurves) {
+        this.MSBCurves = MSBCurves;
+    }
+
+    public List<MPB> getMPBCurves() {
+        return MPBCurves;
+    }
+
+    public void setMPBCurves(List<MPB> MPBCurves) {
+        this.MPBCurves = MPBCurves;
+    }
+
+    public List<MSC> getMSCCurves() {
+        return MSCCurves;
+    }
+
+    public void setMSCCurves(List<MSC> MSCCurves) {
+        this.MSCCurves = MSCCurves;
+    }
+
+    public List<MPC> getMPCCurves() {
+        return MPCCurves;
+    }
+
+    public void setMPCCurves(List<MPC> MPCCurves) {
+        this.MPCCurves = MPCCurves;
     }
 }

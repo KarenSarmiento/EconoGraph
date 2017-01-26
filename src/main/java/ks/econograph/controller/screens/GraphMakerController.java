@@ -212,6 +212,74 @@ public class GraphMakerController {
         setUpCurve(aggregateSupply);
     }
 
+    public void insertMSB() {
+        MSB msb = new MSB(graphMakerWorkspaceP, Context.getInstance().getMSBcount());
+        setUpMSB(msb);
+    }
+
+    public void insertMSB(String name, int centreX, int elasticityGap, String colour, int thickness, boolean dotted) {
+        MSB msb = new MSB(graphMakerWorkspaceP, Context.getInstance().getMSBcount(), name, centreX, elasticityGap, colour, thickness, dotted);
+        setUpMSB(msb);
+    }
+
+    private void setUpMSB(MSB msb) {
+        createRadioButton("MSB " + Context.getInstance().getMSBcount(), Context.getInstance().getCurveCount(), 5);
+        Context.getInstance().setMSBcount(Context.getInstance().getMSBcount() +1);
+        Context.getInstance().getMSBCurves().add(msb);
+        setUpCurve(msb);
+    }
+
+    public void insertMPB() {
+        MPB mpb = new MPB(graphMakerWorkspaceP, Context.getInstance().getMPBcount());
+        setUpMPB(mpb);
+    }
+
+    public void insertMPB(String name, int centreX, int elasticityGap, String colour, int thickness, boolean dotted) {
+        MPB mpb = new MPB(graphMakerWorkspaceP, Context.getInstance().getMPBcount(), name, centreX, elasticityGap, colour, thickness, dotted);
+        setUpMPB(mpb);
+    }
+
+    private void setUpMPB(MPB mpb) {
+        createRadioButton("MPB " + Context.getInstance().getMPBcount(), Context.getInstance().getCurveCount(), 5);
+        Context.getInstance().setMPBcount(Context.getInstance().getMPBcount() +1);
+        Context.getInstance().getMPBCurves().add(mpb);
+        setUpCurve(mpb);
+    }
+
+    public void insertMSC() {
+        MSC msc = new MSC(graphMakerWorkspaceP, Context.getInstance().getMSCcount());
+        setUpMSC(msc);
+    }
+
+    public void insertMSC(String name, int centreX, int elasticityGap, String colour, int thickness, boolean dotted) {
+        MSC msc = new MSC(graphMakerWorkspaceP, Context.getInstance().getMSBcount(), name, centreX, elasticityGap, colour, thickness, dotted);
+        setUpMSC(msc);
+    }
+
+    private void setUpMSC(MSC msc) {
+        createRadioButton("MSC " + Context.getInstance().getMSCcount(), Context.getInstance().getCurveCount(), 5);
+        Context.getInstance().setMSCcount(Context.getInstance().getMSCcount() +1);
+        Context.getInstance().getMSCCurves().add(msc);
+        setUpCurve(msc);
+    }
+
+    public void insertMPC() {
+        MPC mpc = new MPC(graphMakerWorkspaceP, Context.getInstance().getMPCcount());
+        setUpMPC(mpc);
+    }
+
+    public void insertMPC(String name, int centreX, int elasticityGap, String colour, int thickness, boolean dotted) {
+        MPC mpc = new MPC(graphMakerWorkspaceP, Context.getInstance().getMPCcount(), name, centreX, elasticityGap, colour, thickness, dotted);
+        setUpMPC(mpc);
+    }
+
+    private void setUpMPC(MPC mpc) {
+        createRadioButton("MPC " + Context.getInstance().getMPCcount(), Context.getInstance().getCurveCount(), 5);
+        Context.getInstance().setMPCcount(Context.getInstance().getMPCcount() +1);
+        Context.getInstance().getMPCCurves().add(mpc);
+        setUpCurve(mpc);
+    }
+
     private void setUpCurve(Curve curve) {
         Context.getInstance().setCurveCount(Context.getInstance().getCurveCount() + 1);
         Context.getInstance().getCurvesLL().add(curve);
@@ -286,24 +354,6 @@ public class GraphMakerController {
 
     public void createRadioButton(String name, int index, int type) {
         RadioButton radioButton = new RadioButton(name);
-        switch (type) {
-            case 0: {
-                radioButton.setId("demandRadio" + index);
-                break;
-            }
-            case 1: {
-                radioButton.setId("supplyRadio" + index);
-                break;
-            }
-            case 2: {
-                radioButton.setId("newClassicalRadio" + index);
-                break;
-            }
-            case 3: {
-                radioButton.setId("keynesianRadio" + index);
-                break;
-            }
-        }
         radioButton.setToggleGroup(Context.getInstance().getGraphMakerInsertedCurvesTG());
         radioButton.setOnAction(e -> setAppropriateCurveSettings(index, type));
         graphMakerCurveRadioFP.getChildren().add(radioButton);

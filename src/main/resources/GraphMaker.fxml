@@ -27,6 +27,10 @@
                <Button mnemonicParsing="false" onAction="#insertAggregateDemand" text="Aggregate Demand" />
                <Button mnemonicParsing="false" onAction="#insertAggregateSupply" text="Aggregate Supply" />
                <Button mnemonicParsing="false" text="New Classical LRAS" />
+               <Button mnemonicParsing="false" onAction="#insertMPB" text="MPB" />
+               <Button mnemonicParsing="false" onAction="#insertMSB" text="MSB" />
+               <Button mnemonicParsing="false" onAction="#insertMSC" text="MSC" />
+               <Button mnemonicParsing="false" onAction="#insertMPC" text="MPC" />
                <Button mnemonicParsing="false" onAction="#initializeShadedRegionTest" text="Shaded Region" />
                <Button fx:id="graphMakerSaveB" mnemonicParsing="false" onAction="#captureAndSetToSave" text="Save" />
              </FlowPane>

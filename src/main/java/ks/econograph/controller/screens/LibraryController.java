@@ -282,9 +282,57 @@ public class LibraryController {
                             }
                             break;
                         }
+                        case "MSB": {
+                            if (splittedLine[7].equals("true")) {
+                                main.getGraphMakerController().insertMSB(splittedLine[2], Integer.parseInt(splittedLine[3]),
+                                        Integer.parseInt(splittedLine[4]), splittedLine[5], Integer.parseInt(splittedLine[6]), true);
+                            }
+                            else {
+                                main.getGraphMakerController().insertMSB(splittedLine[2], Integer.parseInt(splittedLine[3]),
+                                        Integer.parseInt(splittedLine[4]), splittedLine[5], Integer.parseInt(splittedLine[6]), false);
+                            }
+                            break;
+                        }
+                        case "MSC": {
+                            if (splittedLine[7].equals("true")) {
+                                main.getGraphMakerController().insertMSC(splittedLine[2], Integer.parseInt(splittedLine[3]),
+                                        Integer.parseInt(splittedLine[4]), splittedLine[5], Integer.parseInt(splittedLine[6]), true);
+                            }
+                            else {
+                                main.getGraphMakerController().insertMSC(splittedLine[2], Integer.parseInt(splittedLine[3]),
+                                        Integer.parseInt(splittedLine[4]), splittedLine[5], Integer.parseInt(splittedLine[6]), false);
+                            }
+                            break;
+                        }
+                        case "MPB": {
+                            if (splittedLine[7].equals("true")) {
+                                main.getGraphMakerController().insertMPB(splittedLine[2], Integer.parseInt(splittedLine[3]),
+                                        Integer.parseInt(splittedLine[4]), splittedLine[5], Integer.parseInt(splittedLine[6]), true);
+                            }
+                            else {
+                                main.getGraphMakerController().insertMPB(splittedLine[2], Integer.parseInt(splittedLine[3]),
+                                        Integer.parseInt(splittedLine[4]), splittedLine[5], Integer.parseInt(splittedLine[6]), false);
+                            }
+                            break;
+                        }
+                        case "MPC": {
+                            if (splittedLine[7].equals("true")) {
+                                main.getGraphMakerController().insertMPC(splittedLine[2], Integer.parseInt(splittedLine[3]),
+                                        Integer.parseInt(splittedLine[4]), splittedLine[5], Integer.parseInt(splittedLine[6]), true);
+                            }
+                            else {
+                                main.getGraphMakerController().insertMPC(splittedLine[2], Integer.parseInt(splittedLine[3]),
+                                        Integer.parseInt(splittedLine[4]), splittedLine[5], Integer.parseInt(splittedLine[6]), false);
+                            }
+                            break;
+                        }
                         case "ShadedRegion": {
                             ShadedRegion shadedRegion = new ShadedRegion(splittedLine[2], splittedLine[3], splittedLine[4], splittedLine[5], splittedLine[6], splittedLine[7],
                                     main.getGraphMakerController().getGraphMakerWorkspaceP(), main.getGraphMakerController().getGraphMakerShadedRegionRadioFP());
+                            Context.getInstance().getShadedRegionsLL().add(shadedRegion);
+                            String shadedRegionFields = splittedLine[2] + "," + splittedLine[3] + "," + splittedLine[4] + "," +
+                                    splittedLine[5] + "," + splittedLine[6] + "," + splittedLine[7];
+                            Context.getInstance().getShadedRegionFieldsLL().add(shadedRegionFields);
                         }
                     }
                 }
