@@ -41,6 +41,18 @@ public class LibraryController {
     @FXML
     ComboBox librarySortCB = new ComboBox();
 
+    public void deleteAllGraphs() {
+        try {
+            PrintWriter pw = new PrintWriter(new FileWriter(Context.getInstance().getFilePathForSavedGraphs()));
+            pw.println();
+            main.resetAndReadInGraphsToGraphsLL();
+            resetAndDisplayGraphsFromGraphsLLToLibrary();
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     public void deleteGraph(String title) {
         try {
             BufferedReader br = new BufferedReader(new FileReader(Context.getInstance().getFilePathForSavedGraphs()));
@@ -156,21 +168,47 @@ public class LibraryController {
         button.setPrefWidth(175);
     }
 
+    public void saveAllGraphsToDocuments() {
+        try {
+            OutputStream file = new FileOutputStream(openFileDirectoryAndOutputDesiredFileLocation());
+            Document document = new Document();
+            PdfWriter.getInstance(document, file);
+            document.open();
+            for (int i = 0; i < Context.getInstance().getGraphsLL().size(); i++) {
+                printGraphToPDF(document, i);
+                document.newPage();
+            }
+            document.close();
+            file.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     private void savePdfToSelectedFileLocation(int curveIndex) {
         try {
             OutputStream file = new FileOutputStream(openFileDirectoryAndOutputDesiredFileLocation());
             Document document = new Document();
             PdfWriter.getInstance(document, file);
             document.open();
+            printGraphToPDF(document, curveIndex);
+            document.close();
+            file.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void printGraphToPDF(Document document, int curveIndex) {
+        try {
             document.add(new Paragraph(Context.getInstance().getGraphsLL().get(curveIndex).getTitle()));
             document.add(new Paragraph(new Date().toString()));
             Image graphImage = Image.getInstance(Context.getInstance().getFileLocationForSavedImages() + Context.getInstance().getGraphsLL().get(curveIndex).getFileName());
             graphImage.scaleToFit(550f, 550f);
             document.add(graphImage);
             document.add(new Paragraph(Context.getInstance().getGraphsLL().get(curveIndex).getDescription()));
-            document.close();
-            file.close();
-        } catch (Exception e) {
+        }
+        catch (Exception e) {
             e.printStackTrace();
         }
     }

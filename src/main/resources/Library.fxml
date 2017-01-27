@@ -25,7 +25,7 @@
         </ImageView>
         <VBox fx:id="librarySideMenuVB" prefWidth="105.0" GridPane.columnIndex="5" GridPane.rowIndex="1" GridPane.rowSpan="2">
             <children>
-                <Button fx:id="libraryMakeAGraphB" mnemonicParsing="false" onAction="#setScreenToOptions" prefHeight="37.0" prefWidth="162.0" >
+                <Button fx:id="libraryMakeAGraphB" mnemonicParsing="false" onAction="#setScreenToOptions" prefHeight="37.0" prefWidth="162.0">
                     <graphic>
                         <ImageView fitWidth="125.0" pickOnBounds="true" preserveRatio="true">
                             <image>
@@ -34,7 +34,7 @@
                         </ImageView>
                     </graphic>
                 </Button>
-                <Button fx:id="librarySaveB" mnemonicParsing="false" prefHeight="62.0" prefWidth="164.0">
+                <Button fx:id="librarySaveB" mnemonicParsing="false" onAction="#saveAllGraphsToDocuments" prefHeight="62.0" prefWidth="164.0">
                     <graphic>
                         <ImageView fitWidth="125.0" pickOnBounds="true" preserveRatio="true">
                             <image>
@@ -43,7 +43,7 @@
                         </ImageView>
                     </graphic>
                 </Button>
-                <Button fx:id="libraryDeleteB" mnemonicParsing="false" prefHeight="62.0" prefWidth="163.0">
+                <Button fx:id="libraryDeleteB" mnemonicParsing="false" onAction="#deleteAllGraphs" prefHeight="62.0" prefWidth="163.0">
                     <graphic>
                         <ImageView fitWidth="125.0" pickOnBounds="true" preserveRatio="true">
                             <image>
@@ -52,6 +52,15 @@
                         </ImageView>
                     </graphic>
                 </Button>
+            <Button mnemonicParsing="false">
+                <graphic>
+                    <ImageView fitWidth="125.0" pickOnBounds="true" preserveRatio="true">
+                        <image>
+                            <Image url="File:C:\Users\KSarm\OneDrive\IB\Computer Science\IA\Images\videoB.jpg" />
+                        </image>
+                    </ImageView>
+                </graphic>
+            </Button>
             </children>
         </VBox>
         <ComboBox fx:id="librarySortCB" onAction="#sortGraphsWithSelectionSort" prefWidth="150.0" promptText="Sort by.." GridPane.columnIndex="0" GridPane.rowIndex="1">
