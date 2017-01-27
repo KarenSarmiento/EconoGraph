@@ -15,6 +15,13 @@
     -fx-font-weight: bold;
 }
 
+.basic-title-small {
+    -fx-font: 15px "Lucida";
+    -fx-alignment: CENTER;
+    -fx-text-alignment: CENTER;
+    -fx-font-weight: bold;
+}
+
 .root {
     -fx-font-size: 12pt;
     -fx-font-family: "Lucida";

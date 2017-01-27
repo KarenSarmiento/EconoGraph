@@ -16,53 +16,200 @@
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
 
 <GridPane fx:id="graphMakerGP" alignment="center" hgap="10" prefHeight="800.0" prefWidth="1200.0" stylesheets="@sample.css" vgap="10" xmlns="http://javafx.com/javafx/8.0.76-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ks.econograph.controller.screens.GraphMakerController">
     <children>
         <!--Insert-->
-        <Label fx:id="graphMakerInsertL" alignment="CENTER" prefHeight="21.0" prefWidth="400.0" text="Insert" GridPane.columnIndex="0" GridPane.rowIndex="0" />
-      <ScrollPane fx:id="graphMakerInsertSP" GridPane.columnIndex="0" GridPane.rowIndex="1" GridPane.rowSpan="4">
+        <Label fx:id="graphMakerInsertL" alignment="CENTER" prefHeight="21.0" prefWidth="400.0" styleClass="basic-title" text="Insert" GridPane.rowIndex="1" />
+      <ScrollPane fx:id="graphMakerInsertSP" GridPane.columnIndex="0" GridPane.rowIndex="2" GridPane.rowSpan="4">
          <content>
-             <FlowPane fx:id="graphMakerInsertFP">
-                 <Button fx:id="graphMakerDemandB" mnemonicParsing="false" onAction="#insertDemand" text="Demand" />
-                 <Button fx:id="graphMakerSupplyB" mnemonicParsing="false" onAction="#insertSupply" text="Supply" />
-               <Button mnemonicParsing="false" onAction="#insertAggregateDemand" text="Aggregate Demand" />
-               <Button mnemonicParsing="false" onAction="#insertAggregateSupply" text="Aggregate Supply" />
-               <Button mnemonicParsing="false" onAction="#insertNewClassical" text="New Classical LRAS" />
-               <Button mnemonicParsing="false" onAction="#insertMPB" text="MPB" />
-               <Button mnemonicParsing="false" onAction="#insertMSB" text="MSB" />
-               <Button mnemonicParsing="false" onAction="#insertMSC" text="MSC" />
-               <Button mnemonicParsing="false" onAction="#insertMPC" text="MPC" />
-               <Button mnemonicParsing="false" onAction="#initializeShadedRegionTest" text="Shaded Region" />
-               <Button fx:id="graphMakerSaveB" mnemonicParsing="false" onAction="#captureAndSetToSave" prefHeight="31.0" prefWidth="112.0" text="Save" />
-               <Button mnemonicParsing="false" onAction="#insertGeneralDownwardSloping" text="Downward Sloping" />
-               <TextField fx:id="graphMakerDownwardSlopingTF" />
-               <Button mnemonicParsing="false" onAction="#insertGeneralUpwardSloping" text="Upward Sloping" />
-               <TextField fx:id="graphMakerUpwardSlopingTF" />
-               <Button mnemonicParsing="false" onAction="#cancelMakingGraph" text="Cancel" />
-             </FlowPane>
+            <VBox prefHeight="1004.0" prefWidth="393.0" spacing="20.0">
+               <children>
+                  <VBox>
+                     <children>
+                        <Label styleClass="basic-title-small" text="General Micro Curves" />
+                        <FlowPane>
+                           <children>
+                                <Button fx:id="graphMakerDemandB" mnemonicParsing="false" onAction="#insertDemand">
+                                    <graphic>
+                                        <ImageView fitWidth="75.0" pickOnBounds="true" preserveRatio="true">
+                                            <image>
+                                                <Image url="File:C:\Users\KSarm\OneDrive\IB\Computer Science\IA\Images\demandB.jpg" />
+                                            </image>
+                                        </ImageView>
+                                    </graphic>
+                                </Button>
+                                <Button fx:id="graphMakerSupplyB" mnemonicParsing="false" onAction="#insertSupply">
+                                    <graphic>
+                                        <ImageView fitWidth="75.0" pickOnBounds="true" preserveRatio="true">
+                                            <image>
+                                                <Image url="File:C:\Users\KSarm\OneDrive\IB\Computer Science\IA\Images\supplyB.jpg" />
+                                            </image>
+                                        </ImageView>
+                                    </graphic>
+                                </Button>
+                           </children>
+                        </FlowPane>
+                     </children>
+                  </VBox>
+                   <VBox prefHeight="137.0" prefWidth="393.0">
+                       <children>
+                           <Label styleClass="basic-title-small" text="Externalities" />
+                           <FlowPane prefHeight="120.0" prefWidth="393.0">
+                               <children>
+                                   <Button mnemonicParsing="false" onAction="#insertMPB">
+                                       <graphic>
+                                           <ImageView fitWidth="75.0" pickOnBounds="true" preserveRatio="true">
+                                               <image>
+                                                   <Image url="File:C:\Users\KSarm\OneDrive\IB\Computer Science\IA\Images\mpbB.jpg" />
+                                               </image>
+                                           </ImageView>
+                                       </graphic>
+                                   </Button>
+                                   <Button mnemonicParsing="false" onAction="#insertMSB">
+                                       <graphic>
+                                           <ImageView fitWidth="75.0" pickOnBounds="true" preserveRatio="true">
+                                               <image>
+                                                   <Image url="File:C:\Users\KSarm\OneDrive\IB\Computer Science\IA\Images\msbB.jpg" />
+                                               </image>
+                                           </ImageView>
+                                       </graphic>
+                                   </Button>
+                                   <Button mnemonicParsing="false" onAction="#insertMSC">
+                                       <graphic>
+                                           <ImageView fitWidth="75.0" pickOnBounds="true" preserveRatio="true">
+                                               <image>
+                                                   <Image url="File:C:\Users\KSarm\OneDrive\IB\Computer Science\IA\Images\mscB.jpg" />
+                                               </image>
+                                           </ImageView>
+                                       </graphic>
+                                   </Button>
+                                   <Button mnemonicParsing="false" onAction="#insertMPC">
+                                       <graphic>
+                                           <ImageView fitWidth="75.0" pickOnBounds="true" preserveRatio="true">
+                                               <image>
+                                                   <Image url="File:C:\Users\KSarm\OneDrive\IB\Computer Science\IA\Images\mpcB.jpg" />
+                                               </image>
+                                           </ImageView>
+                                       </graphic>
+                                   </Button>
+                               </children>
+                           </FlowPane>
+                       </children>
+                   </VBox>
+                  <VBox>
+                     <children>
+                        <Label styleClass="basic-title-small" text="Macro Curves" />
+                        <FlowPane>
+                           <children>
+                              <Button mnemonicParsing="false" onAction="#insertAggregateDemand">
+                                  <graphic>
+                                      <ImageView fitWidth="75.0" pickOnBounds="true" preserveRatio="true">
+                                          <image>
+                                              <Image url="File:C:\Users\KSarm\OneDrive\IB\Computer Science\IA\Images\adB.jpg" />
+                                          </image>
+                                      </ImageView>
+                                  </graphic>
+                              </Button>
+                              <Button mnemonicParsing="false" onAction="#insertAggregateSupply">
+                                  <graphic>
+                                      <ImageView fitWidth="75.0" pickOnBounds="true" preserveRatio="true">
+                                          <image>
+                                              <Image url="File:C:\Users\KSarm\OneDrive\IB\Computer Science\IA\Images\asB.jpg" />
+                                          </image>
+                                      </ImageView>
+                                  </graphic>
+                              </Button>
+                              <Button mnemonicParsing="false" onAction="#insertNewClassical">
+                                  <graphic>
+                                      <ImageView fitWidth="75.0" pickOnBounds="true" preserveRatio="true">
+                                          <image>
+                                              <Image url="File:C:\Users\KSarm\OneDrive\IB\Computer Science\IA\Images\lrasB.jpg" />
+                                          </image>
+                                      </ImageView>
+                                  </graphic>
+                              </Button>
+                           </children>
+                        </FlowPane>
+                     </children>
+                  </VBox>
+                  <VBox>
+                     <children>
+                        <Label styleClass="basic-title-small" text="Other Curves" />
+                        <GridPane prefHeight="231.0" prefWidth="336.0">
+                           <columnConstraints>
+                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="215.0" minWidth="10.0" prefWidth="139.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="247.0" minWidth="10.0" prefWidth="246.0" />
+                           </columnConstraints>
+                           <rowConstraints>
+                              <RowConstraints minHeight="117.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="117.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                           </rowConstraints>
+                           <children>
+                              <Button mnemonicParsing="false" onAction="#insertGeneralDownwardSloping">
+                                  <graphic>
+                                      <ImageView fitWidth="75.0" pickOnBounds="true" preserveRatio="true">
+                                          <image>
+                                              <Image url="File:C:\Users\KSarm\OneDrive\IB\Computer Science\IA\Images\downB.jpg" />
+                                          </image>
+                                      </ImageView>
+                                  </graphic>
+                              </Button>
+                              <TextField fx:id="graphMakerDownwardSlopingTF" promptText="Downwards-sloping Label" GridPane.columnIndex="1" />
+                              <Button mnemonicParsing="false" onAction="#insertGeneralUpwardSloping" GridPane.rowIndex="1">
+                                  <graphic>
+                                      <ImageView fitWidth="75.0" pickOnBounds="true" preserveRatio="true">
+                                          <image>
+                                              <Image url="File:C:\Users\KSarm\OneDrive\IB\Computer Science\IA\Images\upB.jpg" />
+                                          </image>
+                                      </ImageView>
+                                  </graphic>
+                              </Button>
+                              <TextField fx:id="graphMakerUpwardSlopingTF" promptText="Upwards-sloping Label" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                           </children>
+                        </GridPane>
+                     </children>
+                  </VBox>
+                  <VBox>
+                     <children>
+                        <Label styleClass="basic-title-small" text="Shaded Region" />
+                        <Button mnemonicParsing="false" onAction="#initializeShadedRegionTest">
+                            <graphic>
+                                <ImageView fitWidth="75.0" pickOnBounds="true" preserveRatio="true">
+                                    <image>
+                                        <Image url="File:C:\Users\KSarm\OneDrive\IB\Computer Science\IA\Images\shadedRegionB.jpg" />
+                                    </image>
+                                </ImageView>
+                            </graphic>
+                        </Button>
+                     </children>
+                  </VBox>
+               </children>
+            </VBox>
          </content>
       </ScrollPane>
         <!--Workspace-->
-        <Label fx:id="graphMakerWorkspaceL" alignment="CENTER" prefHeight="21.0" prefWidth="800.0" text="Workspace" GridPane.columnIndex="1" GridPane.rowIndex="0" />
-        <Pane fx:id="graphMakerWorkspaceP" GridPane.columnIndex="1" GridPane.rowIndex="0" GridPane.rowSpan="2">
+        <Label fx:id="graphMakerWorkspaceL" alignment="CENTER" prefHeight="21.0" prefWidth="800.0" styleClass="basic-title" text="Workspace" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+        <Pane fx:id="graphMakerWorkspaceP" GridPane.columnIndex="1" GridPane.rowIndex="0" GridPane.rowSpan="3">
             <ImageView fx:id="graphMakerAxisIV" fitHeight="602.0" fitWidth="617.0" layoutX="60.0" pickOnBounds="true" preserveRatio="true" GridPane.columnSpan="6" GridPane.halignment="CENTER">
                 <image>
                     <Image url="File:C:\Users\KSarm\Documents\Intellij Projects\EconoGraph2\src\main\resources\Axis.png" />
                 </image>
             </ImageView>
-         <Label fx:id="graphMakerYAxisL" layoutX="34.0" layoutY="42.0" text="Price" />
-         <Label fx:id="graphMakerXAxisL" layoutX="596.0" layoutY="443.0" text="Quantity" />
+         <Label fx:id="graphMakerYAxisL" layoutX="34.0" layoutY="42.0" styleClass="basic-title-small" text="Price" />
+         <Label fx:id="graphMakerXAxisL" layoutX="596.0" layoutY="443.0" styleClass="basic-title-small" text="Quantity" />
         </Pane>
         <!--Edit-->
-        <Label fx:id="graphMakerEditL" alignment="CENTER" prefHeight="21.0" prefWidth="800.0" text="Edit" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-      <TabPane tabClosingPolicy="UNAVAILABLE" GridPane.columnIndex="1" GridPane.rowIndex="3" GridPane.rowSpan="2">
+        <Label fx:id="graphMakerEditL" alignment="CENTER" prefHeight="21.0" prefWidth="800.0" styleClass="basic-title" text="Edit" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+      <TabPane tabClosingPolicy="UNAVAILABLE" GridPane.columnIndex="1" GridPane.rowIndex="4" GridPane.rowSpan="2">
          <tabs>
-            <Tab text="Curves">
+            <Tab styleClass="basic-title-small" text="Curves">
                <content>
-                      <FlowPane fx:id="graphMakerEditCurveFP" prefHeight="102.0" prefWidth="747.0">
+                      <FlowPane fx:id="graphMakerEditCurveFP" hgap="15.0" prefHeight="102.0" prefWidth="747.0" vgap="10.0">
                      <ScrollPane fx:id="graphMakerCurveRadioSP">
                         <content>
                              <FlowPane fx:id="graphMakerCurveRadioFP" prefHeight="60.0" prefWidth="730.0">
@@ -71,47 +218,94 @@
                              </FlowPane>
                         </content>
                      </ScrollPane>
-                      <Slider fx:id="graphMakerElasticitySlider" blockIncrement="0.0" max="350.0" minWidth="200.0" onMouseClicked="#updateElasticityForCurrentCurve" onMouseDragged="#updateElasticityForCurrentCurve" showTickMarks="true" value="175.0" />
-                      <Slider fx:id="graphMakerShiftSlider" blockIncrement="1.0" min="-100.0" minWidth="200.0" onMouseClicked="#shiftSelectedCurve" onMouseDragged="#shiftSelectedCurve" showTickMarks="true" />
-                     <ColorPicker fx:id="graphMakerColourPicker" onAction="#updateCurveColour" />
-                     <Slider fx:id="graphMakerThicknessSlider" max="10.0" min="1.0" onMouseClicked="#updateThickness" onMouseDragged="#updateThickness" value="5.0" />
-                     <ComboBox fx:id="graphMakerLineStyleCB" onAction="#updateSelectedLineStyle" prefWidth="150.0" promptText="Bold">
-                         <items>
-                             <FXCollections fx:factory="observableArrayList">
-                                 <String fx:value="Bold" />
-                                 <String fx:value="Dotted" />
-                                 <String fx:value="Dashed" />
-                             </FXCollections>
-                         </items>
-                     </ComboBox>
+                     <VBox>
+                        <children>
+                           <Label prefHeight="25.0" prefWidth="216.0" styleClass="basic-title-small" text="Elasticity" />
+                            <Slider fx:id="graphMakerElasticitySlider" blockIncrement="0.0" max="350.0" minWidth="200.0" onMouseClicked="#updateElasticityForCurrentCurve" onMouseDragged="#updateElasticityForCurrentCurve" showTickMarks="true" value="175.0" />
+                        </children>
+                     </VBox>
+                     <VBox>
+                        <children>
+                           <Label prefHeight="25.0" prefWidth="217.0" styleClass="basic-title-small" text="Shift Curve" />
+                            <Slider fx:id="graphMakerShiftSlider" blockIncrement="1.0" min="-100.0" minWidth="200.0" onMouseClicked="#shiftSelectedCurve" onMouseDragged="#shiftSelectedCurve" showTickMarks="true" />
+                        </children>
+                     </VBox>
+                     <VBox>
+                        <children>
+                           <Label prefHeight="25.0" prefWidth="193.0" styleClass="basic-title-small" text="Thickness" />
+                           <Slider fx:id="graphMakerThicknessSlider" max="10.0" min="1.0" onMouseClicked="#updateThickness" onMouseDragged="#updateThickness" value="5.0" />
+                        </children>
+                     </VBox>
+                     <VBox>
+                        <children>
+                           <Label prefHeight="25.0" prefWidth="168.0" styleClass="basic-title-small" text="Colour" />
+                           <ColorPicker fx:id="graphMakerColourPicker" onAction="#updateCurveColour" />
+                        </children>
+                     </VBox>
+                     <VBox>
+                        <children>
+                           <Label prefHeight="25.0" prefWidth="148.0" styleClass="basic-title-small" text="Line Type" />
+                           <ComboBox fx:id="graphMakerLineStyleCB" onAction="#updateSelectedLineStyle" prefWidth="150.0" promptText="Bold">
+                               <items>
+                                   <FXCollections fx:factory="observableArrayList">
+                                       <String fx:value="Bold" />
+                                       <String fx:value="Dotted" />
+                                       <String fx:value="Dashed" />
+                                   </FXCollections>
+                               </items>
+                           </ComboBox>
+                        </children>
+                     </VBox>
                       </FlowPane>
                </content>
             </Tab>
-             <Tab text="Shaded Regions">
-                 <FlowPane fx:id="graphMakerEditShadedRegionFP" prefHeight="102.0" prefWidth="747.0">
+             <Tab styleClass="basic-title-small" text="Shaded Regions">
+                 <FlowPane fx:id="graphMakerEditShadedRegionFP" hgap="20.0" prefHeight="102.0" prefWidth="747.0" vgap="40.0">
                  <ScrollPane fx:id="graphMakerShadedRegionRadioSP">
                      <content>
                          <FlowPane fx:id="graphMakerShadedRegionRadioFP" prefHeight="65.0" prefWidth="730.0">
-                             <Label fx:id="graphMakerSelectAShadedRegionL" text="Select a Shaded Region:" />
+                             <Label fx:id="graphMakerSelectAShadedRegionL" styleClass="basic-title-small" text="Select a Shaded Region:" />
 
                          </FlowPane>
                      </content>
                  </ScrollPane>
-                  <Slider fx:id="graphMakerOpacitySlider" blockIncrement="0.01" majorTickUnit="0.25" max="1.0" minorTickCount="5" onDragDetected="#updateShadedRegionOpacity" onMouseClicked="#updateShadedRegionOpacity" onMouseDragged="#updateShadedRegionOpacity" prefHeight="48.0" prefWidth="171.0" showTickLabels="true" showTickMarks="true" value="1.0" />
-                  <ColorPicker fx:id="graphMakerShadedRegionCP" onAction="#updateShadedRegionColour" />
-                  <TextField fx:id="graphMakerShadedRegionLabelTF" onAction="#updateShadedRegionLabel" />
+                  <VBox>
+                     <children>
+                        <Label prefHeight="25.0" prefWidth="214.0" styleClass="basic-title-small" text="Opacity" />
+                        <Slider fx:id="graphMakerOpacitySlider" blockIncrement="0.01" majorTickUnit="0.25" max="1.0" minorTickCount="5" onDragDetected="#updateShadedRegionOpacity" onMouseClicked="#updateShadedRegionOpacity" onMouseDragged="#updateShadedRegionOpacity" prefHeight="48.0" prefWidth="171.0" showTickLabels="true" showTickMarks="true" value="1.0" />
+                     </children>
+                  </VBox>
+                  <VBox>
+                     <children>
+                        <Label prefHeight="25.0" prefWidth="164.0" styleClass="basic-title-small" text="Colour" />
+                        <ColorPicker fx:id="graphMakerShadedRegionCP" onAction="#updateShadedRegionColour" />
+                     </children>
+                  </VBox>
+                  <VBox>
+                     <children>
+                        <Label prefHeight="25.0" prefWidth="200.0" styleClass="basic-title-small" text="Shaded Region Label Text" />
+                        <TextField fx:id="graphMakerShadedRegionLabelTF" onAction="#updateShadedRegionLabel" />
+                     </children>
+                  </VBox>
                  </FlowPane>
              </Tab>
          </tabs>
       </TabPane>
+      <HBox spacing="10.0">
+         <children>
+            <Button mnemonicParsing="false" onAction="#cancelMakingGraph" prefHeight="37.0" prefWidth="105.0" styleClass="delete-button" text="Cancel" />
+            <Button fx:id="graphMakerSaveB" mnemonicParsing="false" onAction="#captureAndSetToSave" prefHeight="31.0" prefWidth="112.0" styleClass="save-button" text="Save" />
+         </children>
+      </HBox>
     </children>
    <columnConstraints>
-      <ColumnConstraints maxWidth="600.0" minWidth="392.0" prefWidth="400.0" />
-      <ColumnConstraints maxWidth="758.0" minWidth="550.0" prefWidth="750.0" />
+      <ColumnConstraints maxWidth="600.0" minWidth="392.0" prefWidth="416.0" />
+      <ColumnConstraints maxWidth="758.0" minWidth="550.0" prefWidth="734.0" />
    </columnConstraints>
    <rowConstraints>
       <RowConstraints maxHeight="200.0" minHeight="22.0" prefHeight="39.0" />
-      <RowConstraints maxHeight="422.0" minHeight="50.0" prefHeight="416.0" />
+      <RowConstraints maxHeight="200.0" minHeight="5.0" prefHeight="29.0" />
+      <RowConstraints maxHeight="422.0" minHeight="50.0" prefHeight="348.0" />
       <RowConstraints maxHeight="200.0" minHeight="31.0" prefHeight="37.0" />
       <RowConstraints maxHeight="300.0" minHeight="300.0" prefHeight="300.0" />
       <RowConstraints />
