@@ -107,11 +107,15 @@ public class LibraryController {
                     libraryGraphGP.setConstraints(favouriteStar, 2, i + 1);
                     libraryGraphGP.getChildren().add(favouriteStar);
                 }
-                Button editButton = new Button("Edit " + title);
+                Button editButton = new Button("Edit");
+                editButton.getStyleClass().add("edit-button");
                 editButton.setOnAction(e -> oldGraphToGraphMaker(title));
                 Button deleteButton = new Button("Delete");
+                //deleteButton.getStylesheets().add("/sample.css");
+                deleteButton.getStyleClass().add("delete-button");
                 deleteButton.setOnAction(e -> deleteGraph(title));
                 Button saveToDocuments = new Button("Save to Documents");
+                saveToDocuments.getStyleClass().add("save-button");
                 int curveIndex = i;
                 saveToDocuments.setOnAction(e -> savePdfToSelectedFileLocation(curveIndex));
                 VBox buttonMenu = new VBox(5);

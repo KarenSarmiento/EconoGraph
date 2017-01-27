@@ -10,6 +10,7 @@ public class EconoGraphApplication extends Application {
     public void start(Stage primaryStage) throws Exception {
         Context.getInstance().initializeMainRoot();
         Scene scene = new Scene(Context.getInstance().getMainRoot());
+        scene.getStylesheets().add(getClass().getResource("/sample.css").toExternalForm());
         primaryStage.setScene(scene);
         primaryStage.show();
     }

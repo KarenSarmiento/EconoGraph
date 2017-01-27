@@ -61,6 +61,11 @@ public class GraphMakerController {
     @FXML
     TextField graphMakerShadedRegionLabelTF = new TextField();
 
+    public void cancelMakingGraph() {
+        main.resetForNewGraph();
+        main.setScreenToLibrary();
+    }
+
     public void updateShadedRegionColour() {
         Context.getInstance().getShadedRegionsLL().get(Context.getInstance().getSelectedShadedRegionIndex()).getPolygon()
                 .setFill(Paint.valueOf(graphMakerShadedRegionCP.getValue().toString()));

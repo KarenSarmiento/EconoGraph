@@ -93,6 +93,7 @@ public class MainController {
             shadedRegionOptionsController.init(this);
 
             Scene newScene = new Scene(root);
+            newScene.getStylesheets().add(getClass().getResource("/sample.css").toExternalForm());
             Stage newStage = new Stage();
             newStage.initModality(Modality.APPLICATION_MODAL);
             newStage.setScene(newScene);
@@ -142,9 +143,6 @@ public class MainController {
     private void resetContextFields() {
         Context context = Context.getInstance();
 
-        context.getCurvesLL().clear();
-        context.getDemandCurves().clear();
-        context.getSupplyCurves().clear();
         context.getIntersectionLL().clear();
         context.getShiftArrowsLL().clear();
         context.getShadedRegionsLL().clear();
@@ -156,7 +154,23 @@ public class MainController {
         context.setSupplyCount(0);
         context.setNewClassicalCount(0);
         context.setAggregateDemandCount(0);
+        context.setAggregateSupplyCount(0);
+        context.setMPBcount(0);
+        context.setMPCcount(0);
+        context.setMSBcount(0);
+        context.setMSCcount(0);
         context.setCurveCount(0);
+
+        context.getCurvesLL().clear();
+        context.getDemandCurves().clear();
+        context.getSupplyCurves().clear();
+        context.getNewClassicalCurves().clear();
+        context.getAggregateDemandCurves().clear();
+        context.getAggregateSupplyCurves().clear();
+        context.getMSBCurves().clear();
+        context.getMSCCurves().clear();
+        context.getMPBCurves().clear();
+        context.getMPCCurves().clear();
 
         context.setSelectedCurveIndex(-1);
         context.setSelectedShadedRegionIndex(-1);

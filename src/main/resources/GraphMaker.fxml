@@ -19,7 +19,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<GridPane fx:id="graphMakerGP" alignment="center" hgap="10" prefHeight="800.0" prefWidth="1200.0" stylesheets="/sample.css" vgap="10" xmlns="http://javafx.com/javafx/8.0.76-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ks.econograph.controller.screens.GraphMakerController">
+<GridPane fx:id="graphMakerGP" alignment="center" hgap="10" prefHeight="800.0" prefWidth="1200.0" stylesheets="@sample.css" vgap="10" xmlns="http://javafx.com/javafx/8.0.76-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ks.econograph.controller.screens.GraphMakerController">
     <children>
         <!--Insert-->
         <Label fx:id="graphMakerInsertL" alignment="CENTER" prefHeight="21.0" prefWidth="400.0" text="Insert" GridPane.columnIndex="0" GridPane.rowIndex="0" />
@@ -41,6 +41,7 @@
                <TextField fx:id="graphMakerDownwardSlopingTF" />
                <Button mnemonicParsing="false" onAction="#insertGeneralUpwardSloping" text="Upward Sloping" />
                <TextField fx:id="graphMakerUpwardSlopingTF" />
+               <Button mnemonicParsing="false" onAction="#cancelMakingGraph" text="Cancel" />
              </FlowPane>
          </content>
       </ScrollPane>
@@ -64,7 +65,7 @@
                       <FlowPane fx:id="graphMakerEditCurveFP" prefHeight="102.0" prefWidth="747.0">
                      <ScrollPane fx:id="graphMakerCurveRadioSP">
                         <content>
-                             <FlowPane fx:id="graphMakerCurveRadioFP" prefHeight="35.0" prefWidth="730.0">
+                             <FlowPane fx:id="graphMakerCurveRadioFP" prefHeight="60.0" prefWidth="730.0">
                                  <Label fx:id="graphMakerSelectACurveL" text="Select a Curve:" />
 
                              </FlowPane>
@@ -90,7 +91,7 @@
                  <FlowPane fx:id="graphMakerEditShadedRegionFP" prefHeight="102.0" prefWidth="747.0">
                  <ScrollPane fx:id="graphMakerShadedRegionRadioSP">
                      <content>
-                         <FlowPane fx:id="graphMakerShadedRegionRadioFP" prefHeight="35.0" prefWidth="730.0">
+                         <FlowPane fx:id="graphMakerShadedRegionRadioFP" prefHeight="65.0" prefWidth="730.0">
                              <Label fx:id="graphMakerSelectAShadedRegionL" text="Select a Shaded Region:" />
 
                          </FlowPane>
