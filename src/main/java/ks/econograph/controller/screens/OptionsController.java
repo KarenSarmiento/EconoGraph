@@ -3,11 +3,14 @@ package ks.econograph.controller.screens;
 import javafx.fxml.FXML;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import ks.econograph.Context;
 import ks.econograph.controller.MainController;
 import ks.econograph.graph.components.Graph;
 import ks.econograph.graph.components.ShadedRegion;
+
 
 /**
  * Created by KSarm on 07/01/2017.
@@ -36,6 +39,66 @@ public class OptionsController {
     TextField optionsXAxisTF = new TextField();
     @FXML
     TextField optionsYAxisTF = new TextField();
+    @FXML
+    ImageView optionsSampleGraphIV = new ImageView(new Image("File:C:\\Users\\KSarm\\OneDrive\\IB\\Computer Science\\IA\\Images\\BlankSample.png"));
+    @FXML
+    TextField optionsXLabelTF = new TextField();
+    @FXML
+    TextField optionsYLabelTF = new TextField();
+
+    public void blankCanvasRadioSelected() {
+        optionsSampleGraphIV.setImage(new Image("File:C:\\Users\\KSarm\\OneDrive\\IB\\Computer Science\\IA\\Images\\BlankSample.png"));
+        optionsTitleTF.setText("");
+        optionsXAxisTF.setText("");
+        optionsYAxisTF.setText("");
+        optionsXLabelTF.setText("");
+        optionsYLabelTF.setText("");
+    }
+
+    public void microEquiblriumRadioSelected() {
+        optionsSampleGraphIV.setImage(new Image("File:C:\\Users\\KSarm\\OneDrive\\IB\\Computer Science\\IA\\Images\\MicroSample.png"));
+        optionsTitleTF.setText("Microeconomic Equilibrium");
+        optionsXAxisTF.setText("Quantity");
+        optionsYAxisTF.setText("Price");
+        optionsXLabelTF.setText("Q");
+        optionsYLabelTF.setText("P");
+    }
+
+    public void macroEquibliriumRadioSelected() {
+        optionsSampleGraphIV.setImage(new Image("File:C:\\Users\\KSarm\\OneDrive\\IB\\Computer Science\\IA\\Images\\MacroSample.png"));
+        optionsTitleTF.setText("Macroeconomic Equilibrium");
+        optionsXAxisTF.setText("Real Output");
+        optionsYAxisTF.setText("Average Price Level");
+        optionsXLabelTF.setText("Y");
+        optionsYLabelTF.setText("P");
+    }
+
+    public void externalityRadioSelected() {
+        optionsSampleGraphIV.setImage(new Image("File:C:\\Users\\KSarm\\OneDrive\\IB\\Computer Science\\IA\\Images\\ExternalitySample.png"));
+        optionsTitleTF.setText("Externality");
+        optionsXAxisTF.setText("Quantity");
+        optionsYAxisTF.setText("Price");
+        optionsXLabelTF.setText("Q");
+        optionsYLabelTF.setText("P");
+    }
+
+    public void labourRadioSelected() {
+        optionsSampleGraphIV.setImage(new Image("File:C:\\Users\\KSarm\\OneDrive\\IB\\Computer Science\\IA\\Images\\LabourSample.png"));
+        optionsTitleTF.setText("Labour Market");
+        optionsXAxisTF.setText("Real Output");
+        optionsYAxisTF.setText("Average Real Wage");
+        optionsXLabelTF.setText("Q");
+        optionsYLabelTF.setText("W");
+    }
+
+    public void subsidyRadioSelected() {
+        optionsSampleGraphIV.setImage(new Image("File:C:\\Users\\KSarm\\OneDrive\\IB\\Computer Science\\IA\\Images\\SubsidySample.png"));
+        optionsTitleTF.setText("Subsidy");
+        optionsXAxisTF.setText("Quantity");
+        optionsYAxisTF.setText("Price");
+        optionsXLabelTF.setText("Q");
+        optionsYLabelTF.setText("P");
+    }
 
     public void newGraphToGraphMaker() {
         if (optionsTitleTF.getText() == null) {
@@ -51,6 +114,10 @@ public class OptionsController {
                 generateTemplate();
             }
         }
+        Context.getInstance().setxIntersectionLabel(optionsXLabelTF.getText());
+        Context.getInstance().setyIntersectionLabel(optionsYLabelTF.getText());
+        if (Context.getInstance().getCurvesLL().size() != 0)
+            main.getGraphMakerController().shiftSelectedCurve();
     }
 
     public void generateTemplate() {

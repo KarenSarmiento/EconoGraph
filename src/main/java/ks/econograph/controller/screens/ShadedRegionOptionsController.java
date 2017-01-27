@@ -74,8 +74,8 @@ public class ShadedRegionOptionsController {
                 rawList.add(Context.getInstance().getCurvesLL().get(i).getLabel().getText());
             }
             else {
-                rawList.add("P" + Context.getInstance().getIntersectionLL().get(i).getId());
-                rawList.add("Q" + Context.getInstance().getIntersectionLL().get(i).getId());
+                rawList.add(Context.getInstance().getyIntersectionLabel() + Context.getInstance().getIntersectionLL().get(i).getId());
+                rawList.add(Context.getInstance().getxIntersectionLabel() + Context.getInstance().getIntersectionLL().get(i).getId());
             }
         }
         ObservableList<String> comboBoxValues = FXCollections.observableArrayList(rawList);

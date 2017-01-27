@@ -28,8 +28,8 @@ public class Intersection {
             id = generateIntersectionId();
             verticalLine = generateIntersectionLine(x, y, true);
             horizontalLine = generateIntersectionLine(x, y, false);
-            xAxisLabel = generateIntersectionLabel(x, y, "Q" + id, true);
-            yAxisLabel = generateIntersectionLabel(x, y, "P" + id, false);
+            xAxisLabel = generateIntersectionLabel(x, y, Context.getInstance().getxIntersectionLabel() + id, true);
+            yAxisLabel = generateIntersectionLabel(x, y, Context.getInstance().getyIntersectionLabel() + id, false);
             System.out.println(toString());
             workspace.getChildren().addAll(verticalLine, horizontalLine, yAxisLabel, xAxisLabel);
         }
@@ -53,7 +53,7 @@ public class Intersection {
             label.setTranslateY(435);
         }
         else {
-            label.setTranslateX(60);
+            label.setTranslateX(57);
             label.setTranslateY(y);
         }
         return label;

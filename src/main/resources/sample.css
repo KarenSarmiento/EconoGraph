@@ -1,10 +1,17 @@
-.label-heading {
+.grid-label-heading {
     -fx-font: 20px "Lucida";
     -fx-alignment: CENTER;
     -fx-text-alignment: CENTER;
     -fx-underline: true;
     -fx-background-color: #505050;
     -fx-text-fill: #F3F5F5;
+    -fx-font-weight: bold;
+}
+
+.basic-title {
+    -fx-font: 20px "Lucida";
+    -fx-alignment: CENTER;
+    -fx-text-alignment: CENTER;
     -fx-font-weight: bold;
 }
 

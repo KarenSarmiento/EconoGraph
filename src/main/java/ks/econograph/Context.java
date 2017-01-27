@@ -65,6 +65,9 @@ public class Context {
     private boolean filterFavourite = false;
     private String filterTopic = null;
 
+    private String yIntersectionLabel = "";
+    private String xIntersectionLabel = "";
+
     public void initializeMainRoot() throws Exception {
         mainRoot = FXMLLoader.load(getClass().getClassLoader().getResource("Main.fxml"));
     }
@@ -391,5 +394,21 @@ public class Context {
 
     public void setMPCCurves(List<MPC> MPCCurves) {
         this.MPCCurves = MPCCurves;
+    }
+
+    public String getyIntersectionLabel() {
+        return yIntersectionLabel;
+    }
+
+    public void setyIntersectionLabel(String yIntersectionLabel) {
+        this.yIntersectionLabel = yIntersectionLabel;
+    }
+
+    public String getxIntersectionLabel() {
+        return xIntersectionLabel;
+    }
+
+    public void setxIntersectionLabel(String xIntersectionLabel) {
+        this.xIntersectionLabel = xIntersectionLabel;
     }
 }

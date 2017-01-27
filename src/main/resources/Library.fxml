@@ -90,10 +90,10 @@
                         <RowConstraints minHeight="30.0" prefHeight="50.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                     <children>
-                        <Label fx:id="libraryGraphL" prefHeight="23.0" prefWidth="425.0" styleClass="label-heading" text="Graph" />
-                        <Label fx:id="libraryDescriptionL" prefHeight="30.0" prefWidth="340.0" styleClass="label-heading" stylesheets="@sample.css" text="Description" GridPane.columnIndex="1" />
-                        <Label fx:id="libraryFavouritesL" prefHeight="30.0" prefWidth="113.0" styleClass="label-heading" stylesheets="@sample.css" text="Favourite" GridPane.columnIndex="2" />
-                        <Label fx:id="libraryOptionsL" prefHeight="30.0" prefWidth="198.0" styleClass="label-heading" text="Options" GridPane.columnIndex="3" />
+                        <Label fx:id="libraryGraphL" prefHeight="23.0" prefWidth="425.0" styleClass="grid-label-heading" text="Graph" />
+                        <Label fx:id="libraryDescriptionL" prefHeight="30.0" prefWidth="340.0" styleClass="grid-label-heading" stylesheets="@sample.css" text="Description" GridPane.columnIndex="1" />
+                        <Label fx:id="libraryFavouritesL" prefHeight="30.0" prefWidth="113.0" styleClass="grid-label-heading" stylesheets="@sample.css" text="Favourite" GridPane.columnIndex="2" />
+                        <Label fx:id="libraryOptionsL" prefHeight="30.0" prefWidth="198.0" styleClass="grid-label-heading" text="Options" GridPane.columnIndex="3" />
                     </children>
                 </GridPane>
             </content>

@@ -184,13 +184,19 @@ public class ShadedRegion {
     private void useNamesToFindCorrespondingIntersectionLinesAndCurves(String[] shadedRegionInputs, List<Line> intersectionsFoundLL, List<StraightCurve> straightCurvesFoundLL) {
         List<Line> linesFound = new LinkedList<>();
         for (int i = 0; i < shadedRegionInputs.length; i++) {
-            System.out.println(shadedRegionInputs[i]);
             String labelType = "";
             if (shadedRegionInputs[i].contains("Q")) {
                 labelType = "Q";
                 for (int j = 0; j < Context.getInstance().getIntersectionLL().size(); j++) {
                     if ((labelType + Context.getInstance().getIntersectionLL().get(j).getId()).equals(shadedRegionInputs[i])) {
-                        //this means curve had been found
+                        linesFound.add(Context.getInstance().getIntersectionLL().get(j).getVerticalLine());
+                    }
+                }
+            }
+            else if(shadedRegionInputs[i].contains("Y")) {
+                labelType = "Y";
+                for (int j = 0; j < Context.getInstance().getIntersectionLL().size(); j++) {
+                    if ((labelType + Context.getInstance().getIntersectionLL().get(j).getId()).equals(shadedRegionInputs[i])) {
                         linesFound.add(Context.getInstance().getIntersectionLL().get(j).getVerticalLine());
                     }
                 }
@@ -199,25 +205,29 @@ public class ShadedRegion {
                 labelType = "P";
                 for (int j = 0; j < Context.getInstance().getIntersectionLL().size(); j++) {
                     if ((labelType + Context.getInstance().getIntersectionLL().get(j).getId()).equals(shadedRegionInputs[i])) {
-                        //this means curve had been found
+                        linesFound.add(Context.getInstance().getIntersectionLL().get(j).getHorizontalLine());
+                    }
+                }
+            }
+            else if(shadedRegionInputs[i].contains("W")) {
+                labelType = "W";
+                for (int j = 0; j < Context.getInstance().getIntersectionLL().size(); j++) {
+                    if ((labelType + Context.getInstance().getIntersectionLL().get(j).getId()).equals(shadedRegionInputs[i])) {
                         linesFound.add(Context.getInstance().getIntersectionLL().get(j).getHorizontalLine());
                     }
                 }
             }
             else if (shadedRegionInputs[i].contains("D")) {
                 labelType = "D";
-                System.out.println("labelType = \"D\";");
             }
             else if (shadedRegionInputs[i].contains("S")) {
                 labelType = "S";
-                System.out.println("labelType = \"S\";");
             }
             if (labelType.equals("D") || labelType.equals("S")) {
                 System.out.println(Context.getInstance().getCurvesLL().toString());
                 for (int j = 0; j < Context.getInstance().getCurvesLL().size(); j++) {
                     System.out.println("name : " + Context.getInstance().getCurvesLL().get(j).getName() + " vs. Input : " + shadedRegionInputs[i]);
                     if (Context.getInstance().getCurvesLL().get(j).getName().equals(shadedRegionInputs[i])) {
-                        //this means curve had been found
                         linesFound.add(Context.getInstance().getCurvesLL().get(j));
                     }
                 }
@@ -230,7 +240,6 @@ public class ShadedRegion {
                 straightCurvesFoundLL.add(straightCurve);
             }
             catch (ClassCastException e) {
-                //therefore it is an intersection
                 intersectionsFoundLL.add(linesFound.get(i));
             }
         }
