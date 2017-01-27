@@ -10,6 +10,8 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
 <GridPane fx:id="optionsGP" alignment="center" hgap="10" prefHeight="800.0" prefWidth="1200.0" stylesheets="@sample.css" vgap="10" xmlns="http://javafx.com/javafx/8.0.76-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ks.econograph.controller.screens.OptionsController">
     <children>
         <Label fx:id="optionsCreateYourOwnGraphL" alignment="CENTER" contentDisplay="CENTER" prefHeight="21.0" prefWidth="1200.0" text="Create your own new Graph" textAlignment="CENTER" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="0" />
@@ -19,12 +21,60 @@
         <ScrollPane fx:id="optionsTopicsSP" prefHeight="413.0" prefWidth="1140.0" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="2">
             <content>
                 <FlowPane fx:id="optionsTopicFP" prefHeight="387.0" prefWidth="1150.0">
-                    <RadioButton fx:id="optionsBlankCanvasRB" mnemonicParsing="false" text="BlankCanvas" />
-                    <RadioButton fx:id="optionsMicroRB" mnemonicParsing="false" text="Microeconomic Equilibrium" />
-                    <RadioButton fx:id="optionsMacroRB" mnemonicParsing="false" text="Macroeconomic Equilibrium" />
-                    <RadioButton fx:id="optionsExternalityRB" mnemonicParsing="false" text="Externality" />
-                    <RadioButton fx:id="optionsLabourForceRB" mnemonicParsing="false" text="Labour Force" />
-                    <RadioButton fx:id="optionsSubsidyRB" mnemonicParsing="false" text="Subsidy" />
+                    <RadioButton fx:id="optionsBlankCanvasRB" mnemonicParsing="false" >
+                        <graphic>
+                            <ImageView fitWidth="125.0" pickOnBounds="true" preserveRatio="true" id="Blank Canvas">
+                                <image>
+                                    <Image url="File:C:\Users\KSarm\OneDrive\IB\Computer Science\IA\Images\blankCanvasB.jpg" />
+                                </image>
+                            </ImageView>
+                        </graphic>
+                    </RadioButton>
+                    <RadioButton fx:id="optionsMicroRB" mnemonicParsing="false" id="Microeconomic Equilibrium">
+                        <graphic>
+                            <ImageView fitWidth="125.0" pickOnBounds="true" preserveRatio="true">
+                                <image>
+                                    <Image url="File:C:\Users\KSarm\OneDrive\IB\Computer Science\IA\Images\microEquibB.jpg" />
+                                </image>
+                            </ImageView>
+                        </graphic>
+                    </RadioButton>
+                    <RadioButton fx:id="optionsMacroRB" mnemonicParsing="false">
+                        <graphic>
+                            <ImageView fitWidth="125.0" pickOnBounds="true" preserveRatio="true" id="Macroeconomic Equilbrium">
+                                <image>
+                                    <Image url="File:C:\Users\KSarm\OneDrive\IB\Computer Science\IA\Images\macroEquibB.jpg" />
+                                </image>
+                            </ImageView>
+                        </graphic>
+                    </RadioButton>
+                    <RadioButton fx:id="optionsExternalityRB" mnemonicParsing="false" id="Externality">
+                        <graphic>
+                            <ImageView fitWidth="125.0" pickOnBounds="true" preserveRatio="true">
+                                <image>
+                                    <Image url="File:C:\Users\KSarm\OneDrive\IB\Computer Science\IA\Images\externalityB.jpg" />
+                                </image>
+                            </ImageView>
+                        </graphic>
+                    </RadioButton>
+                    <RadioButton fx:id="optionsLabourForceRB" mnemonicParsing="false" id="Labour Force">
+                        <graphic>
+                            <ImageView fitWidth="125.0" pickOnBounds="true" preserveRatio="true">
+                                <image>
+                                    <Image url="File:C:\Users\KSarm\OneDrive\IB\Computer Science\IA\Images\labourB.jpg" />
+                                </image>
+                            </ImageView>
+                        </graphic>
+                    </RadioButton>
+                    <RadioButton fx:id="optionsSubsidyRB" mnemonicParsing="false" id="Subsidy">
+                    <graphic>
+                        <ImageView fitWidth="125.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="File:C:\Users\KSarm\OneDrive\IB\Computer Science\IA\Images\subsidyB.jpg" />
+                            </image>
+                        </ImageView>
+                    </graphic>
+                </RadioButton>
                 </FlowPane>
             </content>
         </ScrollPane>

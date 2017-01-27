@@ -55,7 +55,7 @@ public class OptionsController {
 
     public void generateTemplate() {
         System.out.println("generate temple reached: " + ((RadioButton) Context.getInstance().getOptionsTemplateTG().getSelectedToggle()).getText());
-        switch (((RadioButton) Context.getInstance().getOptionsTemplateTG().getSelectedToggle()).getText()) {
+        switch (((RadioButton) Context.getInstance().getOptionsTemplateTG().getSelectedToggle()).getId()) {
             case "Microeconomic Equilibrium": {
                 generateMicroeconomicEquilibriumTemplate();
                 break;
