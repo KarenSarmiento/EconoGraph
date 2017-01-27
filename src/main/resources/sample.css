@@ -1,13 +1,16 @@
 .label-heading {
-    -fx-font: 20px "Lucinda";
+    -fx-font: 20px "Lucida";
     -fx-alignment: CENTER;
     -fx-text-alignment: CENTER;
     -fx-underline: true;
+    -fx-background-color: #505050;
+    -fx-text-fill: #F3F5F5;
+    -fx-font-weight: bold;
 }
 
 .root {
     -fx-font-size: 12pt;
-    -fx-font-family: "Lucinda";
+    -fx-font-family: "Lucida";
     -fx-base: rgb(255, 255, 255);
     -fx-background: rgb(250, 250, 250);
     -fx-padding: 10;
@@ -19,7 +22,7 @@
     -fx-border-width: 2;
     -fx-border-insets: 5;
     -fx-border-radius: 5;
-    -fx-border-color: blue;
+    -fx-border-color: #7A7A7A;
     -fx-background-insets: 0;
 }
 
@@ -41,4 +44,26 @@
        -fx-background-radius: 30;
        -fx-background-insets: 0;
        -fx-text-fill: #F3F5F5;
+}
+
+.padding {
+    -fx-padding: 10;
+    -fx-spacing: 7;
+}
+
+.grid-pane-background-even {
+    -fx-background-color: #E1F7FF;
+    -fx-border-color: #7A7A7A;
+}
+
+.grid-pane-background-odd {
+    -fx-background-color: #FFFFFF;
+    -fx-border-color: #7A7A7A;
+}
+
+.description-text {
+    -fx-font: 15px "Lucinda";
+    -fx-alignment: CENTER;
+    -fx-text-alignment: CENTER;
+    -fx-font-weight: bold;
 }

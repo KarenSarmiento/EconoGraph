@@ -8,7 +8,9 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 import ks.econograph.Context;
@@ -88,6 +90,7 @@ public class LibraryController {
             if (Context.getInstance().getGraphsLL().get(i).isVisible() == true) {
                 String title = Context.getInstance().getGraphsLL().get(i).getTitle();
                 Label titleLabel = new Label(title);
+                titleLabel.getStyleClass().add("description-text");
                 libraryGraphGP.setConstraints(titleLabel, 0, i + 1);
                 ImageView graphImage = new ImageView(new javafx.scene.image.Image("file:" + Context.getInstance().getFileLocationForSavedImages() +
                         Context.getInstance().getGraphsLL().get(i).getFileName()));
@@ -96,36 +99,62 @@ public class LibraryController {
                 graphImage.setFitWidth(375);
                 graphImage.setFitHeight(225);
                 VBox graphColumnContents = new VBox(3);
+                graphColumnContents.getStyleClass().add("padding");
                 graphColumnContents.getChildren().addAll(titleLabel, graphImage);
                 libraryGraphGP.setConstraints(graphColumnContents, 0, i + 1);
-                Label description = new Label(Context.getInstance().getGraphsLL().get(i).getDescription());
-                libraryGraphGP.setConstraints(description, 1, i + 1);
+
+                StackPane descriptionSP = new StackPane();
+                Text description = new Text(Context.getInstance().getGraphsLL().get(i).getDescription());
+                descriptionSP.getChildren().add(description);
+                description.setWrappingWidth(300);
+                description.getStyleClass().add("description-text");
+                libraryGraphGP.setConstraints(descriptionSP, 1, i + 1);
+
+                StackPane favouriteSP = new StackPane();
+                libraryGraphGP.setConstraints(favouriteSP, 2, i + 1);
                 if (Context.getInstance().getGraphsLL().get(i).isFavourite()) {
-                    ImageView favouriteStar = new ImageView(new javafx.scene.image.Image("file:C:\\Users\\KSarm\\Documents\\Intellij Projects\\EconoGraph2\\src\\main\\resources\\FavouritesStar.png"));
-                    favouriteStar.setFitHeight(50);
-                    favouriteStar.setFitWidth(50);
-                    libraryGraphGP.setConstraints(favouriteStar, 2, i + 1);
-                    libraryGraphGP.getChildren().add(favouriteStar);
+                    ImageView favouriteStar = new ImageView(new javafx.scene.image.Image("file:C:\\Users\\KSarm\\OneDrive\\IB\\Computer Science\\IA\\Images\\favouriteStar.png"));
+                    favouriteStar.setFitHeight(75);
+                    favouriteStar.setFitWidth(75);
+                    favouriteSP.getChildren().add(favouriteStar);
                 }
+
                 Button editButton = new Button("Edit");
-                editButton.getStyleClass().add("edit-button");
+                setButtonAppearance(editButton, "edit-button");
                 editButton.setOnAction(e -> oldGraphToGraphMaker(title));
                 Button deleteButton = new Button("Delete");
-                //deleteButton.getStylesheets().add("/sample.css");
-                deleteButton.getStyleClass().add("delete-button");
+                setButtonAppearance(deleteButton, "delete-button");
                 deleteButton.setOnAction(e -> deleteGraph(title));
                 Button saveToDocuments = new Button("Save to Documents");
-                saveToDocuments.getStyleClass().add("save-button");
+                setButtonAppearance(saveToDocuments, "save-button");
                 int curveIndex = i;
                 saveToDocuments.setOnAction(e -> savePdfToSelectedFileLocation(curveIndex));
                 VBox buttonMenu = new VBox(5);
+                buttonMenu.getStyleClass().add("padding");
                 buttonMenu.getChildren().addAll(editButton, deleteButton, saveToDocuments);
                 libraryGraphGP.setConstraints(buttonMenu, 3, i + 1);
-                libraryGraphGP.getChildren().addAll(graphColumnContents, description, buttonMenu);
+
+                if(i%2 == 0)
+                    setGridPaneBackgroundColour(graphColumnContents, descriptionSP, favouriteSP, buttonMenu, "grid-pane-background-even");
+                else
+                    setGridPaneBackgroundColour(graphColumnContents, descriptionSP, favouriteSP, buttonMenu, "grid-pane-background-odd");
+
+                libraryGraphGP.getChildren().addAll(graphColumnContents, descriptionSP, favouriteSP, buttonMenu);
             }
         }
     }
 
+    private void setGridPaneBackgroundColour(VBox graphColumnContents, StackPane descriptionSP, StackPane favouriteSP, VBox buttonMenu, String cssClass) {
+        graphColumnContents.getStyleClass().add(cssClass);
+        descriptionSP.getStyleClass().add(cssClass);
+        favouriteSP.getStyleClass().add(cssClass);
+        buttonMenu.getStyleClass().add(cssClass);
+    }
+
+    private void setButtonAppearance(Button button, String cssClass) {
+        button.getStyleClass().add(cssClass);
+        button.setPrefWidth(175);
+    }
 
     private void savePdfToSelectedFileLocation(int curveIndex) {
         try {

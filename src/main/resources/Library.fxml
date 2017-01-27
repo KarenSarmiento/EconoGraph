@@ -12,38 +12,46 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
 <GridPane fx:id="libraryGP" alignment="center" hgap="10" prefHeight="800.0" prefWidth="1200.0" styleClass="root" stylesheets="@sample.css" vgap="10" xmlns="http://javafx.com/javafx/8.0.76-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ks.econograph.controller.screens.LibraryController">
     <children>
-        <ImageView fx:id="libraryTitleIV" fitHeight="681.0" fitWidth="651.0" pickOnBounds="true" preserveRatio="true" GridPane.columnSpan="6" GridPane.halignment="CENTER">
+        <ImageView fx:id="libraryTitleIV" fitHeight="681.0" fitWidth="700.0" pickOnBounds="true" preserveRatio="true" GridPane.columnSpan="6" GridPane.halignment="CENTER">
             <image>
                 <Image url="File:C:\Users\KSarm\OneDrive\IB\Computer Science\IA\Images\Title.jpg" />
             </image>
         </ImageView>
         <VBox fx:id="librarySideMenuVB" prefWidth="105.0" GridPane.columnIndex="5" GridPane.rowIndex="1" GridPane.rowSpan="2">
             <children>
-                <Button fx:id="libraryMakeAGraphB" mnemonicParsing="false" onAction="#setScreenToOptions" prefHeight="37.0" prefWidth="162.0" text="Make a Graph" />
-                <Button fx:id="librarySaveB" mnemonicParsing="false" prefHeight="62.0" prefWidth="164.0" text="Save">
+                <Button fx:id="libraryMakeAGraphB" mnemonicParsing="false" onAction="#setScreenToOptions" prefHeight="37.0" prefWidth="162.0" >
                     <graphic>
-                        <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitWidth="125.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="File:C:\Users\KSarm\OneDrive\IB\Computer Science\IA\Images\makeAGraphB.jpg" />
+                            </image>
+                        </ImageView>
+                    </graphic>
+                </Button>
+                <Button fx:id="librarySaveB" mnemonicParsing="false" prefHeight="62.0" prefWidth="164.0">
+                    <graphic>
+                        <ImageView fitWidth="125.0" pickOnBounds="true" preserveRatio="true">
                             <image>
                                 <Image url="File:C:\Users\KSarm\OneDrive\IB\Computer Science\IA\Images\saveB.jpg" />
                             </image>
                         </ImageView>
                     </graphic>
                 </Button>
-                <Button fx:id="libraryDeleteB" mnemonicParsing="false" prefHeight="62.0" prefWidth="163.0" text="Delete">
+                <Button fx:id="libraryDeleteB" mnemonicParsing="false" prefHeight="62.0" prefWidth="163.0">
                     <graphic>
-                        <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitWidth="125.0" pickOnBounds="true" preserveRatio="true">
                             <image>
                                 <Image url="File:C:\Users\KSarm\OneDrive\IB\Computer Science\IA\Images\deleteB.jpg" />
                             </image>
                         </ImageView>
                     </graphic>
                 </Button>
-                <Button fx:id="libraryResetOptionsB" mnemonicParsing="false" onAction="#resetSearchAndFilterOptions" prefHeight="37.0" prefWidth="166.0" text="Reset Options" />
             </children>
         </VBox>
         <ComboBox fx:id="librarySortCB" onAction="#sortGraphsWithSelectionSort" prefWidth="150.0" promptText="Sort by.." GridPane.columnIndex="0" GridPane.rowIndex="1">
@@ -71,12 +79,12 @@
         <TextField fx:id="librarySearchTF" GridPane.columnIndex="3" GridPane.rowIndex="1" />
         <ScrollPane fx:id="libraryGraphsSP" prefHeight="507.0" prefWidth="764.0" GridPane.columnSpan="5" GridPane.rowIndex="2">
             <content>
-                <GridPane id="libraryGraphGP" fx:id="libraryGraphGP" gridLinesVisible="true" prefHeight="42.0" prefWidth="992.0" styleClass="libraryGraphGP" stylesheets="@sample.css">
+                <GridPane id="libraryGraphGP" fx:id="libraryGraphGP" gridLinesVisible="true" prefHeight="42.0" prefWidth="1002.0" styleClass="libraryGraphGP" stylesheets="@sample.css">
                     <columnConstraints>
-                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="428.0" minWidth="10.0" prefWidth="400.0" />
-                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="480.0" minWidth="10.0" prefWidth="343.0" />
-                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="235.0" minWidth="0.0" prefWidth="92.0" />
-                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="176.0" minWidth="10.0" prefWidth="156.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="428.0" minWidth="10.0" prefWidth="401.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="480.0" minWidth="10.0" prefWidth="307.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="235.0" minWidth="0.0" prefWidth="105.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="212.0" minWidth="10.0" prefWidth="188.0" />
                     </columnConstraints>
                     <rowConstraints>
                         <RowConstraints minHeight="30.0" prefHeight="50.0" vgrow="SOMETIMES" />
@@ -84,21 +92,26 @@
                     <children>
                         <Label fx:id="libraryGraphL" prefHeight="23.0" prefWidth="425.0" styleClass="label-heading" text="Graph" />
                         <Label fx:id="libraryDescriptionL" prefHeight="30.0" prefWidth="340.0" styleClass="label-heading" stylesheets="@sample.css" text="Description" GridPane.columnIndex="1" />
-                        <Label fx:id="libraryFavouritesL" prefHeight="30.0" prefWidth="95.0" styleClass="label-heading" stylesheets="@sample.css" text="Favourite" GridPane.columnIndex="2" />
-                        <Label fx:id="libraryOptionsL" prefHeight="30.0" prefWidth="170.0" styleClass="label-heading" text="Options" GridPane.columnIndex="3" />
+                        <Label fx:id="libraryFavouritesL" prefHeight="30.0" prefWidth="113.0" styleClass="label-heading" stylesheets="@sample.css" text="Favourite" GridPane.columnIndex="2" />
+                        <Label fx:id="libraryOptionsL" prefHeight="30.0" prefWidth="198.0" styleClass="label-heading" text="Options" GridPane.columnIndex="3" />
                     </children>
                 </GridPane>
             </content>
         </ScrollPane>
-        <Button fx:id="librarySearchB" mnemonicParsing="false" onAction="#setFilterFromSearch" text="Search" GridPane.columnIndex="4" GridPane.rowIndex="1" />
+      <HBox styleClass="padding" GridPane.columnIndex="4" GridPane.rowIndex="1">
+         <children>
+              <Button fx:id="librarySearchB" mnemonicParsing="false" onAction="#setFilterFromSearch" text="Search" />
+                <Button fx:id="libraryResetOptionsB" contentDisplay="RIGHT" mnemonicParsing="false" onAction="#resetSearchAndFilterOptions" prefHeight="24.0" prefWidth="71.0" text="Reset" />
+         </children>
+      </HBox>
     </children>
     <columnConstraints>
         <ColumnConstraints maxWidth="262.0" minWidth="142.0" prefWidth="166.0" />
         <ColumnConstraints maxWidth="339.0" minWidth="147.0" prefWidth="166.0" />
         <ColumnConstraints maxWidth="361.0" minWidth="150.0" prefWidth="205.0" />
         <ColumnConstraints maxWidth="446.0" minWidth="150.0" prefWidth="307.0" />
-        <ColumnConstraints maxWidth="250.0" minWidth="150.0" prefWidth="165.0" />
-        <ColumnConstraints maxWidth="250.0" minWidth="150.0" prefWidth="165.0" />
+        <ColumnConstraints maxWidth="250.0" minWidth="150.0" prefWidth="177.0" />
+        <ColumnConstraints maxWidth="250.0" minWidth="143.0" prefWidth="143.0" />
         <ColumnConstraints maxWidth="8.0" minWidth="0.0" prefWidth="0.0" />
     </columnConstraints>
     <rowConstraints>
