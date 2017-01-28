@@ -6,9 +6,6 @@ import javafx.scene.paint.Paint;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.StrokeLineCap;
 
-/**
- * Created by KSarm on 03/11/2016.
- */
 public class Demand extends StraightCurve {
 
     public Demand(Pane pane, int curveIndex){

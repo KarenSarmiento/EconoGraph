@@ -1,8 +1,5 @@
 package ks.econograph.graph.components;
 
-/**
- * Created by KSarm on 17/11/2016.
- */
 public class Graph {
     private String title;
     private String topic;

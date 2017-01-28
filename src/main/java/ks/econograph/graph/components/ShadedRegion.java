@@ -14,9 +14,6 @@ import java.util.List;
 
 import static jdk.nashorn.internal.objects.Global.Infinity;
 
-/**
- * Created by KSarm on 21/01/2017.
- */
 public class ShadedRegion {
     private Polygon polygon;
     private Label label;
@@ -25,19 +22,27 @@ public class ShadedRegion {
     private boolean visible;
 
     public ShadedRegion(String labelText, String colour, String lineName1, String lineName2, String lineName3, String lineName4, Pane pane, FlowPane flowPane) {
+        System.out.println("SHADED REGION CONSTRUCTOR CALLED");
         Double[] coordinates = calculateShadedRegionVertices(lineName1, lineName2, lineName3, lineName4);
         polygon = new Polygon();
         polygon.getPoints().addAll(coordinates);
         polygon.setFill(Paint.valueOf(colour));
         calculateLabelPosition(coordinates);
+        printCoordinate(coordinates);
         label = new Label(labelText);
-        System.out.println("x=" + labelPosX + "  y=" + labelPosY);
+        System.out.println("LabelX=" + labelPosX + "  LabelY=" + labelPosY);
         label.setTranslateX(labelPosX);
         label.setTranslateY(labelPosY);
         visible = true;
         pane.getChildren().addAll(polygon, label);
         label.toFront();
         createShadedRegionRadio(labelText, flowPane);
+    }
+
+    private void printCoordinate(Double[] coordinate) {
+        for (int i = 0; i < coordinate.length; i+=2) {
+            System.out.println("At " + i + ", coordinate = " + coordinate[i] + "," + coordinate[i+1]);
+        }
     }
 
     private void createShadedRegionRadio(String labelText, FlowPane flowPane) {
@@ -68,9 +73,6 @@ public class ShadedRegion {
                     minY = coordinates[i];
             }
         }
-        System.out.println("maxX = " + maxX + "; minX = " + minX);
-        System.out.println("maxY = " + maxY + "; minY = " + minY);
-        System.out.println(coordinates.toString());
         labelPosX = ((maxX + minX)/2)-20;
         labelPosY = ((maxY + minY)/2)-10;
     }
@@ -81,6 +83,8 @@ public class ShadedRegion {
         List<Line> intersectionLinesLL = new LinkedList<>();
         List<StraightCurve> straightCurvesLL = new LinkedList<>();
         useNamesToFindCorrespondingIntersectionLinesAndCurves(shadedRegionInputs, intersectionLinesLL, straightCurvesLL);
+        System.out.println("line LL: " + intersectionLinesLL.toString());
+        System.out.println("straightCurveLL: " + straightCurvesLL.toString());
 
         for (int i = 0; i < straightCurvesLL.size() -1; i++) {
             for (int j = straightCurvesLL.size() -1; j > i; j--) {
@@ -180,53 +184,28 @@ public class ShadedRegion {
         }
     }
 
-    //TODO: Make prettier :)
     private void useNamesToFindCorrespondingIntersectionLinesAndCurves(String[] shadedRegionInputs, List<Line> intersectionsFoundLL, List<StraightCurve> straightCurvesFoundLL) {
         List<Line> linesFound = new LinkedList<>();
         for (int i = 0; i < shadedRegionInputs.length; i++) {
-            String labelType = "";
-            if (shadedRegionInputs[i].contains("Q")) {
-                labelType = "Q";
+            if (shadedRegionInputs[i].contains(Context.getInstance().getxIntersectionLabel())) {
                 for (int j = 0; j < Context.getInstance().getIntersectionLL().size(); j++) {
-                    if ((labelType + Context.getInstance().getIntersectionLL().get(j).getId()).equals(shadedRegionInputs[i])) {
+                    if ((Context.getInstance().getxIntersectionLabel() + Context.getInstance().getIntersectionLL().get(j).getId()).equals(shadedRegionInputs[i])) {
                         linesFound.add(Context.getInstance().getIntersectionLL().get(j).getVerticalLine());
                     }
                 }
             }
-            else if(shadedRegionInputs[i].contains("Y")) {
-                labelType = "Y";
+            else if(shadedRegionInputs[i].contains(Context.getInstance().getyIntersectionLabel())) {
                 for (int j = 0; j < Context.getInstance().getIntersectionLL().size(); j++) {
-                    if ((labelType + Context.getInstance().getIntersectionLL().get(j).getId()).equals(shadedRegionInputs[i])) {
-                        linesFound.add(Context.getInstance().getIntersectionLL().get(j).getVerticalLine());
-                    }
-                }
-            }
-            else if(shadedRegionInputs[i].contains("P")) {
-                labelType = "P";
-                for (int j = 0; j < Context.getInstance().getIntersectionLL().size(); j++) {
-                    if ((labelType + Context.getInstance().getIntersectionLL().get(j).getId()).equals(shadedRegionInputs[i])) {
+                    if ((Context.getInstance().getxIntersectionLabel() + Context.getInstance().getIntersectionLL().get(j).getId()).equals(shadedRegionInputs[i])) {
                         linesFound.add(Context.getInstance().getIntersectionLL().get(j).getHorizontalLine());
                     }
                 }
             }
-            else if(shadedRegionInputs[i].contains("W")) {
-                labelType = "W";
-                for (int j = 0; j < Context.getInstance().getIntersectionLL().size(); j++) {
-                    if ((labelType + Context.getInstance().getIntersectionLL().get(j).getId()).equals(shadedRegionInputs[i])) {
-                        linesFound.add(Context.getInstance().getIntersectionLL().get(j).getHorizontalLine());
-                    }
-                }
-            }
-            else if (shadedRegionInputs[i].contains("D")) {
-                labelType = "D";
-            }
-            else if (shadedRegionInputs[i].contains("S")) {
-                labelType = "S";
-            }
-            if (labelType.equals("D") || labelType.equals("S")) {
-                System.out.println(Context.getInstance().getCurvesLL().toString());
+            if (shadedRegionInputs[i].contains("S") ||shadedRegionInputs[i].contains("D") ||shadedRegionInputs[i].contains("MSB") ||
+                    shadedRegionInputs[i].contains("MPC") ||shadedRegionInputs[i].contains("MPB") ||shadedRegionInputs[i].contains("MSC") ||
+                    shadedRegionInputs[i].contains("AS") ||shadedRegionInputs[i].contains("AD") ||shadedRegionInputs[i].contains("LRAS") ||
+                    shadedRegionInputs[i].contains("LF") ||shadedRegionInputs[i].contains("ASL")){
                 for (int j = 0; j < Context.getInstance().getCurvesLL().size(); j++) {
-                    System.out.println("name : " + Context.getInstance().getCurvesLL().get(j).getName() + " vs. Input : " + shadedRegionInputs[i]);
                     if (Context.getInstance().getCurvesLL().get(j).getName().equals(shadedRegionInputs[i])) {
                         linesFound.add(Context.getInstance().getCurvesLL().get(j));
                     }

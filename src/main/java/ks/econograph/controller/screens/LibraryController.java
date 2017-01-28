@@ -23,9 +23,6 @@ import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
-/**
- * Created by KSarm on 01/01/2017.
- */
 public class LibraryController {
 
     private MainController main;
@@ -59,7 +56,6 @@ public class LibraryController {
             String line;
             List<String> fileLines = new LinkedList<>();
             while ((line = br.readLine()) != null) {
-                System.out.println(line);
                 String[] splittedLine = line.split(",");
                 if (splittedLine[0].equals(title))
                     break;
@@ -67,7 +63,6 @@ public class LibraryController {
                     fileLines.add(line);
             }
             while ((line = br.readLine()) != null) {
-                System.out.println(line);
                 String[] splittedLine = line.split(",");
                 if (!splittedLine[0].equals("newComp")) {
                     fileLines.add(line);
@@ -75,7 +70,6 @@ public class LibraryController {
                 }
             }
             while ((line = br.readLine()) != null) {
-                System.out.println(line);
                 fileLines.add(line);
             }
 
@@ -298,7 +292,6 @@ public class LibraryController {
     }
 
     private void updateGraphsVisibilityInLibrary() {
-        System.out.println(Context.getInstance().getGraphsLL().toString());
         for(int i = 0; i < Context.getInstance().getGraphsLL().size(); i++){
             if ((Context.getInstance().getFilterSearch() != null && Context.getInstance().getGraphsLL().get(i).getTitle().contains(Context.getInstance().getFilterSearch()) == false) ||
                     (Context.getInstance().getFilterTopic() != null && Context.getInstance().getGraphsLL().get(i).getTopic().equals(Context.getInstance().getFilterTopic()) == false) ||
@@ -309,7 +302,6 @@ public class LibraryController {
                 Context.getInstance().getGraphsLL().get(i).setVisible(true);
             }
         }
-        System.out.println(Context.getInstance().getGraphsLL().toString());
             resetAndDisplayGraphsFromGraphsLLToLibrary();
     }
 
@@ -335,7 +327,6 @@ public class LibraryController {
             }
             Graph loadOldGraph = new Graph();
             loadOldGraph.setTitle(splittedLine[0]);
-            System.out.println(loadOldGraph.getTitle());
             loadOldGraph.setTopic(splittedLine[1]);
             loadOldGraph.setTime(Long.parseLong(splittedLine[2]));
             loadOldGraph.setDescription(splittedLine[3]);

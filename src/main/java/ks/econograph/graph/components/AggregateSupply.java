@@ -6,9 +6,6 @@ import javafx.scene.paint.Paint;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.StrokeLineCap;
 
-/**
- * Created by KSarm on 25/01/2017.
- */
 public class AggregateSupply extends StraightCurve {
     public AggregateSupply(Pane pane, int curveIndex){
         setLine(new Line(200,400,550,50));

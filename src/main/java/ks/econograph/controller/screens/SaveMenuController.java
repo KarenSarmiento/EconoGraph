@@ -16,9 +16,6 @@ import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
-/**
- * Created by KSarm on 07/01/2017.
- */
 public class SaveMenuController {
 
     private MainController main;

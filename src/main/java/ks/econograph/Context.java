@@ -11,9 +11,6 @@ import ks.econograph.graph.components.*;
 import java.util.LinkedList;
 import java.util.List;
 
-/**
- * Created by KSarm on 01/01/2017.
- */
 public class Context {
 
     private final static Context context = new Context(); //singleton - only 1 context is ever created

@@ -15,9 +15,6 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 
-/**
- * Created by KSarm on 07/01/2017.
- */
 public class MainController {
     @FXML
     LibraryController libraryController;

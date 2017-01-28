@@ -15,9 +15,6 @@ import ks.econograph.graph.components.ShadedRegion;
 import java.util.LinkedList;
 import java.util.List;
 
-/**
- * Created by KSarm on 20/01/2017.
- */
 public class ShadedRegionOptionsController {
 
     private MainController main;
@@ -47,10 +44,16 @@ public class ShadedRegionOptionsController {
                 shadedRegionFromCB.getValue().toString(), shadedRegionToCB.getValue().toString(),
                 shadedRegionBetween1CB.getValue().toString(), shadedRegionBetween2CB.getValue().toString(),
                 main.getGraphMakerController().getGraphMakerWorkspaceP(), main.getGraphMakerController().getGraphMakerShadedRegionRadioFP());
+
+        System.out.println(shadedRegionLabelTextTF.getText() + ", " + shadedRegionColourPicker.getValue().toString() + ", " +
+                shadedRegionFromCB.getValue().toString() + ", " + shadedRegionToCB.getValue().toString() + ", " +
+                shadedRegionBetween1CB.getValue().toString() + ", " + shadedRegionBetween2CB.getValue().toString());
+
         Context.getInstance().getShadedRegionsLL().add(shadedRegion);
         Context.getInstance().getShadedRegionFieldsLL().add(shadedRegionLabelTextTF.getText() + "," + shadedRegionColourPicker.getValue().toString() + "," +
                 shadedRegionFromCB.getValue().toString() + "," + shadedRegionToCB.getValue().toString() + "," +
                 shadedRegionBetween1CB.getValue().toString() + "," + shadedRegionBetween2CB.getValue().toString());
+        System.out.println("ShadedRegionsLL: " + Context.getInstance().getShadedRegionsLL().toString());
         closeShadedRegionsWindow();
     }
 
@@ -79,7 +82,6 @@ public class ShadedRegionOptionsController {
             }
         }
         ObservableList<String> comboBoxValues = FXCollections.observableArrayList(rawList);
-        System.out.println(comboBoxValues);
         comboBox.setItems(comboBoxValues);
         comboBox.setValue(comboBoxValues.get(0));
     }

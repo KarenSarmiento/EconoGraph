@@ -11,10 +11,6 @@ import ks.econograph.controller.MainController;
 import ks.econograph.graph.components.Graph;
 import ks.econograph.graph.components.ShadedRegion;
 
-
-/**
- * Created by KSarm on 07/01/2017.
- */
 public class OptionsController {
 
     private MainController main;
@@ -121,7 +117,6 @@ public class OptionsController {
     }
 
     public void generateTemplate() {
-        System.out.println("generate temple reached: " + ((RadioButton) Context.getInstance().getOptionsTemplateTG().getSelectedToggle()).getText());
         switch (((RadioButton) Context.getInstance().getOptionsTemplateTG().getSelectedToggle()).getId()) {
             case "Microeconomic Equilibrium": {
                 generateMicroeconomicEquilibriumTemplate();

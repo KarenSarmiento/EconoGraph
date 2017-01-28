@@ -6,9 +6,6 @@ import javafx.scene.paint.Paint;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.StrokeLineCap;
 
-/**
- * Created by KSarm on 26/01/2017.
- */
 public class MPC extends StraightCurve {
     public MPC(Pane pane, int curveIndex){
         setLine(new Line(200,400,550,50));

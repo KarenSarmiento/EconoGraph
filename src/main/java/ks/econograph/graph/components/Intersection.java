@@ -8,9 +8,6 @@ import ks.econograph.Context;
 
 import static jdk.nashorn.internal.objects.Global.Infinity;
 
-/**
- * Created by KSarm on 22/01/2017.
- */
 public class Intersection {
     private Line verticalLine;
     private Line horizontalLine;
@@ -24,13 +21,11 @@ public class Intersection {
     public Intersection(StraightCurve curve1, StraightCurve curve2, Pane workspace) {
         findIntersectionCoordinates(curve1, curve2);
         if (x >= 87 && x <= 700 && y <= 425 && y >= 40) {
-            System.out.println("x = " + x + ", y = " + y);
             id = generateIntersectionId();
             verticalLine = generateIntersectionLine(x, y, true);
             horizontalLine = generateIntersectionLine(x, y, false);
             xAxisLabel = generateIntersectionLabel(x, y, Context.getInstance().getxIntersectionLabel() + id, true);
             yAxisLabel = generateIntersectionLabel(x, y, Context.getInstance().getyIntersectionLabel() + id, false);
-            System.out.println(toString());
             workspace.getChildren().addAll(verticalLine, horizontalLine, yAxisLabel, xAxisLabel);
         }
     }

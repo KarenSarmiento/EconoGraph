@@ -3,9 +3,6 @@ package ks.econograph.graph.components;
 import javafx.scene.control.Label;
 import javafx.scene.shape.Line;
 
-/**
- * Created by KSarm on 03/11/2016.
- */
 public class Curve extends Line{
     private String name;
     private String curveType;

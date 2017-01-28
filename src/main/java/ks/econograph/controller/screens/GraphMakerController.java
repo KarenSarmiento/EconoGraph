@@ -19,9 +19,6 @@ import javax.imageio.ImageIO;
 import java.io.File;
 import java.io.IOException;
 
-/**
- * Created by KSarm on 01/01/2017.
- */
 public class GraphMakerController {
 
     private MainController main;
@@ -107,7 +104,6 @@ public class GraphMakerController {
 
         for (int i = 0; i < Context.getInstance().getCurvesLL().size() -1; i++) {
             for (int j = Context.getInstance().getCurvesLL().size() -1; j > i; j--) {
-                System.out.println(Context.getInstance().getIntersectionLL());
                 Intersection intersection = new Intersection((StraightCurve) Context.getInstance().getCurvesLL().get(i),
                         (StraightCurve) Context.getInstance().getCurvesLL().get(j), graphMakerWorkspaceP);
                 if (!intersection.isNull())

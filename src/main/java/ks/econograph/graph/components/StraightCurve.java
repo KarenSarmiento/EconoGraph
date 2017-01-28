@@ -2,9 +2,6 @@ package ks.econograph.graph.components;
 
 import javafx.scene.shape.Line;
 
-/**
- * Created by KSarm on 17/01/2017.
- */
 public class StraightCurve extends Curve {
     private Line line;
     private double gradient;
